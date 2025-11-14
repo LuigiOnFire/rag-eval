@@ -1,0 +1,6 @@
+torch
+transformers
+sentence-transformers
+faiss-gpu-cu11
+datasets
+ragchecker

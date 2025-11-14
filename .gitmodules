@@ -1,0 +1,3 @@
+[submodule "RAGChecker"]
+	path = RAGChecker
+	url = git@github.com:amazon-science/RAGChecker.git
