@@ -1,6 +1,32 @@
-torch
-transformers
-sentence-transformers
-faiss-gpu-cu11
-datasets
-ragchecker
+# Core dependencies
+torch>=2.1.0
+transformers>=4.35.0
+sentence-transformers>=2.2.2
+datasets==3.6.0
+
+# Vector search
+faiss-cpu>=1.7.4  # Use faiss-gpu if CUDA available
+
+# LLM APIs
+google-generativeai>=0.3.0
+requests>=2.31.0  # For Ollama API calls
+
+# RAG Evaluation
+ragchecker>=0.1.0
+
+# Energy measurement
+codecarbon>=2.3.0
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0
+numpy>=1.24.0
+tqdm>=4.66.0
+
+# Text processing
+nltk>=3.8.1
+spacy>=3.7.0
+
+# Evaluation metrics
+rouge-score>=0.1.2
+bert-score>=0.3.13

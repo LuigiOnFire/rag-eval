@@ -1,0 +1,90 @@
+# RAG Baseline Pipeline Configuration
+
+# Random seed for reproducibility
+seed: 42
+
+# Corpus settings
+corpus:
+  dataset_name: "wikipedia"
+  dataset_config: "20220301.en"
+  num_documents: 1000  # Reduced from 10k to prevent disk space issues
+  max_shard_size: "500MB"  # Limit shard size during download
+  cache_dir: "./data/raw"
+  streaming: true  # Stream data instead of downloading everything
+  shuffle: true  # Randomize document selection
+  shuffle_seed: 42  # Random seed for reproducible shuffling
+  skip_first: 0  # Skip first N documents (useful for getting different subsets)
+
+# Chunking settings
+chunking:
+  strategy: "sentence"  # Options: sentence, fixed, paragraph
+  max_chunk_size: 512  # Maximum tokens per chunk
+  overlap: 50  # Token overlap between chunks
+  min_chunk_size: 50  # Minimum tokens to keep a chunk
+
+# Embedding and indexing
+retriever:
+  model_name: "sentence-transformers/all-MiniLM-L6-v2"
+  embedding_dim: 384  # Dimension for all-MiniLM-L6-v2
+  index_type: "IndexFlatIP"  # Faiss index type (inner product)
+  normalize_embeddings: true
+  batch_size: 32
+  index_path: "./data/indexes/faiss.index"
+  passages_path: "./data/processed/passages.json"
+  embeddings_path: "./data/processed/embeddings.npy"
+
+# Retrieval settings
+retrieval:
+  top_k: 5  # Number of passages to retrieve
+  score_threshold: 0.0  # Minimum similarity score (optional)
+
+# Generator settings
+generator:
+  provider: "gemini"  # Options: gemini, huggingface, openai
+  model_name: "gemini-2.0-flash-lite"  # Use -latest suffix for stable API
+  api_key_env: "GEMINI_API_KEY"
+  temperature: 0.0  # Deterministic generation
+  max_tokens: 256
+  top_p: 1.0
+  timeout: 30  # API timeout in seconds
+  
+# Prompt template
+prompt:
+  system: "You are a helpful assistant that answers questions based on the provided context. Only use information from the context to answer. If the context doesn't contain enough information, say so."
+  
+  user_template: |
+    Context:
+    {context}
+    
+    Question: {question}
+    
+    Answer:
+
+# Evaluation settings
+evaluation:
+  dataset: "hotpotqa"  # Options: hotpotqa, nq, triviaqa
+  split: "validation"
+  num_samples: 100  # Number of questions to evaluate (full run)
+  test_num_samples: 5  # Number of questions for quick testing
+  metrics:
+    - "precision"
+    - "recall" 
+    - "f1"
+    - "hallucination_rate"
+  output_dir: "./experiments/logs"
+
+# RAGChecker settings
+ragchecker:
+  batch_size: 8
+  use_cache: true
+  cache_dir: "./data/ragchecker_cache"
+  # Models for RAGChecker's internal evaluation (claim extraction & checking)
+  # Options: "gemini/gemini-1.5-flash-latest", "gpt-4o-mini", "bedrock/meta.llama3-70b-instruct-v1:0"
+  extractor_model: "gemini/gemini-2.0-flash-lite"  # Uses same Gemini API key
+  checker_model: "gemini/gemini-2.0-flash-lite"
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "./experiments/logs/pipeline.log"
+  log_to_console: true

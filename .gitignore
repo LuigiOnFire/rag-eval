@@ -1,1 +1,59 @@
-venv
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables - CRITICAL: Contains API keys
+.env
+.env.local
+.env.*.local
+
+# Data files (large datasets and models)
+data/raw/
+data/processed/
+data/indexes/
+*.npy
+*.index
+
+# Logs and results
+experiments/logs/
+*.log
+
+# Jupyter notebooks (may contain output with keys)
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# RAGChecker cache
+data/ragchecker_cache/
+
+# Local config (machine-specific settings)
+config_local.yaml
+
+# Experiment results (regenerated)
+results/
+experiments/data/
+experiments/experiments/
+
+# Distribution
+dist/
+build/
+*.egg-info/
