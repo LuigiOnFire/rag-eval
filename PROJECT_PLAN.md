@@ -89,24 +89,71 @@ rag_eval/
 ---
 
 ### Phase 3: Adaptive-RAG + DeepRAG-lite (2-3 weeks)
-**Status:** NOT STARTED
+**Status:** IN PROGRESS (3a partial)
 
 **Goal:** Add adaptive strategies that vary retrieval based on query complexity.
 
 #### 3a: Adaptive-RAG
-**Simplified architecture:**
+**Paper architecture:**
 ```
-Query → Complexity Classifier → [simple: k=5 | complex: k=20] → Answer
+Query → Trained T5 Classifier → [simple: no retrieval | moderate: single-hop | complex: multi-hop] → Answer
 ```
 
-**What to implement:**
-1. Query complexity classifier (rule-based first, then small model)
-2. Two retrieval modes based on complexity score
-3. Route queries accordingly
+**Implementation status:**
 
-**Resources:** [Paper](https://arxiv.org/abs/2403.14403)
+##### ✅ COMPLETE: Simplified classifiers (for rapid prototyping)
+- [x] `RuleBasedClassifier` - Heuristic patterns (free, fast)
+- [x] `LLMClassifier` - Ollama-prompted classification
+- [x] `AdaptiveRAG` baseline with routing logic
+- [x] Integration in `run_comparison.py`
+
+**Initial results (5 questions, Nov 25):**
+| Baseline | Exact Match | Avg F1 | Avg Time (s) |
+|----------|-------------|--------|--------------|
+| naive_k5 | 20% | 0.041 | 1.06 |
+| full_k50 | 20% | 0.032 | 1.55 |
+| no_retrieval | 20% | 0.060 | 0.26 |
+| adaptive_rule | 20% | 0.022 | 1.49 |
+| adaptive_llm | 20% | 0.060 | 0.32 |
+
+##### 🔄 TODO: Train classifier (true Adaptive-RAG replication)
+
+The real Adaptive-RAG paper trains a T5 classifier using automatically collected labels:
+
+**Step 1: Generate Silver Labels**
+- Run all 3 strategies (no-retrieval, single-hop, multi-hop) on HotpotQA dev set (~500 queries)
+- For each query, label it with whichever strategy answered correctly
+- Creates training labels based on actual model performance
+
+**Step 2: Create Binary Labels (dataset inductive bias)**
+- Single-hop datasets (NQ, TriviaQA, SQuAD) → label as "simple"
+- Multi-hop datasets (HotpotQA, MuSiQue) → label as "complex"
+
+**Step 3: Train T5 Classifier**
+- Combine silver + binary labels
+- Fine-tune T5-small or T5-base on query → complexity mapping
+- Output: Trained classifier model
+
+**Step 4: Integrate Trained Classifier**
+- Add `TrainedClassifier` to `baselines/classifiers/`
+- Use trained model in `AdaptiveRAG` baseline
+
+**Estimated effort:**
+| Task | Time |
+|------|------|
+| Generate predictions (500 queries × 3 strategies) | ~2-3 hrs compute |
+| Create silver labels script | 1 hr coding |
+| Create binary labels (add NQ/TriviaQA subset) | 2 hrs |
+| Train T5 classifier | ~1 hr training |
+| Integrate trained classifier | 1 hr coding |
+| **Total** | **~1 day** |
+
+**Resources:** 
+- [Paper](https://arxiv.org/abs/2403.14403)
+- [GitHub](https://github.com/starsuzi/Adaptive-RAG) - See `classifier/` folder
 
 #### 3b: DeepRAG-lite
+**Status:** NOT STARTED
 
 **What to implement:**
 1. Query complexity classifier (rule-based or small model)
@@ -280,12 +327,20 @@ class BaseRAG(ABC):
 - Created comparison script with quality + energy metrics
 - Validated comparison pipeline
 
-**Phase 3-5:** NOT STARTED
+**Phase 3:** IN PROGRESS
+- ✅ Implemented simplified classifiers (rule-based, LLM-prompted)
+- ✅ Created AdaptiveRAG baseline with routing logic
+- ✅ 5-baseline comparison working
+- 🔄 TODO: Train T5 classifier for true Adaptive-RAG replication
+- ❌ DeepRAG-lite not started
+
+**Phase 4-5:** NOT STARTED
 
 **Next steps:**
-1. Research Adaptive-RAG paper/repo for implementation
-2. Implement query complexity classifier
-3. Add Adaptive-RAG baseline
+1. Generate silver labels (run 3 strategies on 500 HotpotQA queries)
+2. Add single-hop dataset (NQ or TriviaQA subset) for binary labels
+3. Train T5 classifier on combined labels
+4. Integrate trained classifier into AdaptiveRAG
 
 ---
 
