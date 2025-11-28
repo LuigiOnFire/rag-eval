@@ -15,11 +15,14 @@ from typing import List, Dict, Optional, Union, Any
 from datetime import datetime
 import yaml
 
-from retriever import FaissRetriever
+from retriever import FaissRetriever, BM25Retriever, create_retriever
 from generator import create_generator
 from base import BaseRAG
 
 logger = logging.getLogger(__name__)
+
+# Type alias for any retriever
+Retriever = FaissRetriever | BM25Retriever
 
 
 class RAGPipeline(BaseRAG):
@@ -27,7 +30,7 @@ class RAGPipeline(BaseRAG):
     
     def __init__(
         self,
-        retriever: FaissRetriever,
+        retriever: Retriever,
         generator,  # Can be any generator (GeminiGenerator, OllamaGenerator, etc.)
         top_k: int = 5,
         score_threshold: float = 0.0,
@@ -38,7 +41,7 @@ class RAGPipeline(BaseRAG):
         Initialize RAG pipeline.
         
         Args:
-            retriever: Initialized FaissRetriever
+            retriever: Initialized retriever (BM25Retriever or FaissRetriever)
             generator: Initialized generator (GeminiGenerator, OllamaGenerator, etc.)
             top_k: Number of passages to retrieve
             score_threshold: Minimum retrieval score
@@ -222,8 +225,8 @@ class RAGPipeline(BaseRAG):
             results: List of result dictionaries
             output_path: Path to save JSON file
         """
-        output_path = Path(output_path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_file = Path(output_path)
+        output_file.parent.mkdir(parents=True, exist_ok=True)
         
         # Add metadata
         output_data = {
@@ -237,10 +240,10 @@ class RAGPipeline(BaseRAG):
             "results": results
         }
         
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=2, ensure_ascii=False)
         
-        logger.info(f"Saved results to {output_path}")
+        logger.info(f"Saved results to {output_file}")
 
 
 def load_pipeline_from_config(config_path: str = "config.yaml") -> RAGPipeline:
@@ -257,18 +260,28 @@ def load_pipeline_from_config(config_path: str = "config.yaml") -> RAGPipeline:
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     
-    # Initialize retriever
+    # Initialize retriever using factory (supports bm25 and dense)
     logger.info("Loading retriever...")
-    retriever = FaissRetriever(
-        model_name=config["retriever"]["model_name"],
-        embedding_dim=config["retriever"]["embedding_dim"],
-        normalize_embeddings=config["retriever"]["normalize_embeddings"],
-        batch_size=config["retriever"]["batch_size"]
+    retriever_type = config["retriever"].get("type", "bm25")  # Default to BM25
+    
+    retriever = create_retriever(
+        retriever_type=retriever_type,
+        passages_path=config["retriever"]["passages_path"],
+        # Dense retriever options
+        model_name=config["retriever"].get("model_name"),
+        embedding_dim=config["retriever"].get("embedding_dim", 384),
+        normalize_embeddings=config["retriever"].get("normalize_embeddings", True),
+        batch_size=config["retriever"].get("batch_size", 32)
     )
     
     # Load index
+    if retriever_type == "bm25":
+        index_path = config["retriever"].get("bm25_index_path", "./data/indexes/faiss.bm25.pkl")
+    else:
+        index_path = config["retriever"]["index_path"]
+    
     retriever.load_index(
-        index_path=config["retriever"]["index_path"],
+        index_path=index_path,
         passages_path=config["retriever"]["passages_path"]
     )
     
@@ -338,7 +351,7 @@ def main():
     
     # Save results
     output_path = Path(config["evaluation"]["output_dir"]) / "test_results.json"
-    pipeline.save_results(results, output_path)
+    pipeline.save_results(results, str(output_path))
     
     # Print summary
     logger.info("\n=== Results Summary ===")

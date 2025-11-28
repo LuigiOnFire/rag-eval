@@ -67,7 +67,7 @@ class GeminiGenerator:
             )
         
         # Configure Gemini
-        genai.configure(api_key=api_key)
+        genai.configure(api_key=api_key)  # type: ignore[attr-defined]
         
         # Initialize model with generation config
         generation_config = {
@@ -76,9 +76,9 @@ class GeminiGenerator:
             "max_output_tokens": self.max_tokens,
         }
         
-        self.model = genai.GenerativeModel(
+        self.model = genai.GenerativeModel(  # type: ignore[attr-defined]
             model_name=self.model_name,
-            generation_config=generation_config,
+            generation_config=generation_config,  # type: ignore[arg-type]
             system_instruction=self.system_prompt
         )
         
@@ -203,6 +203,9 @@ Answer:"""
                             else:
                                 logger.error(f"Generation failed after {max_retries} attempts")
                             raise
+        
+        # This should never be reached, but satisfy type checker
+        raise RuntimeError("Generation failed: exhausted all retry cycles")
     
     def batch_generate(
         self,
@@ -444,6 +447,9 @@ Answer:"""
                                 f"of {max_retries} attempts each"
                             )
                             raise
+        
+        # This should never be reached, but satisfy type checker
+        raise RuntimeError("Generation failed: exhausted all retry cycles")
     
     def batch_generate(
         self,
@@ -571,12 +577,15 @@ def main():
     
     logger.info(f"Test question: {test_question}\n")
     
-    # Generate answer
-    result = generator.generate(
-        question=test_question,
-        context_passages=test_passages,
-        prompt_template=config["prompt"]["user_template"]
-    )
+    # Generate answer (generator is either GeminiGenerator or OllamaGenerator)
+    if hasattr(generator, 'generate'):
+        result = generator.generate(  # type: ignore[union-attr]
+            question=test_question,
+            context_passages=test_passages,
+            prompt_template=config["prompt"]["user_template"]
+        )
+    else:
+        raise TypeError(f"Generator {type(generator)} does not have generate method")
     
     logger.info(f"Generated answer:\n{result['answer']}\n")
     logger.info(f"Finish reason: {result['finish_reason']}")

@@ -144,7 +144,10 @@ class RAGEvaluator:
                 logger.warning(f"First converted reference: {converted_references[0][:100] if len(converted_references) > 0 else 'empty'}...")
                 logger.warning(f"First converted reference type: {type(converted_references[0]) if len(converted_references) > 0 else 'empty'}")
                 
-                return original_check(self, converted_claims, converted_references, **kwargs)
+                # Cast to expected types for the original function
+                from typing import cast, List, Union
+                claims_arg = cast(List[Union[str, List[str], List[List[str]]]], converted_claims)
+                return original_check(self, claims_arg, converted_references, **kwargs)
             
             nli_module.NLIChecker._check = patched_check
             logger.info("Applied NLI checker monkey patch for triplet claim handling")
@@ -189,35 +192,35 @@ class RAGEvaluator:
         
         # Load dataset based on name
         if dataset_name == "hotpotqa":
-            dataset = load_dataset("hotpot_qa", "fullwiki", split=split)
+            dataset = load_dataset("hotpot_qa", "fullwiki", split=split, trust_remote_code=True)
             examples = []
-            for item in dataset:
+            for item in dataset:  # type: ignore[union-attr]
                 examples.append({
-                    "question": item["question"],
-                    "answer": item["answer"],
-                    "supporting_facts": item.get("supporting_facts", {})
+                    "question": item["question"],  # type: ignore[index]
+                    "answer": item["answer"],  # type: ignore[index]
+                    "supporting_facts": item.get("supporting_facts", {})  # type: ignore[union-attr]
                 })
         
         elif dataset_name == "nq" or dataset_name == "natural_questions":
-            dataset = load_dataset("natural_questions", split=split)
+            dataset = load_dataset("natural_questions", split=split, trust_remote_code=True)
             examples = []
-            for item in dataset:
+            for item in dataset:  # type: ignore[union-attr]
                 # Extract short answer
-                annotations = item["annotations"]
+                annotations = item["annotations"]  # type: ignore[index]
                 if annotations and annotations["short_answers"]:
                     short_answer = annotations["short_answers"][0]["text"]
                     examples.append({
-                        "question": item["question"]["text"],
+                        "question": item["question"]["text"],  # type: ignore[index]
                         "answer": short_answer
                     })
         
         elif dataset_name == "triviaqa":
-            dataset = load_dataset("trivia_qa", "unfiltered", split=split)
+            dataset = load_dataset("trivia_qa", "unfiltered", split=split, trust_remote_code=True)
             examples = []
-            for item in dataset:
+            for item in dataset:  # type: ignore[union-attr]
                 examples.append({
-                    "question": item["question"],
-                    "answer": item["answer"]["value"]
+                    "question": item["question"],  # type: ignore[index]
+                    "answer": item["answer"]["value"]  # type: ignore[index]
                 })
         
         else:
@@ -316,9 +319,11 @@ class RAGEvaluator:
                 "error": "All questions failed or were skipped"
             }
         
-        # Create RAGResults object - pass as dict with results key
+        # Create RAGResults object
         logger.info(f"Creating RAGResults from {len(ragchecker_inputs)} valid examples...")
-        rag_results_obj = RAGResults.from_dict({"results": ragchecker_inputs})
+        from ragchecker.container import RAGResult
+        rag_result_objects = [RAGResult(**r) for r in ragchecker_inputs]
+        rag_results_obj = RAGResults(results=rag_result_objects)
         
         # Debug: Check what we're passing to RAGChecker
         logger.warning("=" * 60)
@@ -367,7 +372,7 @@ class RAGEvaluator:
         
         return evaluation_results
     
-    def save_results(self, results: Dict, output_path: str):
+    def save_results(self, results: Dict, output_path: str) -> None:
         """
         Save evaluation results to JSON file.
         
@@ -375,13 +380,13 @@ class RAGEvaluator:
             results: Evaluation results dictionary
             output_path: Path to save JSON file
         """
-        output_path = Path(output_path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_file = Path(output_path)
+        output_file.parent.mkdir(parents=True, exist_ok=True)
         
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(results, f, indent=2, ensure_ascii=False)
         
-        logger.info(f"Saved evaluation results to {output_path}")
+        logger.info(f"Saved evaluation results to {output_file}")
     
     def print_summary(self, results: Dict):
         """

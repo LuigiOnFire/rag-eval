@@ -21,7 +21,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from corpus import CorpusProcessor
-from retriever import FaissRetriever
+from retriever import FaissRetriever, BM25Retriever, create_retriever
 from generator import create_generator
 from pipeline import RAGPipeline
 from evaluator import RAGEvaluator
@@ -78,43 +78,55 @@ def prepare_corpus(config: dict, force_rebuild: bool = False):
     passages = processor.process_documents(documents)
     
     # Save passages
-    processor.save_passages(passages, passages_path)
+    processor.save_passages(passages, str(passages_path))
     
     logging.info(f"Corpus prepared: {len(passages)} passages from {len(documents)} documents")
 
 
 def build_index(config: dict, force_rebuild: bool = False):
-    """Build Faiss retrieval index."""
-    index_path = Path(config["retriever"]["index_path"])
+    """Build retrieval index (BM25 or Faiss)."""
+    retriever_type = config["retriever"].get("type", "bm25")
     passages_path = Path(config["retriever"]["passages_path"])
+    
+    # Determine index path based on retriever type
+    if retriever_type == "bm25":
+        index_path = Path(config["retriever"].get("bm25_index_path", "./data/indexes/faiss.bm25.pkl"))
+    else:
+        index_path = Path(config["retriever"]["index_path"])
     
     if index_path.exists() and not force_rebuild:
         logging.info(f"Index already exists at {index_path}")
         return
     
-    logging.info("Building retrieval index...")
+    logging.info(f"Building {retriever_type} retrieval index...")
     
     # Load passages
     processor = CorpusProcessor()
-    passages = processor.load_passages(passages_path)
+    passages = processor.load_passages(str(passages_path))
     
-    # Initialize retriever
-    retriever = FaissRetriever(
-        model_name=config["retriever"]["model_name"],
-        embedding_dim=config["retriever"]["embedding_dim"],
-        normalize_embeddings=config["retriever"]["normalize_embeddings"],
-        batch_size=config["retriever"]["batch_size"]
-    )
+    # Initialize retriever based on type
+    if retriever_type == "bm25":
+        retriever = BM25Retriever()
+        retriever.build_index(passages)
+        retriever.save_index(
+            index_path=str(index_path),
+            passages_path=str(passages_path)
+        )
+    else:
+        retriever = FaissRetriever(
+            model_name=config["retriever"]["model_name"],
+            embedding_dim=config["retriever"]["embedding_dim"],
+            normalize_embeddings=config["retriever"]["normalize_embeddings"],
+            batch_size=config["retriever"]["batch_size"]
+        )
+        retriever.build_index(passages, index_type=config["retriever"]["index_type"])
+        retriever.save_index(
+            index_path=str(index_path),
+            passages_path=str(passages_path),
+            embeddings_path=config["retriever"]["embeddings_path"]
+        )
     
-    # Build and save index
-    retriever.build_index(passages, index_type=config["retriever"]["index_type"])
-    retriever.save_index(
-        index_path=index_path,
-        passages_path=passages_path,
-        embeddings_path=config["retriever"]["embeddings_path"]
-    )
-    
-    logging.info("Index built successfully")
+    logging.info(f"{retriever_type.upper()} index built successfully")
 
 
 def run_evaluation(config: dict, delay: float = 1.0, test_mode: bool = False, test_samples: int = 5):
@@ -125,17 +137,26 @@ def run_evaluation(config: dict, delay: float = 1.0, test_mode: bool = False, te
         logging.info(f"TEST MODE ENABLED: Using {test_samples} samples")
     
     # Load pipeline
-    logging.info("Loading RAG pipeline...")
+    retriever_type = config["retriever"].get("type", "bm25")
+    logging.info(f"Loading RAG pipeline with {retriever_type} retriever...")
     
-    retriever = FaissRetriever(
-        model_name=config["retriever"]["model_name"],
-        embedding_dim=config["retriever"]["embedding_dim"],
-        normalize_embeddings=config["retriever"]["normalize_embeddings"],
-        batch_size=config["retriever"]["batch_size"]
+    # Create retriever using factory
+    retriever = create_retriever(
+        retriever_type=retriever_type,
+        model_name=config["retriever"].get("model_name"),
+        embedding_dim=config["retriever"].get("embedding_dim", 384),
+        normalize_embeddings=config["retriever"].get("normalize_embeddings", True),
+        batch_size=config["retriever"].get("batch_size", 32)
     )
     
+    # Determine index path based on retriever type
+    if retriever_type == "bm25":
+        index_path = config["retriever"].get("bm25_index_path", "./data/indexes/faiss.bm25.pkl")
+    else:
+        index_path = config["retriever"]["index_path"]
+    
     retriever.load_index(
-        index_path=config["retriever"]["index_path"],
+        index_path=index_path,
         passages_path=config["retriever"]["passages_path"]
     )
     
@@ -184,7 +205,7 @@ def run_evaluation(config: dict, delay: float = 1.0, test_mode: bool = False, te
     from datetime import datetime
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_path = Path(config["evaluation"]["output_dir"]) / f"evaluation_{timestamp}.json"
-    evaluator.save_results(results, output_path)
+    evaluator.save_results(results, str(output_path))
     
     return results
 
