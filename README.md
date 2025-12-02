@@ -14,16 +14,40 @@ RAG systems face a fundamental cost-quality tradeoff:
 Current solutions rely on **human-designed heuristics** (query complexity rules, confidence thresholds). We take a different approach inspired by the "Bitter Lesson": **let compute discover the optimal policy**.
 
 ### The Solution: Green-DeepRAG
-A sequential decision agent that learns to route queries through the cheapest successful path:
+An **iterative Manager-Worker agent** where a small encoder (the "Manager") routes tasks to frozen LLM workers, receiving only **compressed observations** back — never raw documents.
 
 ```
-Query → [Controller] → <RETRIEVE>? → <ASSIGN_SLM>/<ASSIGN_LLM>? → <STOP>
-              ↓
-        Tiny Decoder (1B params)
-        Trained via RL to minimize: Energy + Maximize: Accuracy
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         MANAGER-WORKER LOOP                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   [CLS] Query [SEP] Step1_Summary [SEP] Step2_Summary [SEP]                 │
+│                           │                                                 │
+│                           ▼                                                 │
+│                  ┌─────────────────┐                                        │
+│                  │   Controller    │  (RoBERTa-Large)                       │
+│                  │   "The Manager" │                                        │
+│                  └────────┬────────┘                                        │
+│                           │ classifies → Action ID (0-6)                    │
+│                           ▼                                                 │
+│         ┌─────────────────────────────────────────┐                         │
+│         │            WORKER EXECUTION             │                         │
+│         │  (SLM/LLM executes, returns <50 token   │                         │
+│         │   summary — Manager never sees raw docs) │                         │
+│         └─────────────────┬───────────────────────┘                         │
+│                           │                                                 │
+│                           ▼                                                 │
+│              "Found 3 docs on Apple revenue.                                │
+│               Missing 2024 data."  (Observation)                            │
+│                           │                                                 │
+│                           └──────────► Append to state, loop back           │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Key Insight**: Most queries don't need expensive retrieval + large LLM. A small model can handle simple factual questions; retrieval is only needed for knowledge-intensive queries; large models are reserved for complex reasoning.
+**Key Insight**: The controller never breaches its 512-token context limit because workers compress all intermediate results into short status updates.
+
+**Why Encoder over Decoder?** We don't need to *generate* text — we only need to *route*. BERT-style encoders provide better bidirectional state understanding per parameter and faster inference than autoregressive decoders.
 
 ## Architecture
 
@@ -31,18 +55,38 @@ Query → [Controller] → <RETRIEVE>? → <ASSIGN_SLM>/<ASSIGN_LLM>? → <STOP>
 
 | Component | Role | Example |
 |-----------|------|---------|
-| **Controller** | Tiny decoder that emits control tokens | Qwen-2.5-0.5B, SmolLM-1.7B |
-| **SLM Worker** | Fast, cheap generation | Mistral-7B, Llama-3-8B |
-| **LLM Worker** | Expensive, accurate generation | Llama-3-70B, GPT-4o |
-| **Retriever** | BM25 keyword search | rank_bm25 |
+| **Controller** | Encoder that classifies state → action (Manager) | RoBERTa-Large, DeBERTa-v3 |
+| **SLM Worker** | Fast, cheap generation + compression | Mistral-7B, Llama-3-8B |
+| **LLM Worker** | Expensive, accurate generation + compression | Llama-3-70B, GPT-4o |
+| **Retriever** | BM25 or dense search | rank_bm25, Faiss |
 | **Judge** | Validates answer correctness | Exact match + LLM-judge |
 
-### Action Space
-The controller generates control tokens to orchestrate the pipeline:
-- `<RETRIEVE>` — Call the retriever
-- `<ASSIGN_SLM>` — Generate with small model
-- `<ASSIGN_LLM>` — Generate with large model  
-- `<STOP>` — Emit final answer
+### Action Space (7 Classes)
+The controller outputs a probability distribution over 7 discrete actions:
+
+| ID | Action | Description |
+|----|--------|-------------|
+| 0 | `Generate_and_End(SLM)` | Final answer with small model |
+| 1 | `Generate_and_End(LLM)` | Final answer with large model |
+| 2 | `Decompose(SLM)` | Break query into sub-questions |
+| 3 | `Decompose(LLM)` | Break query into sub-questions |
+| 4 | `Retrieve(Keyword)` | BM25 search |
+| 5 | `Retrieve(Dense)` | Vector similarity search |
+| 6 | `Reason(LLM)` | Intermediate synthesis/verification |
+
+**Costs are measured via CodeCarbon** on target hardware, not hard-coded. A cost table is pre-computed by benchmarking each action.
+
+**Input format:** `[CLS] Original_Query [SEP] Step_1_Summary [SEP] Step_2_Summary [SEP] ...`  
+**Output:** Softmax over 7 action logits
+
+### The Critical Constraint: State Compression
+
+Workers **never pass raw documents** to the controller. Instead:
+1. Worker executes action (e.g., retrieves 2000 tokens)
+2. Worker generates a **<50 token status update**
+3. Status update is appended to controller's state
+
+This ensures the encoder never exceeds 512 tokens while retaining semantic signal.
 
 ### Training Pipeline (3 Phases)
 
@@ -50,26 +94,26 @@ The controller generates control tokens to orchestrate the pipeline:
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │  Phase 1: Cost-Ordered Search (Offline Oracle)                              │
 │  ─────────────────────────────────────────────────────────────────────────  │
-│  For each query, try paths in ascending cost order:                         │
-│    1. SLM Direct (cost=1) → if correct, save trace                          │
-│    2. Retrieve + SLM (cost=6) → if correct, save trace                      │
-│    3. LLM Direct (cost=20) → if correct, save trace                         │
-│    4. Retrieve + LLM (cost=25) → fallback                                   │
-│  Output: Dataset of (query → cheapest successful trajectory)                │
+│  For each query, simulate agent with GreenTreeSearch:                       │
+│    - Try actions in ascending cost order                                    │
+│    - Generate compressed observations at each step                          │
+│    - Record cheapest trajectory that yields correct answer                  │
+│  Output: Dataset of (state → action) pairs with compressed observations     │
 └─────────────────────────────────────────────────────────────────────────────┘
                                     ↓
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  Phase 2: Behavior Cloning (Warm Start)                                     │
+│  Phase 2: Behavior Cloning (Classification)                                 │
 │  ─────────────────────────────────────────────────────────────────────────  │
-│  Supervised fine-tuning of Controller on Phase 1 traces                     │
-│  Output: Policy that mimics "cheapest winner" heuristic                     │
+│  Train RoBERTa classifier with Cross-Entropy loss on Phase 1 traces         │
+│  Input: [CLS] query [SEP] obs_1 [SEP] obs_2 ...  →  Output: action (0-6)    │
+│  Output: Policy that mimics "cheapest winner" trajectories                  │
 └─────────────────────────────────────────────────────────────────────────────┘
                                     ↓
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │  Phase 3: Cost-Aware PPO (Refinement)                                       │
 │  ─────────────────────────────────────────────────────────────────────────  │
-│  Online RL with reward: R = α·I(Correct) - β·Energy(trajectory)             │
-│  Agent can deviate from greedy path to find better tradeoffs                │
+│  Online RL with reward: R = α·I(Correct) - β·Σ Energy(actions)              │
+│  Agent learns to balance cheap failures vs expensive successes              │
 │  Output: Energy-aware adaptive RAG controller                               │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -79,7 +123,7 @@ The controller generates control tokens to orchestrate the pipeline:
 | Phase | Status | Description |
 |-------|--------|-------------|
 | **Phase 0** | ✅ Complete | Baselines & infrastructure (BM25 retrieval, evaluation harness, energy tracking) |
-| **Phase 1** | 🔄 In Progress | Cost-ordered search data synthesis |
+| **Phase 1** | 🔄 In Progress | Cost-ordered search with compressed observations |
 | **Phase 2** | ❌ Pending | Behavior cloning on generated traces |
 | **Phase 3** | ❌ Pending | PPO refinement with energy-aware reward |
 

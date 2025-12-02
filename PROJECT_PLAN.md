@@ -1,76 +1,383 @@
-# RAG Energy Benchmarking Project Plan
+# Green-DeepRAG Project Plan
 
-> **Goal:** Compare energy consumption and quality across RAG architectures (naive, adaptive, DeepRAG-inspired, RL-based) to develop an energy-aware RAG system.
+> **Goal:** Train an encoder-based controller ("Manager") to dynamically route RAG queries through the cheapest successful trajectory, using compressed observations from worker LLMs.
+
+> **Philosophy:** Compute-driven discovery of optimal policies, not human-designed rules (inspired by "The Bitter Lesson").
 
 ---
 
-## Project Structure
+## Architecture Overview
+
+### The Manager-Worker Iterative Agent
 
 ```
-rag_eval/
-├── baselines/
-│   ├── naive/              # Current pipeline (k=5)
-│   ├── full_k/             # Exhaustive retrieval (k=50) - upper bound
-│   ├── adaptive/           # Query complexity routing
-│   └── deep/               # "Inspired-by" DeepRAG
-│
-├── experiments/
-│   └── rl_energy/          # RL-based energy-aware system
-│
-├── evaluation/
-│   ├── harness.py          # Minimal: answer() + evaluate()
-│   ├── metrics.py          # Quality metrics (RAGChecker wrapper)
-│   └── energy.py           # Batch-level CodeCarbon only
-│
-├── src/                    # Shared components
-│   ├── retriever.py
-│   ├── generator.py
-│   └── corpus.py
-│
-├── configs/
-│   ├── naive.yaml
-│   ├── full_k.yaml
-│   ├── adaptive.yaml
-│   └── deep.yaml
-│
-├── analysis/               # Notebooks for results
-│   ├── energy_profiles.ipynb
-│   └── quality_vs_cost.ipynb
-│
-└── results/
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         MANAGER-WORKER LOOP                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│   State: [CLS] Query [SEP] Step1_Summary [SEP] Step2_Summary [SEP] ...      │
+│                           │                                                 │
+│                           ▼                                                 │
+│                  ┌─────────────────┐                                        │
+│                  │   Controller    │  (RoBERTa-Large / DeBERTa-v3)          │
+│                  │   "The Manager" │                                        │
+│                  └────────┬────────┘                                        │
+│                           │ classifies → Action ID (0-6)                    │
+│                           ▼                                                 │
+│         ┌─────────────────────────────────────────┐                         │
+│         │            WORKER EXECUTION             │                         │
+│         │  Worker executes action, then generates │                         │
+│         │  a <50 token status update (Observation)│                         │
+│         └─────────────────┬───────────────────────┘                         │
+│                           │                                                 │
+│                           ▼                                                 │
+│              "Found 3 docs on Apple revenue.                                │
+│               Missing 2024 data."                                           │
+│                           │                                                 │
+│                           └──────────► Append to state, loop back           │
+│                                        (until Generate_and_End action)      │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+### The Critical Constraint: State Compression
+
+**We strictly forbid passing raw retrieved documents or full reasoning traces to the Controller.**
+
+| What Workers Do | What Gets Passed to Controller |
+|-----------------|-------------------------------|
+| Retrieve 2000 tokens of docs | "Found 3 docs on X. Missing Y." (<50 tokens) |
+| Generate 500-token reasoning | "Computed revenue = $394B. Need verification." |
+| Decompose into sub-queries | "Split into: Q1 (director), Q2 (birthplace)." |
+
+**Why:** This ensures the encoder never breaches its 512-token limit while retaining the "semantic gist" needed for routing decisions.
+
+### Components
+
+| Component | Role | Implementation |
+|-----------|------|----------------|
+| **Controller** | Classifies state → action (the "Manager") | RoBERTa-Large or DeBERTa-v3-Base |
+| **SLM Worker** | Fast, cheap execution + compression | Mistral-7B (via Ollama) |
+| **LLM Worker** | Expensive, accurate execution + compression | Llama-3-70B or GPT-4o |
+| **Retriever** | Keyword or dense search | BM25 (rank_bm25) / Faiss |
+| **Judge** | Validates answer correctness | Exact Match + LLM-as-judge |
+| **Energy Tracker** | Measures compute cost | CodeCarbon |
+
+### Action Space (7 Classes)
+
+| ID | Action | Description |
+|----|--------|-------------|
+| 0 | `Generate_and_End(SLM)` | Final answer with small model |
+| 1 | `Generate_and_End(LLM)` | Final answer with large model |
+| 2 | `Decompose(SLM)` | Break query into sub-questions |
+| 3 | `Decompose(LLM)` | Break query into sub-questions |
+| 4 | `Retrieve(Keyword)` | BM25 keyword search |
+| 5 | `Retrieve(Dense)` | Vector similarity search |
+| 6 | `Reason(LLM)` | Intermediate synthesis/verification |
+
+**Costs are measured, not hard-coded.** Before training, we benchmark each action with CodeCarbon to build a cost table (Wh per action). This ensures the reward function reflects actual energy consumption on target hardware.
+
+**Input format:** `[CLS] Original_Query [SEP] Obs_1 [SEP] Obs_2 [SEP] ...`  
+**Output:** Linear head → Softmax over 7 logits → argmax for action
+
+### Reward Function
+
+```
+R = α · I(Correct) - β · Σ Energy(actions)
+```
+
+Where:
+- `I(Correct)` = 1 if final answer matches ground truth, 0 otherwise
+- `Σ Energy(actions)` = cumulative energy (Wh) from pre-measured cost table
+- `α, β` = hyperparameters balancing accuracy vs efficiency
+
+**Cost Table Construction:**
+```python
+# Pre-compute by running each action N times with CodeCarbon
+cost_table = {
+    0: measure_avg_energy(slm.generate, n=50),      # Generate_and_End(SLM)
+    1: measure_avg_energy(llm.generate, n=50),      # Generate_and_End(LLM)
+    2: measure_avg_energy(slm.decompose, n=50),     # Decompose(SLM)
+    3: measure_avg_energy(llm.decompose, n=50),     # Decompose(LLM)
+    4: measure_avg_energy(retriever.bm25, n=50),    # Retrieve(Keyword)
+    5: measure_avg_energy(retriever.dense, n=50),   # Retrieve(Dense)
+    6: measure_avg_energy(llm.reason, n=50),        # Reason(LLM)
+}
+```
+
+---
+
+## Training Pipeline (3 Phases)
+
+### Phase 1: Cost-Ordered Search (Offline Oracle)
+**Goal:** Generate trajectories by simulating the agent with a greedy cost-ordered policy.
+
+```python
+class GreenTreeSearch:
+    """
+    Simulate iterative agent, trying cheaper actions first.
+    Record the cheapest trajectory that yields a correct answer.
+    """
+    
+    def search(self, query: str, ground_truth: str) -> Trajectory:
+        state = f"[CLS] {query} [SEP]"
+        trajectory = []
+        
+        # Try actions in cost order until Generate_and_End succeeds
+        for action in self.cost_ordered_actions():
+            # Execute action
+            result, observation = self.execute(action, state)
+            trajectory.append((state, action, observation))
+            
+            # Update state with compressed observation
+            state = f"{state} {observation} [SEP]"
+            
+            # Check if this is a terminal action
+            if action in [GENERATE_END_SLM, GENERATE_END_LLM]:
+                if self.judge.is_correct(result, ground_truth):
+                    return Trajectory(trajectory, correct=True)
+                else:
+                    # Try next more expensive action
+                    continue
+        
+        # Fallback: most expensive path
+        return Trajectory(trajectory, correct=False)
+    
+    def execute(self, action: int, state: str) -> tuple[str, str]:
+        """Execute action, return (result, compressed_observation)."""
+        if action == RETRIEVE_KEYWORD:
+            docs = self.retriever.search(query, method="bm25")
+            # Worker compresses the retrieval result
+            observation = self.slm.summarize(
+                f"Summarize in <50 tokens what was found: {docs}"
+            )
+            return docs, observation
+        
+        elif action == GENERATE_END_SLM:
+            answer = self.slm.generate(query, context=self.context)
+            observation = f"Generated answer: {answer[:100]}"
+            return answer, observation
+        
+        # ... etc for other actions
+```
+
+**Crucial Detail:** We must simulate the "Worker Observations" during search, using the SLM to compress intermediate results.
+
+**Output:** ~5k trajectories of (state → action → observation) triples
+
+### Phase 2: Behavior Cloning (Classification)
+**Goal:** Train RoBERTa to predict the next action given the compressed state.
+
+```python
+from transformers import AutoModelForSequenceClassification, Trainer
+
+# Load encoder with classification head
+model = AutoModelForSequenceClassification.from_pretrained(
+    "roberta-large",
+    num_labels=7  # 7 action classes
+)
+
+# Training data: each (state, action) pair from Phase 1 trajectories
+training_data = [
+    {"text": "[CLS] Who directed Sinister? [SEP]", "label": 4},  # Retrieve(Keyword)
+    {"text": "[CLS] Who directed Sinister? [SEP] Found docs on Scott Derrickson. [SEP]", 
+     "label": 0},  # Generate_and_End(SLM)
+    ...
+]
+
+# Train with cross-entropy
+trainer = Trainer(
+    model=model,
+    train_dataset=training_data,
+    ...
+)
+```
+
+**Output:** RoBERTa classifier that mimics the cost-ordered search policy
+
+### Phase 3: Cost-Aware PPO (Refinement)
+**Goal:** Online RL to discover better policies than greedy search.
+
+```python
+import gym
+from stable_baselines3 import PPO
+
+class RAGEnv(gym.Env):
+    """
+    Custom Gym environment for iterative RAG routing.
+    step() returns compressed observations, not raw text.
+    """
+    
+    def __init__(self, slm, llm, retriever, judge):
+        self.action_space = gym.spaces.Discrete(7)  # 7 action classes
+        self.observation_space = gym.spaces.Box(...)  # RoBERTa embeddings
+        self.costs = {0: 1, 1: 20, 2: 1, 3: 20, 4: 5, 5: 5, 6: 20}
+        self.max_steps = 5
+    
+    def reset(self):
+        self.query, self.ground_truth = self.sample_question()
+        self.state = f"[CLS] {self.query} [SEP]"
+        self.trajectory_cost = 0
+        self.step_count = 0
+        return self.encode(self.state)
+    
+    def step(self, action: int):
+        self.step_count += 1
+        self.trajectory_cost += self.costs[action]
+        
+        # Execute action, get compressed observation
+        result, observation = self.execute(action)
+        self.state = f"{self.state} {observation} [SEP]"
+        
+        # Check termination
+        done = (action in [0, 1]) or (self.step_count >= self.max_steps)
+        
+        if done:
+            correct = self.judge.is_correct(result, self.ground_truth)
+            reward = self.alpha * correct - self.beta * self.trajectory_cost
+        else:
+            reward = -self.costs[action]  # Step cost
+        
+        return self.encode(self.state), reward, done, {}
+
+# Train with PPO
+model = PPO("MlpPolicy", RAGEnv(...), verbose=1)
+model.learn(total_timesteps=50000)
+```
+
+**Output:** Energy-aware adaptive RAG controller
 
 ---
 
 ## Execution Phases
 
-### Phase 1: Minimal Eval Harness + Naive Baseline (1 week)
-**Status:** ✅ COMPLETE
-
-**Goal:** Get *any* working baseline through evaluation.
+### Phase 0: Infrastructure & Baselines ✅ COMPLETE
+**Goal:** Establish evaluation infrastructure and comparison baselines.
 
 **Deliverables:**
+- [x] HotpotQA corpus with distractor paragraphs (66k passages)
+- [x] BM25 retriever (fixed entity-matching issues from dense retrieval)
+- [x] Evaluation harness with RAGChecker integration
+- [x] CodeCarbon energy tracking
+- [x] Baseline implementations: NaiveRAG, FullKRAG, NoRetrievalRAG, AdaptiveRAG
+
+**Results (HotpotQA, 100 questions):**
+| Metric | Dense Retrieval | BM25 Retrieval | Δ |
+|--------|-----------------|----------------|---|
+| Claim Recall | 39.6% | 51.2% | +11.6% |
+| Hallucination | 42.5% | 22.8% | **-19.7%** |
+| Faithfulness | 53.5% | 73.2% | **+19.7%** |
+
+---
+
+### Phase 1: Cost-Ordered Search 🔄 IN PROGRESS
+**Goal:** Generate trajectories with compressed observations via greedy cost-ordered search.
+
+**Deliverables:**
+- [ ] **Cost table benchmark** — Measure each action's energy (Wh) with CodeCarbon
+- [ ] `GreenTreeSearch` class implementation
+- [ ] Worker observation compression (SLM summarizes to <50 tokens)
+- [ ] Ground truth judge (Exact Match + F1)
+- [ ] Run search on 500 HotpotQA samples
+- [ ] Validate: "Do compressed observations provide enough signal?"
+
+**Key validation metrics:**
+- "X% of queries solved with cheapest action"
+- "Average trajectory length"
+- "Observation quality (do summaries preserve key info?)"
+
+**Estimated effort:** 1-2 weeks
+
+---
+
+### Phase 2: Behavior Cloning ❌ PENDING
+**Goal:** Train RoBERTa classifier on (state → action) pairs from Phase 1.
+
+**Deliverables:**
+- [ ] Initialize RoBERTa-Large with 7-class classification head
+- [ ] Format trajectories: each (state, action) pair is a training example
+- [ ] Train with cross-entropy loss
+- [ ] Validate classifier accuracy on held-out trajectories
+
+**Estimated effort:** 1 week
+
+---
+
+### Phase 3: PPO Refinement ❌ PENDING
+**Goal:** Online RL with iterative environment to improve beyond greedy policy.
+
+**Deliverables:**
+- [ ] `RAGEnv` Gym environment (returns compressed observations)
+- [ ] PPO training with `stable-baselines3`
+- [ ] Hyperparameter sweep (α, β tradeoff)
+- [ ] Compare to baselines on Pareto frontier
+
+**Estimated effort:** 2-3 weeks
+
+---
+
+### Phase 4: Evaluation & Paper ❌ PENDING
+**Goal:** Final evaluation and paper-ready results.
+
+**Deliverables:**
+- [ ] Full HotpotQA evaluation (1000+ questions)
+- [ ] Add MuSiQue dataset for generalization
+- [ ] Quality vs Energy Pareto plots
+- [ ] Statistical significance tests
+- [ ] Paper draft
+
+**Estimated effort:** 2 weeks
+
+---
+
+## Timeline Summary
+
+| Phase | Duration | Status | Output |
+|-------|----------|--------|--------|
+| 0. Infrastructure + Baselines | 3 weeks | ✅ Complete | Working eval, 4 baselines |
+| 1. Cost-Ordered Search | 1-2 weeks | 🔄 In Progress | Trajectory dataset with observations |
+| 2. Behavior Cloning | 1 week | ❌ Pending | RoBERTa classifier |
+| 3. PPO Refinement | 2-3 weeks | ❌ Pending | RL-trained controller |
+| 4. Evaluation + Paper | 2 weeks | ❌ Pending | Paper-ready results |
+| **TOTAL** | **8-10 weeks** | | Novel RL-based RAG controller |
+
+---
+
+## Key Libraries & Tools
+
+| Purpose | Library |
+|---------|---------||
+| Controller base model | `transformers` (RoBERTa-Large, DeBERTa-v3) |
+| Classification training | `transformers.Trainer` (cross-entropy) |
+| RL training | `stable-baselines3` (PPO) |
+| RL environment | `gymnasium` |
+| Energy tracking | `codecarbon` |
+| Retrieval | `rank_bm25`, `faiss` |
+| Generation | `ollama` (local), `openai` (API) |
+| Evaluation | `ragchecker`, `datasets` |
+
+---
+
+## Previous Work (Archived)
+
+<details>
+<summary>Click to expand: Original baseline phases (now complete)</summary>
+
+### Original Phase 1: Minimal Eval Harness + Naive Baseline
+**Status:** ✅ COMPLETE
+
 - [x] Fix corpus-query mismatch (HotpotQA-matched corpus)
 - [x] Minimal evaluation harness (`evaluation/harness.py`)
 - [x] Common `BaseRAG` interface (`src/base.py`)
 - [x] Validation test passed (40% exact match, 3s for 5 queries)
 
-**Validation:** Naive RAG runs, quality metrics work, results saved to `results/`.
-
----
-
-### Phase 2: Add 3 Cheap Baselines (1-2 weeks)
+### Original Phase 2: Add 3 Cheap Baselines
 **Status:** ✅ COMPLETE
 
-**Goal:** Establish comparison points before doing anything complex.
-
-**Deliverables:**
 - [x] NaiveRAG wrapper (baselines/naive.py) - k=5 retrieval
 - [x] FullKRAG baseline (baselines/full_k.py) - k=50 upper bound
 - [x] NoRetrievalRAG baseline (baselines/no_retrieval.py) - generator only
 - [x] EnergyTracker with CodeCarbon (evaluation/energy.py)
-- [x] Comparison script (scripts/run_comparison.py)
-- [x] Validation test passed with energy tracking
 
 **Initial results (5 questions, Nov 25):**
 | Baseline | Exact Match | Avg Time (s) | Energy (Wh) |
@@ -79,161 +386,16 @@ rag_eval/
 | full_k50 | 20% | 2.01 | 0.6762 |
 | no_retrieval | 20% | 1.73 | 0.4666 |
 
-**Key observations:**
-- Full_k50 uses ~2x energy of naive_k5 (expected - longer prompts)
-- No_retrieval not faster (longer answers without context constraints)
-- Energy measurement working via CodeCarbon
+### Original Phase 3a: Adaptive-RAG (Simplified)
+**Status:** ✅ COMPLETE
 
-**Note:** Adaptive-RAG deferred to Phase 3 (needs paper/repo research).
-
----
-
-### Phase 3: Adaptive-RAG + DeepRAG-lite (2-3 weeks)
-**Status:** IN PROGRESS (3a partial)
-
-**Goal:** Add adaptive strategies that vary retrieval based on query complexity.
-
-#### 3a: Adaptive-RAG
-**Paper architecture:**
-```
-Query → Trained T5 Classifier → [simple: no retrieval | moderate: single-hop | complex: multi-hop] → Answer
-```
-
-**Implementation status:**
-
-##### ✅ COMPLETE: Simplified classifiers (for rapid prototyping)
-- [x] `RuleBasedClassifier` - Heuristic patterns (free, fast)
+- [x] `RuleBasedClassifier` - Heuristic patterns
 - [x] `LLMClassifier` - Ollama-prompted classification
 - [x] `AdaptiveRAG` baseline with routing logic
-- [x] Integration in `run_comparison.py`
 
-**Initial results (5 questions, Nov 25):**
-| Baseline | Exact Match | Avg F1 | Avg Time (s) |
-|----------|-------------|--------|--------------|
-| naive_k5 | 20% | 0.041 | 1.06 |
-| full_k50 | 20% | 0.032 | 1.55 |
-| no_retrieval | 20% | 0.060 | 0.26 |
-| adaptive_rule | 20% | 0.022 | 1.49 |
-| adaptive_llm | 20% | 0.060 | 0.32 |
+**Note:** We are now pivoting away from trained T5 classifiers toward the Green-DeepRAG RL approach.
 
-##### 🔄 TODO: Train classifier (true Adaptive-RAG replication)
-
-The real Adaptive-RAG paper trains a T5 classifier using automatically collected labels:
-
-**Step 1: Generate Silver Labels**
-- Run all 3 strategies (no-retrieval, single-hop, multi-hop) on HotpotQA dev set (~500 queries)
-- For each query, label it with whichever strategy answered correctly
-- Creates training labels based on actual model performance
-
-**Step 2: Create Binary Labels (dataset inductive bias)**
-- Single-hop datasets (NQ, TriviaQA, SQuAD) → label as "simple"
-- Multi-hop datasets (HotpotQA, MuSiQue) → label as "complex"
-
-**Step 3: Train T5 Classifier**
-- Combine silver + binary labels
-- Fine-tune T5-small or T5-base on query → complexity mapping
-- Output: Trained classifier model
-
-**Step 4: Integrate Trained Classifier**
-- Add `TrainedClassifier` to `baselines/classifiers/`
-- Use trained model in `AdaptiveRAG` baseline
-
-**Estimated effort:**
-| Task | Time |
-|------|------|
-| Generate predictions (500 queries × 3 strategies) | ~2-3 hrs compute |
-| Create silver labels script | 1 hr coding |
-| Create binary labels (add NQ/TriviaQA subset) | 2 hrs |
-| Train T5 classifier | ~1 hr training |
-| Integrate trained classifier | 1 hr coding |
-| **Total** | **~1 day** |
-
-**Resources:** 
-- [Paper](https://arxiv.org/abs/2403.14403)
-- [GitHub](https://github.com/starsuzi/Adaptive-RAG) - See `classifier/` folder
-
-#### 3b: DeepRAG-lite
-**Status:** NOT STARTED
-
-**What to implement:**
-1. Query complexity classifier (rule-based or small model)
-2. Three retrieval modes:
-   - Single-hop: k=5, one retrieval
-   - Multi-hop: k=5, 2-3 iterations
-   - CoT: k=10 + chain-of-thought prompting
-3. Controller selects mode based on query
-
-**What NOT to implement:**
-- ❌ Full reasoning traces
-- ❌ Learned controller (use heuristics first)
-- ❌ Exact paper reproduction
-
-**Important:** DeepRAG reproduction will be approximate. Reproduce *architecture patterns*, not exact numbers.
-
-**Validation:** DeepRAG-lite beats naive on complex queries, costs more energy.
-
----
-
-### Phase 4: RL Energy-Aware System (4-5 weeks)
-**Status:** NOT STARTED
-
-**Goal:** Train policy that optimizes quality-energy trade-off.
-
-**Simplified formulation:**
-```python
-# State: query embedding + retrieval count + current score estimate
-# Actions: [STOP, RETRIEVE_MORE, GENERATE]
-# Reward: quality_score - lambda * energy_cost
-```
-
-**Implementation approach:**
-1. PPO with discrete actions
-2. Lambda=0.1 (low energy penalty) → Lambda=1.0 (high penalty)
-3. Train on HotpotQA subset (1000 queries)
-4. Compare Pareto frontier to baselines
-
-**What NOT to implement:**
-- ❌ MoE (Mixture of Experts)
-- ❌ Decision Transformers
-- ❌ Complex state representations
-
-**Validation:** RL policy finds different quality-energy trade-offs than fixed baselines.
-
----
-
-### Phase 5: Analysis + Paper (1-2 weeks)
-**Status:** NOT STARTED
-
-**Goal:** Final comparison and paper-ready results.
-
-**Add MuSiQue dataset here** (not earlier - too expensive for debugging).
-
-**Final comparison:**
-```python
-systems = ['naive', 'full_k', 'no_retrieval', 'adaptive', 'deep_lite', 'rl_energy']
-datasets = ['hotpotqa', 'single_hop', 'musique']
-
-results = benchmark.compare_all(systems, datasets)
-```
-
-**Deliverables:**
-- Quality vs Energy scatter plot
-- Pareto frontier analysis
-- Per-dataset breakdown
-- Statistical significance tests
-
----
-
-## Timeline Summary
-
-| Phase | Duration | Risk | Output |
-|-------|----------|------|--------|
-| 1. Minimal harness + naive | 1 week | Low | Working evaluation |
-| 2. Three cheap baselines | 1-2 weeks | Low | 4-system comparison |
-| 3. DeepRAG-lite | 2 weeks | Medium | 5-system comparison |
-| 4. RL system | 4-5 weeks | High | Novel contribution |
-| 5. Analysis + MuSiQue | 1-2 weeks | Low | Paper-ready results |
-| **TOTAL** | **9-12 weeks** | | Publishable study |
+</details>
 
 ---
 
@@ -260,93 +422,67 @@ class BaseRAG(ABC):
         pass
 ```
 
-**Key design decision:** `return_trace=False` by default for benchmarking speed.
-
----
-
-## Energy Measurement Strategy
-
-**Use batch-level measurement, not per-query:**
-- Evaluate each system over N=100 queries in a single batch
-- Compute mean energy per query from batch total
-- This stabilizes variance by ~10x compared to per-query measurement
-
-**Primary tool:** CodeCarbon (lightweight, non-invasive)
-
-**Metrics to collect:**
-- Total kWh per batch
-- Mean energy per query
-- Wall-clock time per batch
-- GPU utilization % (NVML, optional)
-
----
-
-## Key Constraints & Decisions
-
-### DO:
-- ✅ Batch-level energy measurement
-- ✅ Start with HotpotQA only
-- ✅ Use simple single-hop dataset for sanity checks
-- ✅ Full-k baseline as upper bound
-- ✅ DeepRAG-lite (inspired-by, not exact)
-- ✅ PPO for RL
-- ✅ Simple state/action spaces
-
-### DON'T:
-- ❌ Per-query energy instrumentation (too noisy)
-- ❌ MuSiQue until Phase 5 (too expensive)
-- ❌ Exact DeepRAG reproduction (incomplete repo, under-specified)
-- ❌ MoE or Decision Transformers
-- ❌ Over-optimize retrieval quality (good enough is fine)
-- ❌ Complex return dicts always (use return_trace flag)
-
 ---
 
 ## Hardware
 
 - **GPU:** NVIDIA L40 (46GB VRAM)
 - **Inference:** Ollama with Mistral 7B (local)
-- **Embeddings:** all-MiniLM-L6-v2
-- **Vector store:** Faiss IndexFlatIP
+- **Retrieval:** BM25 (rank_bm25)
+- **Embeddings:** all-MiniLM-L6-v2 (for dense retrieval fallback)
 
 ---
 
-## Current Status
+## Key Design Decisions
 
-**Last updated:** November 25, 2025
+### DO:
+- ✅ Manager-Worker abstraction (controller never sees raw docs)
+- ✅ State compression (<50 token observations from workers)
+- ✅ BERT encoder controller (RoBERTa-Large / DeBERTa-v3)
+- ✅ Iterative decision loop (not single-shot)
+- ✅ 7-class action space (including Decompose, Reason)
+- ✅ Cost-ordered search for warm-start data
+- ✅ Behavior cloning (cross-entropy) before RL
+- ✅ PPO with energy-aware reward
+- ✅ BM25 + Dense retrieval options
+- ✅ Start with HotpotQA only
 
-**Phase 1:** ✅ COMPLETE
-- Built HotpotQA-matched corpus (815 passages)
-- Created BaseRAG interface (src/base.py)
-- Created evaluation harness (evaluation/harness.py)
-- Validated end-to-end (40% exact match on 5 queries)
-
-**Phase 2:** ✅ COMPLETE
-- Implemented 3 baselines: NaiveRAG, FullKRAG, NoRetrievalRAG
-- Added CodeCarbon energy tracking
-- Created comparison script with quality + energy metrics
-- Validated comparison pipeline
-
-**Phase 3:** IN PROGRESS
-- ✅ Implemented simplified classifiers (rule-based, LLM-prompted)
-- ✅ Created AdaptiveRAG baseline with routing logic
-- ✅ 5-baseline comparison working
-- 🔄 TODO: Train T5 classifier for true Adaptive-RAG replication
-- ❌ DeepRAG-lite not started
-
-**Phase 4-5:** NOT STARTED
-
-**Next steps:**
-1. Generate silver labels (run 3 strategies on 500 HotpotQA queries)
-2. Add single-hop dataset (NQ or TriviaQA subset) for binary labels
-3. Train T5 classifier on combined labels
-4. Integrate trained classifier into AdaptiveRAG
+### DON'T:
+- ❌ Pass raw documents to controller (use compressed observations)
+- ❌ Decoder-based controller (we classify, not generate)
+- ❌ Human-designed routing rules (let RL discover policy)
+- ❌ Per-query energy instrumentation (too noisy)
+- ❌ MuSiQue until Phase 4 (too expensive for debugging)
+- ❌ Exact DeepRAG reproduction (inspired by, not identical)
 
 ---
 
 ## References
 
-- **Adaptive-RAG:** [Paper](https://arxiv.org/abs/2403.14403) - Query complexity routing
-- **DeepRAG:** [Paper](https://arxiv.org/abs/2401.08815) - LLM-based retrieval controller
-- **RAGChecker:** Amazon's evaluation framework (already integrated)
+- **Adaptive-RAG:** [Paper](https://arxiv.org/abs/2403.14403) — Query complexity routing
+- **DeepRAG:** [Paper](https://arxiv.org/abs/2502.01142) — Multi-hop retrieval with atomic actions
+- **The Bitter Lesson:** [Essay](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) — Compute > human knowledge
+- **RAGChecker:** [Paper](https://arxiv.org/abs/2408.08067) — Fine-grained RAG evaluation
 - **CodeCarbon:** Energy tracking library
+
+---
+
+## Current Status
+
+**Last updated:** December 2, 2025
+
+**Phase 0 (Infrastructure):** ✅ COMPLETE
+- Built HotpotQA corpus with distractor paragraphs (66k passages)
+- Switched from dense to BM25 retrieval (major accuracy improvement)
+- Created evaluation harness with RAGChecker integration
+- Implemented 4 baselines: NaiveRAG, FullKRAG, NoRetrievalRAG, AdaptiveRAG
+- Added CodeCarbon energy tracking
+
+**Phase 1 (Cost-Ordered Search):** 🔄 IN PROGRESS
+- Next: **Benchmark cost table** (measure each action's Wh with CodeCarbon)
+- Next: Implement `RAGEnv` class (Gym environment with compressed observations)
+- Next: Initialize RoBERTa controller with `num_labels=7`
+- Next: Implement `GreenTreeSearch` with worker observation compression
+- Next: Run on 500 HotpotQA samples to validate approach
+
+**Phase 2-4:** ❌ PENDING
