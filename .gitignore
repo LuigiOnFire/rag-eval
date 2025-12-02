@@ -20,6 +20,7 @@ ENV/
 data/raw/
 data/processed/
 data/indexes/
+models
 *.npy
 *.index
 

@@ -18,7 +18,7 @@ from datasets import load_dataset
 from ragchecker import RAGResults, RAGChecker
 from ragchecker.container import RetrievedDoc
 
-from pipeline import RAGPipeline
+from .pipeline import RAGPipeline
 
 logger = logging.getLogger(__name__)
 

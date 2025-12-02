@@ -15,9 +15,9 @@ from typing import List, Dict, Optional, Union, Any
 from datetime import datetime
 import yaml
 
-from retriever import FaissRetriever, BM25Retriever, create_retriever
-from generator import create_generator
-from base import BaseRAG
+from .retriever import FaissRetriever, BM25Retriever, create_retriever
+from .generator import create_generator
+from .base import BaseRAG
 
 logger = logging.getLogger(__name__)
 
