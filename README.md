@@ -1,32 +1,126 @@
-# RAG Baseline Pipeline
+# Energy-Aware Adaptive RAG
 
-A modular baseline RAG pipeline for hallucination detection research using:
-- **Retriever**: Faiss + SentenceTransformers (all-MiniLM-L6-v2)
-- **Generator**: Google Gemini API or Ollama (local models)
-- **Evaluation**: Amazon RAGChecker + HotpotQA dataset
+A research project exploring **compute-driven discovery of optimal RAG strategies** through reinforcement learning. Instead of hand-crafted routing rules, we train a small controller to dynamically decide *when to retrieve*, *which model to use*, and *when to stop* — optimizing for both accuracy and energy efficiency.
+
+## Research Vision
+
+### The Problem
+RAG systems face a fundamental cost-quality tradeoff:
+- **Retrieve too little** → hallucination
+- **Retrieve too much** → slow, expensive, and noisy context
+- **Use a big model** → accurate but costly
+- **Use a small model** → fast but error-prone
+
+Current solutions rely on **human-designed heuristics** (query complexity rules, confidence thresholds). We take a different approach inspired by the "Bitter Lesson": **let compute discover the optimal policy**.
+
+### The Solution: Green-DeepRAG
+A sequential decision agent that learns to route queries through the cheapest successful path:
+
+```
+Query → [Controller] → <RETRIEVE>? → <ASSIGN_SLM>/<ASSIGN_LLM>? → <STOP>
+              ↓
+        Tiny Decoder (1B params)
+        Trained via RL to minimize: Energy + Maximize: Accuracy
+```
+
+**Key Insight**: Most queries don't need expensive retrieval + large LLM. A small model can handle simple factual questions; retrieval is only needed for knowledge-intensive queries; large models are reserved for complex reasoning.
+
+## Architecture
+
+### Components
+
+| Component | Role | Example |
+|-----------|------|---------|
+| **Controller** | Tiny decoder that emits control tokens | Qwen-2.5-0.5B, SmolLM-1.7B |
+| **SLM Worker** | Fast, cheap generation | Mistral-7B, Llama-3-8B |
+| **LLM Worker** | Expensive, accurate generation | Llama-3-70B, GPT-4o |
+| **Retriever** | BM25 keyword search | rank_bm25 |
+| **Judge** | Validates answer correctness | Exact match + LLM-judge |
+
+### Action Space
+The controller generates control tokens to orchestrate the pipeline:
+- `<RETRIEVE>` — Call the retriever
+- `<ASSIGN_SLM>` — Generate with small model
+- `<ASSIGN_LLM>` — Generate with large model  
+- `<STOP>` — Emit final answer
+
+### Training Pipeline (3 Phases)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Phase 1: Cost-Ordered Search (Offline Oracle)                              │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  For each query, try paths in ascending cost order:                         │
+│    1. SLM Direct (cost=1) → if correct, save trace                          │
+│    2. Retrieve + SLM (cost=6) → if correct, save trace                      │
+│    3. LLM Direct (cost=20) → if correct, save trace                         │
+│    4. Retrieve + LLM (cost=25) → fallback                                   │
+│  Output: Dataset of (query → cheapest successful trajectory)                │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Phase 2: Behavior Cloning (Warm Start)                                     │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  Supervised fine-tuning of Controller on Phase 1 traces                     │
+│  Output: Policy that mimics "cheapest winner" heuristic                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Phase 3: Cost-Aware PPO (Refinement)                                       │
+│  ─────────────────────────────────────────────────────────────────────────  │
+│  Online RL with reward: R = α·I(Correct) - β·Energy(trajectory)             │
+│  Agent can deviate from greedy path to find better tradeoffs                │
+│  Output: Energy-aware adaptive RAG controller                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+## Project Status
+
+| Phase | Status | Description |
+|-------|--------|-------------|
+| **Phase 0** | ✅ Complete | Baselines & infrastructure (BM25 retrieval, evaluation harness, energy tracking) |
+| **Phase 1** | 🔄 In Progress | Cost-ordered search data synthesis |
+| **Phase 2** | ❌ Pending | Behavior cloning on generated traces |
+| **Phase 3** | ❌ Pending | PPO refinement with energy-aware reward |
+
+### Current Baseline Results (HotpotQA, 100 questions)
+
+| Metric | Dense Retrieval | BM25 Retrieval | Δ |
+|--------|-----------------|----------------|---|
+| Claim Recall | 39.6% | 51.2% | +11.6% |
+| Hallucination | 42.5% | 22.8% | **-19.7%** |
+| Faithfulness | 53.5% | 73.2% | **+19.7%** |
+| Context Utilization | 30.5% | 40.7% | +10.2% |
 
 ## Project Structure
 
 ```
 rag_eval/
 ├── src/
-│   ├── corpus.py         # Wikipedia corpus loading and sentence-based chunking
-│   ├── retriever.py      # Faiss vector search with embeddings
-│   ├── generator.py      # Generator supporting Gemini API and Ollama
-│   ├── pipeline.py       # End-to-end RAG orchestration
-│   └── evaluator.py      # RAGChecker evaluation
+│   ├── corpus.py         # Corpus loading and chunking
+│   ├── retriever.py      # BM25 and Faiss retrievers
+│   ├── generator.py      # LLM generation (Ollama/Gemini)
+│   ├── pipeline.py       # RAG orchestration
+│   └── base.py           # BaseRAG interface
+├── baselines/
+│   ├── naive_rag.py      # Standard k=5 retrieval
+│   ├── fullk_rag.py      # Exhaustive k=50 retrieval
+│   ├── no_retrieval.py   # Generator-only baseline
+│   └── adaptive_rag.py   # Rule-based routing (comparison)
+├── evaluation/
+│   ├── harness.py        # Minimal eval (EM, F1)
+│   └── energy.py         # CodeCarbon energy tracking
+├── scripts/
+│   ├── run_comparison.py # Compare all baselines
+│   └── build_hotpotqa_distractor_corpus.py
 ├── experiments/
 │   ├── run_baseline.py   # Main evaluation script
 │   └── logs/             # Evaluation results
 ├── data/
-│   ├── raw/              # Cached datasets
-│   ├── processed/        # Chunked passages
-│   └── indexes/          # Faiss indexes
-├── config.yaml           # Configuration (Gemini API)
-├── config_local.yaml     # Configuration (Ollama local models)
-├── .env                  # API keys (create from .env.example)
-├── OLLAMA_SETUP.md       # Guide for setting up local models
-└── requirements.txt      # Dependencies
+│   ├── processed/        # Chunked passages (66k from HotpotQA)
+│   └── indexes/          # BM25 and Faiss indexes
+├── config_local.yaml     # Configuration (Ollama)
+└── PROJECT_PLAN.md       # Detailed research plan
 ```
 
 ## Setup
@@ -38,226 +132,108 @@ pip install -r requirements.txt
 python -m nltk.downloader punkt
 ```
 
-### 2. Choose Generator Backend
-
-**Option A: Gemini API (Cloud)**
-
-```bash
-cp .env.example .env
-# Edit .env and add your Gemini API key
-```
-
-**Option B: Ollama (Local GPU)**
-
-See [OLLAMA_SETUP.md](OLLAMA_SETUP.md) for detailed instructions:
+### 2. Set Up Ollama (Local LLMs)
 
 ```bash
 # Install Ollama
 curl -fsSL https://ollama.com/install.sh | sh
 
-# Start Ollama
+# Start server
 ollama serve
 
-# Pull a model (Mistral 7B recommended for L40 GPU)
-ollama pull mistral
+# Pull models
+ollama pull mistral          # SLM worker (7B)
+ollama pull llama3:70b       # LLM worker (optional, requires >40GB VRAM)
 ```
 
-**Secure API Key Management:**
-- Store keys in `.env` file (never commit to git)
-- Add `.env` to `.gitignore`
-- Use environment variables only
-- For shared environments, use secret management tools (e.g., AWS Secrets Manager)
+See [OLLAMA_SETUP.md](OLLAMA_SETUP.md) for detailed instructions.
 
-### 3. Configure Pipeline
+### 3. Configure
 
-**For Gemini API**: Edit `config.yaml`
+Edit `config_local.yaml`:
 
-**For Ollama (local)**: Edit `config_local.yaml`
+```yaml
+retriever:
+  type: "bm25"              # or "dense" for vector search
+  index_path: "./data/indexes/faiss.bm25.pkl"
 
-Both configs allow you to adjust:
-- Corpus size (`corpus.num_documents`)
-- Retrieval parameters (`retrieval.top_k`)
-- Generation settings (`generator.temperature`, `generator.max_tokens`)
-- Evaluation dataset and metrics
+generator:
+  type: "ollama"
+  model: "mistral"          # SLM worker
+  temperature: 0.0
+```
 
 ## Usage
 
-### Quick Start: Run Full Evaluation
+### Run Baseline Comparison
 
-**With Gemini API:**
 ```bash
-cd experiments
-python run_baseline.py
+python scripts/run_comparison.py --config config_local.yaml --num-questions 50
 ```
 
-**With Ollama (local models):**
+Compares: naive_k5, full_k50, no_retrieval, adaptive_rule
+
+### Run Full Evaluation (with RAGChecker)
+
 ```bash
-cd experiments
-python run_baseline.py --config ../config_local.yaml
+python experiments/run_baseline.py --config config_local.yaml
 ```
 
-This will:
-1. Download Wikipedia subset (10k documents)
-2. Chunk into passages using sentence-based splitting
-3. Embed passages with all-MiniLM-L6-v2
-4. Build Faiss index
-5. Load HotpotQA evaluation dataset (100 questions)
-6. Run retrieval → generation pipeline
-7. Evaluate with RAGChecker
-8. Save results to `experiments/logs/`
+### Build Corpus & Index
 
-### Step-by-Step Usage
-
-**Prepare corpus only:**
 ```bash
-python run_baseline.py --skip-eval
+# Build HotpotQA corpus with distractor paragraphs
+python scripts/build_hotpotqa_distractor_corpus.py
+
+# Build BM25 index
+python src/retriever.py
 ```
 
-**Rebuild corpus:**
-```bash
-python run_baseline.py --rebuild-corpus
+## Baseline Strategies
+
+| Strategy | Description | Use Case |
+|----------|-------------|----------|
+| `naive_k5` | Retrieve top-5, generate once | Standard RAG baseline |
+| `full_k50` | Retrieve top-50, generate once | Maximum recall baseline |
+| `no_retrieval` | Generate from LLM knowledge only | Lower bound (parametric only) |
+| `adaptive_rule` | Route based on query complexity | Heuristic comparison |
+
+## Key Files for Phase 1
+
+To implement the cost-ordered search, you'll need:
+
+```python
+# green_tree_search.py (to be implemented)
+class GreenTreeSearch:
+    def __init__(self, slm, llm, retriever, judge):
+        self.costs = {"slm": 1, "retrieve": 5, "llm": 20}
+    
+    def search(self, query, ground_truth):
+        # Try paths in ascending cost order
+        # Return cheapest successful trajectory
 ```
 
-**Rebuild index:**
-```bash
-python run_baseline.py --rebuild-index
-```
+## Dependencies
 
-**Adjust API rate limiting:**
-```bash
-python run_baseline.py --delay 2.0  # 2 second delay between calls
-```
+- **Retrieval**: `rank_bm25`, `faiss-cpu`, `sentence-transformers`
+- **Generation**: `ollama`, `google-generativeai`
+- **Evaluation**: `ragchecker`, `datasets`
+- **Energy**: `codecarbon`
+- **RL (Phase 3)**: `trl`, `stable-baselines3`
 
-### Individual Modules
+## References
 
-**Process corpus:**
-```bash
-cd src
-python corpus.py
-```
-
-**Build index:**
-```bash
-python retriever.py
-```
-
-**Test generation:**
-```bash
-python generator.py
-```
-
-**Test pipeline:**
-```bash
-python pipeline.py
-```
-
-**Run evaluation:**
-```bash
-python evaluator.py
-```
-
-## Configuration
-
-Key settings in `config.yaml`:
-
-```yaml
-# Corpus
-corpus:
-  num_documents: 10000  # Start small, increase for better coverage
-
-# Chunking
-chunking:
-  max_chunk_size: 512   # Tokens per chunk
-  overlap: 50           # Overlap for context
-
-# Retrieval
-retrieval:
-  top_k: 5              # Number of passages to retrieve
-
-# Generation
-generator:
-  temperature: 0.0      # Deterministic (0.0) or creative (0.7+)
-  max_tokens: 256       # Max answer length
-
-# Evaluation
-evaluation:
-  num_samples: 100      # Questions to evaluate
-```
-
-## Output
-
-Evaluation results saved to `experiments/logs/evaluation_YYYYMMDD_HHMMSS.json`:
-
-```json
-{
-  "metadata": {
-    "timestamp": "2025-11-14T...",
-    "num_evaluated": 100,
-    "retriever_model": "sentence-transformers/all-MiniLM-L6-v2",
-    "generator_model": "gemini-1.5-flash"
-  },
-  "metrics": {
-    "precision": 0.XX,
-    "recall": 0.XX,
-    "f1": 0.XX,
-    "hallucination_rate": 0.XX
-  },
-  "detailed_results": [...]
-}
-```
-
-## Troubleshooting
-
-**Import errors:**
-```bash
-pip install -r requirements.txt
-python -m nltk.downloader punkt
-```
-
-**API key error:**
-- Check `.env` file exists and contains `GEMINI_API_KEY=...`
-- Verify key is valid at https://aistudio.google.com/app/apikey
-
-**Rate limiting:**
-- Increase `--delay` parameter
-- Reduce `evaluation.num_samples` in config
-- Gemini free tier: 15 requests/minute, 1M tokens/minute
-
-**Memory issues:**
-- Reduce `corpus.num_documents`
-- Use `faiss-cpu` instead of `faiss-gpu`
-- Process in smaller batches
-
-**Index not found:**
-- Run `python run_baseline.py --rebuild-index`
-- Or run modules individually (corpus.py → retriever.py)
-
-## Next Steps
-
-### Adaptive RAG Extensions
-
-1. **Query Analysis**: Classify query complexity to determine retrieval strategy
-2. **Iterative Retrieval**: Multi-hop retrieval for complex questions
-3. **Self-Reflection**: LLM evaluates its own answer and retrieves more if uncertain
-4. **Reranking**: Add cross-encoder reranker after initial retrieval
-5. **Hallucination Detection**: Use RAGChecker metrics to trigger re-retrieval
-
-### Experimentation
-
-- Compare embedding models (all-mpnet-base-v2 vs all-MiniLM-L6-v2)
-- Test different chunk sizes and overlap strategies
-- Evaluate local LLMs (Mistral, Llama) vs Gemini
-- Benchmark on multiple datasets (NQ, TriviaQA, etc.)
-- Tune retrieval threshold and top-k
+- [Adaptive-RAG](https://arxiv.org/abs/2403.14403) — Query complexity routing
+- [DeepRAG](https://arxiv.org/abs/2502.01142) — Multi-hop retrieval with atomic actions
+- [The Bitter Lesson](http://www.incompleteideas.net/IncsIdeas/BitterLesson.html) — Compute > human knowledge
+- [RAGChecker](https://arxiv.org/abs/2408.08067) — Fine-grained RAG evaluation
 
 ## Citation
 
-If using RAGChecker, cite:
-```
-@article{ragchecker2024,
-  title={RAGChecker: A Fine-grained Framework for Diagnosing Retrieval-Augmented Generation},
+```bibtex
+@misc{energyawarerag2025,
+  title={Energy-Aware Adaptive RAG via Reinforcement Learning},
   author={...},
-  journal={arXiv preprint arXiv:...},
-  year={2024}
+  year={2025}
 }
 ```
