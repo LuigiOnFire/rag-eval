@@ -61,8 +61,8 @@ An **iterative Manager-Worker agent** where a small encoder (the "Manager") rout
 | **Retriever** | BM25 or dense search | rank_bm25, Faiss |
 | **Judge** | Validates answer correctness | Exact match + LLM-judge |
 
-### Action Space (7 Classes)
-The controller outputs a probability distribution over 7 discrete actions:
+### Action Space (8 Classes)
+The controller outputs a probability distribution over 8 discrete actions:
 
 | ID | Action | Description |
 |----|--------|-------------|
@@ -72,12 +72,13 @@ The controller outputs a probability distribution over 7 discrete actions:
 | 3 | `Decompose(LLM)` | Break query into sub-questions |
 | 4 | `Retrieve(Keyword)` | BM25 search |
 | 5 | `Retrieve(Dense)` | Vector similarity search |
-| 6 | `Reason(LLM)` | Intermediate synthesis/verification |
+| 6 | `Reason(SLM)` | Intermediate synthesis (cheap) |
+| 7 | `Reason(LLM)` | Intermediate synthesis (expensive) |
 
 **Costs are measured via CodeCarbon** on target hardware, not hard-coded. A cost table is pre-computed by benchmarking each action.
 
 **Input format:** `[CLS] Original_Query [SEP] Step_1_Summary [SEP] Step_2_Summary [SEP] ...`  
-**Output:** Softmax over 7 action logits
+**Output:** Softmax over 8 action logits
 
 ### The Critical Constraint: State Compression
 
@@ -92,12 +93,13 @@ This ensures the encoder never exceeds 512 tokens while retaining semantic signa
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│  Phase 1: Cost-Ordered Search (Offline Oracle)                              │
+│  Phase 1: Cost-Priority Search (Offline Oracle)                             │
 │  ─────────────────────────────────────────────────────────────────────────  │
-│  For each query, simulate agent with GreenTreeSearch:                       │
-│    - Try actions in ascending cost order                                    │
-│    - Generate compressed observations at each step                          │
-│    - Record cheapest trajectory that yields correct answer                  │
+│  For each query, find the MINIMUM-COST correct path using Uniform Cost      │
+│  Search (priority queue ordered by accumulated cost).                       │
+│    - First correct solution found is guaranteed to be cheapest              │
+│    - Explores parameterized actions (top_k=3,5,10, query variants)          │
+│    - Tracks sub-questions for multi-hop decomposition                       │
 │  Output: Dataset of (state → action) pairs with compressed observations     │
 └─────────────────────────────────────────────────────────────────────────────┘
                                     ↓
@@ -105,8 +107,8 @@ This ensures the encoder never exceeds 512 tokens while retaining semantic signa
 │  Phase 2: Behavior Cloning (Classification)                                 │
 │  ─────────────────────────────────────────────────────────────────────────  │
 │  Train RoBERTa classifier with Cross-Entropy loss on Phase 1 traces         │
-│  Input: [CLS] query [SEP] obs_1 [SEP] obs_2 ...  →  Output: action (0-6)    │
-│  Output: Policy that mimics "cheapest winner" trajectories                  │
+│  Input: [CLS] query [SEP] obs_1 [SEP] obs_2 ...  →  Output: action (0-7)    │
+│  Output: Policy that mimics optimal (minimum-cost) trajectories             │
 └─────────────────────────────────────────────────────────────────────────────┘
                                     ↓
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -123,9 +125,16 @@ This ensures the encoder never exceeds 512 tokens while retaining semantic signa
 | Phase | Status | Description |
 |-------|--------|-------------|
 | **Phase 0** | ✅ Complete | Baselines & infrastructure (BM25 retrieval, evaluation harness, energy tracking) |
-| **Phase 1** | 🔄 In Progress | Cost-ordered search with compressed observations |
-| **Phase 2** | ❌ Pending | Behavior cloning on generated traces |
+| **Phase 1** | ✅ Complete | GreenSearch: Cost-Priority Search with optimality guarantee |
+| **Phase 2** | ✅ Complete | Behavior cloning module (ready for training) |
 | **Phase 3** | ❌ Pending | PPO refinement with energy-aware reward |
+
+### Phase 1 Evolution
+
+| Version | Algorithm | Guarantee |
+|---------|-----------|----------|
+| V1 (`green_tree_search.py`) | Strategy templates (~20 fixed patterns) | No optimality |
+| **V2** (`green_search.py`) | **Uniform Cost Search** (priority queue) | **First correct = cheapest** |
 
 ### Current Baseline Results (HotpotQA, 100 questions)
 
@@ -141,30 +150,37 @@ This ensures the encoder never exceeds 512 tokens while retaining semantic signa
 ```
 rag_eval/
 ├── src/
-│   ├── corpus.py         # Corpus loading and chunking
-│   ├── retriever.py      # BM25 and Faiss retrievers
-│   ├── generator.py      # LLM generation (Ollama/Gemini)
-│   ├── pipeline.py       # RAG orchestration
-│   └── base.py           # BaseRAG interface
+│   ├── base.py              # BaseRAG interface
+│   ├── corpus.py            # Corpus loading and chunking
+│   ├── retriever.py         # BM25 and Faiss retrievers
+│   ├── generator.py         # LLM generation (Ollama/Gemini)
+│   ├── pipeline.py          # RAG orchestration
+│   ├── green_search.py      # Phase 1: Cost-Priority Search (NEW - optimal)
+│   ├── green_tree_search.py # Phase 1: Legacy strategy-based search
+│   └── behavior_cloning.py  # Phase 2: Controller training
 ├── baselines/
-│   ├── naive_rag.py      # Standard k=5 retrieval
-│   ├── fullk_rag.py      # Exhaustive k=50 retrieval
-│   ├── no_retrieval.py   # Generator-only baseline
-│   └── adaptive_rag.py   # Rule-based routing (comparison)
+│   ├── naive.py             # Standard k=5 retrieval
+│   ├── full_k.py            # Exhaustive k=50 retrieval
+│   ├── no_retrieval.py      # Generator-only baseline
+│   └── adaptive.py          # Rule-based routing (comparison)
 ├── evaluation/
-│   ├── harness.py        # Minimal eval (EM, F1)
-│   └── energy.py         # CodeCarbon energy tracking
+│   ├── harness.py           # Minimal eval (EM, F1)
+│   └── energy.py            # CodeCarbon energy tracking
 ├── scripts/
-│   ├── run_comparison.py # Compare all baselines
+│   ├── benchmark_costs.py   # Measure action energy costs
+│   ├── generate_trajectories.py  # Run GreenTreeSearch on dataset
+│   ├── train_controller.py  # Train behavior-cloned controller
+│   ├── run_comparison.py    # Compare all baselines
 │   └── build_hotpotqa_distractor_corpus.py
-├── experiments/
-│   ├── run_baseline.py   # Main evaluation script
-│   └── logs/             # Evaluation results
+├── models/                  # Trained controller checkpoints
+├── results/
+│   ├── cost_table.json      # Measured action costs
+│   └── trajectories_*.json  # Generated training trajectories
 ├── data/
-│   ├── processed/        # Chunked passages (66k from HotpotQA)
-│   └── indexes/          # BM25 and Faiss indexes
-├── config_local.yaml     # Configuration (Ollama)
-└── PROJECT_PLAN.md       # Detailed research plan
+│   ├── processed/           # Chunked passages (66k from HotpotQA)
+│   └── indexes/             # BM25 and Faiss indexes
+├── config_local.yaml        # Configuration (models, paths)
+└── PROJECT_PLAN.md          # Detailed research plan
 ```
 
 ## Setup
@@ -242,20 +258,119 @@ python src/retriever.py
 | `no_retrieval` | Generate from LLM knowledge only | Lower bound (parametric only) |
 | `adaptive_rule` | Route based on query complexity | Heuristic comparison |
 
-## Key Files for Phase 1
+## Green-DeepRAG Training Pipeline (Reproduction Guide)
 
-To implement the cost-ordered search, you'll need:
+This is the complete workflow for training an energy-aware RAG controller. **Run these steps in order** when switching to new models.
 
-```python
-# green_tree_search.py (to be implemented)
-class GreenTreeSearch:
-    def __init__(self, slm, llm, retriever, judge):
-        self.costs = {"slm": 1, "retrieve": 5, "llm": 20}
-    
-    def search(self, query, ground_truth):
-        # Try paths in ascending cost order
-        # Return cheapest successful trajectory
+### Step 0: Configure Models
+
+Edit `config_local.yaml` with your SLM and LLM:
+
+```yaml
+slm:
+  type: "ollama"
+  model_name: "mistral:latest"    # Your small model
+  temperature: 0.0
+  max_tokens: 256
+
+llm:
+  type: "ollama"
+  model_name: "llama3:70b"        # Your large model (or API-based)
+  temperature: 0.0
+  max_tokens: 256
+
+retriever:
+  type: "bm25"
+  bm25_index_path: "./data/indexes/faiss.bm25.pkl"
+  passages_path: "./data/processed/passages.json"
 ```
+
+### Step 1: Benchmark Action Costs
+
+**Why:** The cost table determines the order in which GreenTreeSearch tries actions. Different hardware = different costs.
+
+```bash
+python scripts/benchmark_costs.py \
+    --config config_local.yaml \
+    --n_samples 10 \
+    --output results/cost_table.json
+```
+
+**Output:** `results/cost_table.json` with energy (Wh) per action:
+```json
+{
+  "0": {"name": "Generate_and_End_SLM", "avg_wh": 0.021, ...},
+  "1": {"name": "Generate_and_End_LLM", "avg_wh": 0.017, ...},
+  ...
+}
+```
+
+**Note:** If LLM is cheaper than SLM (can happen with similar-sized models), the search will prefer LLM. This is by design — cost-ordered search finds the *cheapest* correct trajectory.
+
+### Step 2: Generate Training Trajectories
+
+**Why:** Create (state → action) pairs by running Cost-Priority Search on HotpotQA.
+
+```bash
+# NEW: Use GreenSearch V2 (Cost-Priority Search with optimality guarantee)
+python scripts/generate_trajectories_v2.py \
+    --config config_local.yaml \
+    --cost_table results/cost_table.json \
+    --num_samples 500 \
+    --output results/trajectories_v2_500.json
+
+# Legacy: Strategy-based search (kept for comparison)
+# python scripts/generate_trajectories.py --num_samples 500 --output results/trajectories_500.json
+```
+
+**Output:**
+- `results/trajectories_v2_500.json` — Full trajectory data
+- `results/trajectories_v2_500.training.json` — Pre-extracted training pairs
+
+**Key Difference:** GreenSearch V2 uses Uniform Cost Search, guaranteeing the first correct solution found is the minimum-cost solution. The legacy approach used fixed strategy templates.
+
+### Step 3: Train Controller via Behavior Cloning
+
+**Why:** Train RoBERTa/DeBERTa to predict the next action given compressed state.
+
+```bash
+python scripts/train_controller.py \
+    --trajectories results/trajectories_500.training.json \
+    --output models/controller_v1 \
+    --model roberta-base \
+    --epochs 10 \
+    --batch_size 16
+```
+
+**Output:** `models/controller_v1/final/` with trained model and tokenizer.
+
+### Step 4: (Future) PPO Refinement
+
+Phase 3 will use the behavior-cloned controller as initialization for PPO training with reward:
+
+```
+R = α · I(Correct) - β · Σ Energy(actions)
+```
+
+---
+
+## Quick Commands Reference
+
+```bash
+# Full pipeline (copy-paste ready)
+cd /home/wcrawford/rag_eval
+
+# 1. Benchmark (run once per hardware/model change)
+python scripts/benchmark_costs.py --config config_local.yaml --n_samples 10 --output results/cost_table.json
+
+# 2. Generate trajectories with Cost-Priority Search (V2 - recommended)
+python scripts/generate_trajectories_v2.py --config config_local.yaml --num_samples 500 --output results/trajectories_v2_500.json
+
+# 3. Train controller
+python scripts/train_controller.py --trajectories results/trajectories_v2_500.training.json --output models/controller_v1 --epochs 10
+```
+
+---
 
 ## Dependencies
 

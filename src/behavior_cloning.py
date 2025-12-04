@@ -4,10 +4,14 @@ Behavior Cloning: Train encoder to predict actions from trajectories.
 Phase 2 of the Green-DeepRAG training pipeline:
 1. Load trajectories from GreenTreeSearch (Phase 1)
 2. Convert to (state, action) training pairs
-3. Fine-tune RoBERTa/DeBERTa for 7-class classification
+3. Fine-tune RoBERTa/DeBERTa for 8-class classification
 4. Save trained controller for inference or Phase 3 (PPO)
 
 The controller learns to mimic the cost-ordered search policy.
+
+Note: The neural network predicts 8 legacy action classes (GENERATE_*_SLM/LLM,
+DECOMPOSE_*_SLM/LLM, RETRIEVE_KEYWORD/DENSE, REASON_*_SLM/LLM). The new
+parameterized ActionCall system maps to these legacy IDs for compatibility.
 """
 
 import json
@@ -29,12 +33,12 @@ from transformers import (
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 
-from .green_tree_search import Action, Trajectory, load_cost_table
+from .green_tree_search import Action, ActionCall, Trajectory, load_cost_table
 
 logger = logging.getLogger(__name__)
 
 
-# Action names for reporting
+# Legacy action names for reporting (maps to neural network output classes)
 ACTION_NAMES = [a.name for a in Action]
 
 
@@ -42,7 +46,7 @@ ACTION_NAMES = [a.name for a in Action]
 class ControllerConfig:
     """Configuration for the controller model."""
     model_name: str = "roberta-base"  # or "microsoft/deberta-v3-base"
-    num_labels: int = 7
+    num_labels: int = 8  # 8 legacy action classes
     max_length: int = 512
     learning_rate: float = 2e-5
     batch_size: int = 16

@@ -22,7 +22,7 @@
 │                  │   Controller    │  (RoBERTa-Large / DeBERTa-v3)          │
 │                  │   "The Manager" │                                        │
 │                  └────────┬────────┘                                        │
-│                           │ classifies → Action ID (0-6)                    │
+│                           │ classifies → Action ID (0-7)                    │
 │                           ▼                                                 │
 │         ┌─────────────────────────────────────────┐                         │
 │         │            WORKER EXECUTION             │                         │
@@ -63,7 +63,7 @@
 | **Judge** | Validates answer correctness | Exact Match + LLM-as-judge |
 | **Energy Tracker** | Measures compute cost | CodeCarbon |
 
-### Action Space (7 Classes)
+### Action Space (8 Classes)
 
 | ID | Action | Description |
 |----|--------|-------------|
@@ -73,7 +73,8 @@
 | 3 | `Decompose(LLM)` | Break query into sub-questions |
 | 4 | `Retrieve(Keyword)` | BM25 keyword search |
 | 5 | `Retrieve(Dense)` | Vector similarity search |
-| 6 | `Reason(LLM)` | Intermediate synthesis/verification |
+| 6 | `Reason(SLM)` | Intermediate synthesis (cheap) |
+| 7 | `Reason(LLM)` | Intermediate synthesis (expensive) | |
 
 **Costs are measured, not hard-coded.** Before training, we benchmark each action with CodeCarbon to build a cost table (Wh per action). This ensures the reward function reflects actual energy consumption on target hardware.
 
@@ -109,44 +110,48 @@ cost_table = {
 
 ## Training Pipeline (3 Phases)
 
-### Phase 1: Cost-Ordered Search (Offline Oracle)
-**Goal:** Generate trajectories by simulating the agent with a greedy cost-ordered policy.
+### Phase 1: Cost-Priority Search (Offline Oracle)
+**Goal:** Generate trajectories by finding the minimum-cost correct path through the action space.
+
+**Algorithm:** Uniform Cost Search (priority queue ordered by accumulated cost)
+- Guarantees the first correct solution found is the cheapest
+- Explores rich action space with parameterized actions (top_k, query variants)
+- Tracks sub-questions for multi-hop decomposition
+- Prevents infinite loops via query deduplication
 
 ```python
-class GreenTreeSearch:
+class GreenSearch:
     """
-    Simulate iterative agent, trying cheaper actions first.
-    Record the cheapest trajectory that yields a correct answer.
+    Cost-Priority Search for minimum-energy RAG trajectories.
+    
+    Uses Uniform Cost Search to find the cheapest correct path.
+    The first solution found is guaranteed to be optimal.
     """
     
     def search(self, query: str, ground_truth: str) -> Trajectory:
-        state = f"[CLS] {query} [SEP]"
-        trajectory = []
+        # Initialize root node
+        root = SearchNode(query=query, accumulated_cost=0.0)
         
-        # Try actions in cost order until Generate_and_End succeeds
-        for action in self.cost_ordered_actions():
-            # Execute action
-            result, observation = self.execute(action, state)
-            trajectory.append((state, action, observation))
-            
-            # Update state with compressed observation
-            state = f"{state} {observation} [SEP]"
-            
-            # Check if this is a terminal action
-            if action in [GENERATE_END_SLM, GENERATE_END_LLM]:
-                if self.judge.is_correct(result, ground_truth):
-                    return Trajectory(trajectory, correct=True)
-                else:
-                    # Try next more expensive action
-                    continue
+        # Priority queue: (cost, node_id, node)
+        frontier = [(0.0, root.node_id, root)]
+        heapq.heapify(frontier)
         
-        # Fallback: most expensive path
-        return Trajectory(trajectory, correct=False)
-    
-    def execute(self, action: int, state: str) -> tuple[str, str]:
-        """Execute action, return (result, compressed_observation)."""
-        if action == RETRIEVE_KEYWORD:
-            docs = self.retriever.search(query, method="bm25")
+        while frontier and nodes_explored < self.max_nodes:
+            cost, _, node = heapq.heappop(frontier)
+            
+            # Expand all valid actions from this node
+            for action in self.get_possible_actions(node):
+                child = self.execute_action(node, action, ground_truth)
+                
+                # Check if this is a correct terminal node
+                if child.answer and child.is_correct:
+                    return self.build_trajectory(child)  # First correct = cheapest!
+                
+                # Add to frontier for further exploration
+                heapq.heappush(frontier, (child.accumulated_cost, child.node_id, child))
+        
+        return None  # No solution within limits
+```
             # Worker compresses the retrieval result
             observation = self.slm.summarize(
                 f"Summarize in <50 tokens what was found: {docs}"
@@ -174,7 +179,7 @@ from transformers import AutoModelForSequenceClassification, Trainer
 # Load encoder with classification head
 model = AutoModelForSequenceClassification.from_pretrained(
     "roberta-large",
-    num_labels=7  # 7 action classes
+    num_labels=8  # 8 action classes
 )
 
 # Training data: each (state, action) pair from Phase 1 trajectories
@@ -209,7 +214,7 @@ class RAGEnv(gym.Env):
     """
     
     def __init__(self, slm, llm, retriever, judge):
-        self.action_space = gym.spaces.Discrete(7)  # 7 action classes
+        self.action_space = gym.spaces.Discrete(8)  # 8 action classes
         self.observation_space = gym.spaces.Box(...)  # RoBERTa embeddings
         self.costs = {0: 1, 1: 20, 2: 1, 3: 20, 4: 5, 5: 5, 6: 20}
         self.max_steps = 5
@@ -270,8 +275,84 @@ model.learn(total_timesteps=50000)
 
 ---
 
-### Phase 1: Cost-Ordered Search ✅ COMPLETE
-**Goal:** Generate trajectories with compressed observations via greedy cost-ordered search.
+### Phase 1: Cost-Priority Search ✅ COMPLETE
+**Goal:** Generate trajectories with compressed observations via Uniform Cost Search.
 
 **Deliverables:**
-- [x] **Cost table benchmark** — Measured each action's energy 
+- [x] **Cost table benchmark** — Measured each action's energy (Wh) with CodeCarbon
+- [x] `GreenSearch` class implementation (`src/green_search.py`) — NEW: Cost-Priority Search
+- [x] `GreenTreeSearch` legacy implementation (`src/green_tree_search.py`) — Kept for comparison
+- [x] Worker observation compression (SLM summarizes to <50 tokens)
+- [x] Multi-level Judge (substring match + LLM-as-judge)
+- [x] Parameterized actions with top_k support (k=3, 5, 10)
+- [x] Sub-question tracking for decomposition
+- [x] Query deduplication to prevent infinite loops
+
+**Cost Table (Measured on L40 GPU, Dec 3 2025):**
+| Action | Energy (mWh) | Notes |
+|--------|-------------|-------|
+| RETRIEVE_KEYWORD | 9.1 | BM25 search |
+| RETRIEVE_DENSE | 9.4 | BM25 fallback |
+| GENERATE_END_LLM | 14.5 | llama3:8b - cheaper than SLM! |
+| GENERATE_END_SLM | 20.0 | mistral:latest |
+| DECOMPOSE_SLM | 23.6 | mistral decomposition |
+| REASON_LLM | 26.5 | llama3:8b reasoning |
+| DECOMPOSE_LLM | 28.0 | llama3 decomposition |
+| REASON_SLM | 64.9 | mistral reasoning (expensive!) |
+
+---
+
+### Phase 2: Behavior Cloning ✅ COMPLETE (Infrastructure)
+**Goal:** Train RoBERTa classifier on (state → action) pairs from Phase 1.
+
+**Deliverables:**
+- [x] `BehaviorCloning` class with HuggingFace Trainer
+- [x] `Controller` inference wrapper
+- [x] Training script: `scripts/train_controller.py`
+
+---
+
+### Phase 3: PPO Refinement 🔄 NEXT
+**Goal:** Online RL to improve beyond greedy policy.
+
+---
+
+## TODO / Next Steps
+
+### Immediate
+- [ ] **Generate trajectories with GreenSearch V2** (500+ samples)
+  - Command: `python scripts/generate_trajectories_v2.py --num_samples 500 --output results/trajectories_v2_500.json`
+  - Uses new Cost-Priority Search (guaranteed optimal)
+
+- [ ] **Test on known failing cases** (Scott Derrickson/Ed Wood multi-hop)
+  - Verify the new search finds correct paths
+
+### When upgrading to larger LLM
+- [ ] Re-run `scripts/benchmark_costs.py` (cost ordering will change!)
+- [ ] Re-generate trajectories with `generate_trajectories_v2.py`
+- [ ] Re-train controller
+
+### Architecture Improvements
+- [ ] Add dense retrieval support to GreenSearch
+- [ ] Implement A* heuristic for faster search
+- [ ] Add early termination when confident
+
+---
+
+## Key Files
+
+| File | Purpose |
+|------|--------|
+| `src/green_search.py` | **NEW** Cost-Priority Search (Uniform Cost Search) |
+| `src/green_tree_search.py` | Legacy strategy-based search (kept for comparison) |
+| `scripts/generate_trajectories_v2.py` | Generate trajectories with GreenSearch |
+| `scripts/generate_trajectories.py` | Legacy trajectory generation |
+| `scripts/benchmark_costs.py` | Measure action energy costs |
+| `scripts/train_controller.py` | Train behavior-cloned controller |
+
+---
+
+**Last updated:** December 4, 2025
+- [x] **GreenSearch V2** — Cost-Priority Search with optimality guarantee
+- [x] **Cost table** — Dynamic loading from benchmark output
+- [x] **generate_trajectories_v2.py** — New trajectory generation script 

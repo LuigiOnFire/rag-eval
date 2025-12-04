@@ -22,7 +22,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.behavior_cloning import BehaviorCloning, ControllerConfig, Controller
-from src.green_tree_search import Action
+from src.green_tree_search import Action, ActionCall  # Legacy enum + new parameterized actions
 
 logging.basicConfig(
     level=logging.INFO,
@@ -60,7 +60,7 @@ def main():
     # Configure controller
     config = ControllerConfig(
         model_name=args.model,
-        num_labels=7,  # 7 action classes
+        num_labels=8,  # 8 action classes
         max_length=args.max_length,
         learning_rate=args.lr,
         batch_size=args.batch_size,

@@ -68,7 +68,8 @@ def build_actions(slm, llm, retriever):
         3: ("Decompose_LLM", lambda: llm.generate(DECOMPOSE_PROMPT, [])),
         4: ("Retrieve_Keyword", lambda: retriever.retrieve(SAMPLE_QUERY, top_k=5)),
         5: ("Retrieve_Dense", lambda: retriever.retrieve(SAMPLE_QUERY, top_k=5)),  # if you have dense
-        6: ("Reason_LLM", lambda: llm.generate(REASONING_PROMPT, SAMPLE_CONTEXT_PASSAGES)),
+        6: ("Reason_SLM", lambda: slm.generate(REASONING_PROMPT, SAMPLE_CONTEXT_PASSAGES)),
+        7: ("Reason_LLM", lambda: llm.generate(REASONING_PROMPT, SAMPLE_CONTEXT_PASSAGES)),
     }
 
 def main():
