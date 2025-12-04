@@ -85,6 +85,24 @@ class RetrievalMethod(IntEnum):
     DENSE = 1    # Vector/embedding-based
 
 
+# Legacy 8-class action enum for neural network compatibility
+class Action(IntEnum):
+    """
+    Legacy action enum mapping to 8-class neural network output.
+    
+    Used by behavior_cloning.py for training data labels.
+    ActionCall.legacy_action_id maps to these values.
+    """
+    GENERATE_SLM = 0
+    GENERATE_LLM = 1
+    DECOMPOSE_SLM = 2
+    DECOMPOSE_LLM = 3
+    RETRIEVE_KEYWORD = 4
+    RETRIEVE_DENSE = 5
+    REASON_SLM = 6
+    REASON_LLM = 7
+
+
 @dataclass(frozen=True)
 class ActionCall:
     """

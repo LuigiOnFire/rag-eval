@@ -129,12 +129,11 @@ This ensures the encoder never exceeds 512 tokens while retaining semantic signa
 | **Phase 2** | ✅ Complete | Behavior cloning module (ready for training) |
 | **Phase 3** | ❌ Pending | PPO refinement with energy-aware reward |
 
-### Phase 1 Evolution
+### Phase 1: Cost-Priority Search
 
-| Version | Algorithm | Guarantee |
-|---------|-----------|----------|
-| V1 (`green_tree_search.py`) | Strategy templates (~20 fixed patterns) | No optimality |
-| **V2** (`green_search.py`) | **Uniform Cost Search** (priority queue) | **First correct = cheapest** |
+| Component | Algorithm | Guarantee |
+|-----------|-----------|----------|
+| `green_search.py` | **Uniform Cost Search** (priority queue) | **First correct = cheapest** |
 
 ### Current Baseline Results (HotpotQA, 100 questions)
 
@@ -150,14 +149,13 @@ This ensures the encoder never exceeds 512 tokens while retaining semantic signa
 ```
 rag_eval/
 ├── src/
-│   ├── base.py              # BaseRAG interface
-│   ├── corpus.py            # Corpus loading and chunking
+│   ├── green_search.py      # Phase 1: Cost-Priority Search (optimal)
+│   ├── behavior_cloning.py  # Phase 2: Controller training
+│   ├── generator.py         # LLM interfaces (Ollama/Gemini)
 │   ├── retriever.py         # BM25 and Faiss retrievers
-│   ├── generator.py         # LLM generation (Ollama/Gemini)
-│   ├── pipeline.py          # RAG orchestration
-│   ├── green_search.py      # Phase 1: Cost-Priority Search (NEW - optimal)
-│   ├── green_tree_search.py # Phase 1: Legacy strategy-based search
-│   └── behavior_cloning.py  # Phase 2: Controller training
+│   ├── pipeline.py          # RAG orchestration (legacy)
+│   ├── corpus.py            # Corpus loading
+│   └── base.py              # BaseRAG interface
 ├── baselines/
 │   ├── naive.py             # Standard k=5 retrieval
 │   ├── full_k.py            # Exhaustive k=50 retrieval
@@ -167,11 +165,11 @@ rag_eval/
 │   ├── harness.py           # Minimal eval (EM, F1)
 │   └── energy.py            # CodeCarbon energy tracking
 ├── scripts/
-│   ├── benchmark_costs.py   # Measure action energy costs
-│   ├── generate_trajectories.py  # Run GreenTreeSearch on dataset
+│   ├── generate_trajectories.py  # Run GreenSearch on dataset
 │   ├── train_controller.py  # Train behavior-cloned controller
-│   ├── run_comparison.py    # Compare all baselines
-│   └── build_hotpotqa_distractor_corpus.py
+│   ├── benchmark_costs.py   # Measure action energy costs
+│   ├── run_comparison.py    # Compare baselines
+│   └── build_hotpotqa_*.py  # Corpus preparation
 ├── models/                  # Trained controller checkpoints
 ├── results/
 │   ├── cost_table.json      # Measured action costs

@@ -22,7 +22,7 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.behavior_cloning import BehaviorCloning, ControllerConfig, Controller
-from src.green_tree_search import Action, ActionCall  # Legacy enum + new parameterized actions
+from src.green_search import Action, ActionCall  # 8-class enum + parameterized actions
 
 logging.basicConfig(
     level=logging.INFO,

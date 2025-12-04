@@ -33,7 +33,7 @@ from transformers import (
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, classification_report
 
-from .green_tree_search import Action, ActionCall, Trajectory, load_cost_table
+from .green_search import Action, ActionCall, Trajectory, load_cost_table
 
 logger = logging.getLogger(__name__)
 

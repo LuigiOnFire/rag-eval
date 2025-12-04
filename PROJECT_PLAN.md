@@ -280,8 +280,7 @@ model.learn(total_timesteps=50000)
 
 **Deliverables:**
 - [x] **Cost table benchmark** — Measured each action's energy (Wh) with CodeCarbon
-- [x] `GreenSearch` class implementation (`src/green_search.py`) — NEW: Cost-Priority Search
-- [x] `GreenTreeSearch` legacy implementation (`src/green_tree_search.py`) — Kept for comparison
+- [x] `GreenSearch` class implementation (`src/green_search.py`) — Cost-Priority Search
 - [x] Worker observation compression (SLM summarizes to <50 tokens)
 - [x] Multi-level Judge (substring match + LLM-as-judge)
 - [x] Parameterized actions with top_k support (k=3, 5, 10)
@@ -329,7 +328,7 @@ model.learn(total_timesteps=50000)
 
 ### When upgrading to larger LLM
 - [ ] Re-run `scripts/benchmark_costs.py` (cost ordering will change!)
-- [ ] Re-generate trajectories with `generate_trajectories_v2.py`
+- [ ] Re-generate trajectories with `generate_trajectories.py`
 - [ ] Re-train controller
 
 ### Architecture Improvements
@@ -343,16 +342,15 @@ model.learn(total_timesteps=50000)
 
 | File | Purpose |
 |------|--------|
-| `src/green_search.py` | **NEW** Cost-Priority Search (Uniform Cost Search) |
-| `src/green_tree_search.py` | Legacy strategy-based search (kept for comparison) |
-| `scripts/generate_trajectories_v2.py` | Generate trajectories with GreenSearch |
-| `scripts/generate_trajectories.py` | Legacy trajectory generation |
-| `scripts/benchmark_costs.py` | Measure action energy costs |
+| `src/green_search.py` | Cost-Priority Search (Uniform Cost Search) |
+| `src/behavior_cloning.py` | Controller training via behavior cloning |
+| `scripts/generate_trajectories.py` | Generate trajectories with GreenSearch |
 | `scripts/train_controller.py` | Train behavior-cloned controller |
+| `scripts/benchmark_costs.py` | Measure action energy costs |
 
 ---
 
 **Last updated:** December 4, 2025
-- [x] **GreenSearch V2** — Cost-Priority Search with optimality guarantee
-- [x] **Cost table** — Dynamic loading from benchmark output
-- [x] **generate_trajectories_v2.py** — New trajectory generation script 
+- [x] **GreenSearch** — Cost-Priority Search with optimality guarantee
+- [x] **Cleanup** — Removed legacy green_tree_search.py, consolidated scripts
+- [x] **Multi-hop support** — Proper decomposition → sub-answer → synthesis flow 
