@@ -632,6 +632,23 @@ class GreenSearch:
         self.max_nodes = max_nodes
         self.max_observations = max_observations
     
+    def _get_state_key(self, node: SearchNode) -> str:
+        """
+        Get a hashable state key for deduplication.
+        
+        States are equivalent if they have the same:
+        - Current query
+        - Retrieved queries (what info we have)
+        - Decomposed queries (what's been broken down)
+        """
+        # Frozen set of retrieved and decomposed queries
+        retrieved = frozenset(node.retrieved_queries)
+        decomposed = frozenset(node.decomposed_queries)
+        # Include context length to differentiate states with different amounts of context
+        context_len = len(node.context)
+        
+        return f"{node.query}|r={retrieved}|d={decomposed}|c={context_len}"
+    
     def search(self, query: str, ground_truth: str) -> Optional[Trajectory]:
         """
         Find the cheapest correct path for a query.
@@ -650,10 +667,15 @@ class GreenSearch:
             accumulated_cost=0.0,
         )
         
-        # Priority queue: (cost, node_id, node)
-        # node_id for tie-breaking (avoid comparing nodes directly)
-        frontier = [(0.0, root.node_id, root)]
+        # Priority queue: (cost, counter, node)
+        # counter for FIFO tie-breaking (avoid comparing nodes directly)
+        counter = 0
+        frontier = [(0.0, counter, root)]
         heapq.heapify(frontier)
+        
+        # CRITICAL: Track visited states to prevent infinite loops
+        visited: set = set()
+        visited.add(self._get_state_key(root))
         
         nodes_explored = 0
         
@@ -663,33 +685,49 @@ class GreenSearch:
             cost, _, node = heapq.heappop(frontier)
             nodes_explored += 1
             
+            if nodes_explored % 10 == 0:
+                logger.info(f"Progress: explored {nodes_explored} nodes, frontier size: {len(frontier)}, depth: {node.depth}")
+            
             logger.debug(f"Exploring node {node.node_id} at depth {node.depth}, cost {cost:.4f}")
             
-            # Expand all valid actions
+            # Expand valid actions (EAGER execution, but limited action set)
             children = self._expand_node(node, ground_truth)
             
             for child in children:
                 # Check if this is a correct terminal node
                 if child.answer is not None and child.is_correct:
-                    logger.info(f"Found solution at depth {child.depth}, cost {child.accumulated_cost:.4f}")
+                    logger.info(f"Found solution at depth {child.depth}, cost {child.accumulated_cost:.4f}, explored {nodes_explored} nodes")
                     return self._build_trajectory(child, nodes_explored)
                 
+                # Skip if we've already seen this state (at any cost)
+                state_key = self._get_state_key(child)
+                if state_key in visited:
+                    continue
+                visited.add(state_key)
+                
                 # Add to frontier for further exploration
-                heapq.heappush(frontier, (child.accumulated_cost, child.node_id, child))
+                counter += 1
+                heapq.heappush(frontier, (child.accumulated_cost, counter, child))
         
         logger.warning(f"No solution found after exploring {nodes_explored} nodes")
         return None
     
     def _expand_node(self, node: SearchNode, ground_truth: str) -> List[SearchNode]:
         """
-        Generate all valid child nodes from current node.
+        Generate child nodes for SELECTIVE actions based on state.
         
-        Tries all applicable actions and creates children.
+        Uses a SMART action selection strategy to limit branching:
+        - Always try GENERATE_LLM (cheapest terminal action)
+        - If no context: try RETRIEVE
+        - If context but first time: try REASON_LLM
+        - Decompose only at root or depth 0
+        
+        This limits to 2-3 actions per node instead of 7+.
         """
         children = []
         
-        # Get all possible actions for this state
-        actions = self._get_possible_actions(node)
+        # Get SMART action set based on state
+        actions = self._get_smart_actions(node)
         
         for action in actions:
             if not node.can_take_action(action, self.max_depth):
@@ -705,6 +743,54 @@ class GreenSearch:
         
         return children
     
+    def _get_smart_actions(self, node: SearchNode) -> List[ActionCall]:
+        """
+        Get a SMART set of actions based on current state.
+        
+        Supports multi-hop reasoning:
+        - Can RETRIEVE multiple times on DIFFERENT queries (original, sub-questions)
+        - DECOMPOSE creates sub-questions which become new queries to retrieve
+        - Track retrieved_queries to avoid duplicate retrievals
+        
+        Strategy:
+        1. Always try GENERATE_LLM (can terminate at any point)
+        2. RETRIEVE current query if not yet retrieved
+        3. RETRIEVE original query if different and not retrieved
+        4. REASON if we have context (synthesize information)
+        5. DECOMPOSE to create sub-questions (depth-limited)
+        
+        This allows multi-hop while limiting to 3-5 actions per node.
+        """
+        actions = []
+        
+        # 1. Always offer GENERATE_LLM (usually cheapest terminal action)
+        actions.append(GENERATE(Model.LLM))
+        
+        # 2. RETRIEVE current query if not yet retrieved
+        #    This handles sub-questions after DECOMPOSE
+        if node.query not in node.retrieved_queries:
+            actions.append(RETRIEVE(RetrievalMethod.KEYWORD, query=node.query, top_k=5))
+        
+        # 3. RETRIEVE original query if we're on a sub-question and haven't retrieved original
+        #    This supports "retrieve both parts of the question" pattern
+        if node.query != node.original_query and node.original_query not in node.retrieved_queries:
+            actions.append(RETRIEVE(RetrievalMethod.KEYWORD, query=node.original_query, top_k=5))
+        
+        # 4. REASON if we have context and haven't just reasoned
+        #    Helps synthesize info from multiple retrievals
+        if node.context and (not node.action_taken or node.action_taken.action_type != ActionType.REASON):
+            actions.append(REASON(Model.LLM))
+        
+        # 5. DECOMPOSE to create sub-questions
+        #    Only at shallow depth, and only once per query
+        if node.depth <= 2 and node.query not in node.decomposed_queries:
+            actions.append(DECOMPOSE(Model.LLM))
+        
+        # 6. If we have pending sub-questions, we can "switch" to next one
+        #    (This is handled implicitly via decompose creating new queries)
+        
+        return actions
+    
     def _get_possible_actions(self, node: SearchNode) -> List[ActionCall]:
         """
         Get all possible actions from current state.
@@ -714,6 +800,8 @@ class GreenSearch:
         - Can RETRIEVE with current query
         - Can DECOMPOSE if not already decomposed
         - Can REASON if have context
+        
+        NOTE: _get_smart_actions() is used instead for reduced branching.
         """
         actions = []
         
@@ -721,16 +809,13 @@ class GreenSearch:
         actions.append(GENERATE(Model.SLM))
         actions.append(GENERATE(Model.LLM))
         
-        # RETRIEVE actions with various configurations
+        # RETRIEVE actions - only one top_k to reduce branching factor
         current_query = node.query
-        for method in [RetrievalMethod.KEYWORD]:
-            for top_k in [3, 5, 10]:
-                actions.append(RETRIEVE(method, query=current_query, top_k=top_k))
+        actions.append(RETRIEVE(RetrievalMethod.KEYWORD, query=current_query, top_k=5))
         
         # Dense retrieval if available
         if self.dense_retriever:
-            for top_k in [3, 5]:
-                actions.append(RETRIEVE(RetrievalMethod.DENSE, query=current_query, top_k=top_k))
+            actions.append(RETRIEVE(RetrievalMethod.DENSE, query=current_query, top_k=5))
         
         # DECOMPOSE actions
         actions.append(DECOMPOSE(Model.SLM))
@@ -779,26 +864,68 @@ class GreenSearch:
         energy_wh: float,
         ground_truth: str
     ) -> SearchNode:
-        """Execute GENERATE action and check correctness."""
+        """
+        Execute GENERATE action.
+        
+        Handles two cases:
+        1. On original query: Check correctness against ground_truth (terminal)
+        2. On sub-question: Store answer and switch to next sub-q (non-terminal)
+        """
         model = self.slm if action.model == Model.SLM else self.llm
         model_name = "SLM" if action.model == Model.SLM else "LLM"
         
         # Build context from accumulated passages
         context_passages = node.context[-5:] if node.context else []
         
-        # Build prompt with sub-answers if available
-        query = node.query
-        if node.sub_answers:
-            sub_info = "\n".join([f"- {q}: {a}" for q, a in node.sub_answers.items()])
-            query = f"{node.original_query}\n\nRelevant information:\n{sub_info}"
+        # Are we on a sub-question or the original?
+        is_sub_question = node.query != node.original_query
         
-        # Generate
-        prompt = f"""Answer the question using ONLY the information provided in the context below.
-Be concise and factual. If the context provides the answer, use it directly.
-Do NOT use your own knowledge - only use what is explicitly stated in the context.
+        # Build prompt
+        if is_sub_question:
+            # Answering a sub-question - just get the answer
+            query = node.query
+            if context_passages:
+                prompt = f"""Answer the question based on the context below.
+Be concise - just give the answer.
 
 Context:
 {self._format_context(context_passages)}
+
+Question: {query}
+
+Answer:"""
+            else:
+                prompt = f"""Answer this question concisely. Just give the answer.
+
+Question: {query}
+
+Answer:"""
+        else:
+            # Answering original question - use sub-answers if available
+            query = node.query
+            if node.sub_answers:
+                sub_info = "\n".join([f"- {q}: {a}" for q, a in node.sub_answers.items()])
+                prompt = f"""Answer the question based on the information below.
+Be concise - just give the answer (yes/no if appropriate).
+
+Relevant information:
+{sub_info}
+
+Question: {query}
+
+Answer:"""
+            elif context_passages:
+                prompt = f"""Answer the question based on the context below.
+Be concise - just give the answer, no explanation needed.
+
+Context:
+{self._format_context(context_passages)}
+
+Question: {query}
+
+Answer:"""
+            else:
+                prompt = f"""Answer this question concisely. Just give the answer, no explanation.
 
 Question: {query}
 
@@ -807,20 +934,49 @@ Answer:"""
         result = model.generate(prompt, [])
         answer = result.get('answer', '') if isinstance(result, dict) else str(result)
         
-        # Judge correctness
-        is_correct = self.judge(answer, ground_truth)
-        
-        # Create observation
-        observation = f"Generated ({model_name}): {answer[:80]}"
-        
-        return node.create_child(
-            action=action,
-            observation=observation,
-            cost=cost,
-            energy_wh=energy_wh,
-            answer=answer,
-            is_correct=is_correct,
-        )
+        if is_sub_question:
+            # Sub-question: store answer and potentially switch to next sub-question
+            observation = f"SubQ Answer ({model_name}): {answer[:60]}"
+            
+            # Determine next query
+            if node.sub_questions:
+                # More sub-questions to answer
+                next_query = node.sub_questions[0]
+                remaining_sub_qs = node.sub_questions[1:]
+            else:
+                # All sub-questions answered, return to original
+                next_query = node.original_query
+                remaining_sub_qs = []
+            
+            return node.create_child(
+                action=action,
+                observation=observation,
+                cost=cost,
+                energy_wh=energy_wh,
+                new_query=next_query,
+                new_sub_questions=remaining_sub_qs,
+                new_sub_answer=(node.query, answer),  # Store sub-question -> answer
+                # NOT a terminal node - no answer/is_correct
+            )
+        else:
+            # Original question: judge correctness
+            is_correct = self.judge.judge(answer, ground_truth)
+            
+            # Debug logging
+            logger.debug(f"GENERATE ({model_name}): '{answer[:100]}' vs ground_truth='{ground_truth}' -> {is_correct}")
+            if not is_correct:
+                logger.info(f"Incorrect answer: '{answer[:60]}...' (expected: '{ground_truth}')")
+            
+            observation = f"Generated ({model_name}): {answer[:80]}"
+            
+            return node.create_child(
+                action=action,
+                observation=observation,
+                cost=cost,
+                energy_wh=energy_wh,
+                answer=answer,
+                is_correct=is_correct,
+            )
     
     def _execute_retrieve(
         self, 
