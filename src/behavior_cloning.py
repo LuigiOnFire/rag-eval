@@ -375,9 +375,11 @@ class BehaviorCloning:
         if isinstance(labels, tuple):
             labels = labels[0]
         
-        # Classification report
+        # Classification report - specify all labels explicitly to handle 
+        # cases where test set doesn't have all classes
         report = classification_report(
             labels, preds, 
+            labels=list(range(len(ACTION_NAMES))),
             target_names=ACTION_NAMES,
             zero_division=0
         )
