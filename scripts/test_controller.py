@@ -31,6 +31,7 @@ sys.path.insert(0, str(project_root))
 from src.behavior_cloning import Controller, Action, ACTION_NAMES
 from src.green_search import GreenSearch, load_cost_table
 from src.retriever import BM25Retriever
+from evaluation.qa_metrics import compute_all_metrics, aggregate_metrics
 
 logging.basicConfig(
     level=logging.INFO,
@@ -97,7 +98,7 @@ class ControllerGuidedPipeline:
         """
         Execute an action and return (result, energy_cost).
         """
-        cost = self.cost_table.get(action.name, 20.0)
+        cost = self.cost_table.get(action.value, 20.0)  # Use action.value (int) not action.name
         
         if action == Action.RETRIEVE_KEYWORD:
             # BM25 retrieval - returns (passages, scores)
@@ -206,20 +207,17 @@ Reasoning:"""
                 answer = result
                 break
         
-        # Check correctness
-        correct = None
+        # Check correctness using proper QA metrics
+        metrics = {'em': 0.0, 'f1': 0.0, 'acc': 0.0}
         if expected_answer and answer:
-            # Simple substring match
-            correct = (
-                expected_answer.lower() in answer.lower() or
-                answer.lower() in expected_answer.lower()
-            )
+            metrics = compute_all_metrics(answer, expected_answer)
         
         return {
             "query": query,
             "answer": answer,
             "expected": expected_answer,
-            "correct": correct,
+            "correct": metrics['acc'] > 0,  # Legacy field for backwards compat
+            "metrics": metrics,  # New: proper QA metrics
             "energy_mwh": total_energy,
             "steps": len(actions_taken),
             "actions": actions_taken
@@ -308,7 +306,7 @@ def main():
     
     # Run tests
     results = []
-    correct_count = 0
+    all_metrics = []
     total_energy = 0.0
     action_counts = {}
     
@@ -325,36 +323,40 @@ def main():
             verbose=args.verbose
         )
         results.append(result)
+        all_metrics.append(result["metrics"])
         
-        if result["correct"]:
-            correct_count += 1
+        # Status based on Acc (answer containment)
+        if result["metrics"]["acc"] > 0:
             status = "✓"
-        elif result["correct"] is False:
-            status = "✗"
         else:
-            status = "?"
+            status = "✗"
         
         total_energy += result["energy_mwh"]
         
         for action in result["actions"]:
             action_counts[action] = action_counts.get(action, 0) + 1
         
+        # Show per-query metrics
+        m = result["metrics"]
         print(f"  {status} Answer: {(result['answer'] or 'None')[:50]}...")
         print(f"    Expected: {q['answer']}")
+        print(f"    Metrics: EM={m['em']:.0f} F1={m['f1']:.2f} Acc={m['acc']:.0f}")
         print(f"    Actions: {' -> '.join(result['actions'])}")
         print(f"    Energy: {result['energy_mwh']:.1f} mWh\n")
     
-    # Summary
-    accuracy = correct_count / len(queries) if queries else 0
+    # Aggregate metrics (Adaptive-RAG style)
+    agg = aggregate_metrics(all_metrics)
     avg_energy = total_energy / len(queries) if queries else 0
     avg_steps = sum(r["steps"] for r in results) / len(results) if results else 0
     
     print(f"\n{'='*60}")
-    print("SUMMARY")
+    print("SUMMARY (Adaptive-RAG Metrics)")
     print(f"{'='*60}")
-    print(f"Accuracy: {correct_count}/{len(queries)} ({accuracy*100:.1f}%)")
-    print(f"Avg Energy: {avg_energy:.1f} mWh/query")
-    print(f"Avg Steps: {avg_steps:.1f}")
+    print(f"EM:  {agg['em']:.2f}%")
+    print(f"F1:  {agg['f1']:.2f}%")
+    print(f"Acc: {agg['acc']:.2f}%")
+    print(f"\nAvg Energy: {avg_energy:.1f} mWh/query")
+    print(f"Avg Steps: {avg_steps:.2f}")
     print(f"\nAction Distribution:")
     total_actions = sum(action_counts.values())
     for action, count in sorted(action_counts.items(), key=lambda x: -x[1]):
@@ -367,7 +369,11 @@ def main():
             json.dump({
                 "model": args.model,
                 "num_queries": len(queries),
-                "accuracy": accuracy,
+                "metrics": {
+                    "em": agg['em'],
+                    "f1": agg['f1'],
+                    "acc": agg['acc']
+                },
                 "avg_energy_mwh": avg_energy,
                 "avg_steps": avg_steps,
                 "action_counts": action_counts,
