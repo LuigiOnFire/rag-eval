@@ -446,6 +446,99 @@ class FaissRetriever:
         return results
 
 
+class HybridRetriever:
+    """
+    Hybrid retriever combining BM25 and dense retrieval with reciprocal rank fusion.
+    
+    This approach:
+    1. Retrieves top-k from BM25 (good for exact entity matching)
+    2. Retrieves top-k from dense (good for semantic similarity)
+    3. Combines using Reciprocal Rank Fusion (RRF)
+    """
+    
+    def __init__(
+        self,
+        bm25_retriever: BM25Retriever,
+        dense_retriever: FaissRetriever,
+        bm25_weight: float = 0.5,
+        rrf_k: int = 60,
+    ):
+        """
+        Initialize hybrid retriever.
+        
+        Args:
+            bm25_retriever: Initialized BM25 retriever
+            dense_retriever: Initialized dense retriever
+            bm25_weight: Weight for BM25 scores (0-1), dense gets (1-weight)
+            rrf_k: Reciprocal rank fusion constant (default 60)
+        """
+        self.bm25 = bm25_retriever
+        self.dense = dense_retriever
+        self.bm25_weight = bm25_weight
+        self.dense_weight = 1.0 - bm25_weight
+        self.rrf_k = rrf_k
+        
+    def retrieve(
+        self,
+        query: str,
+        top_k: int = 5,
+        bm25_candidates: int = 20,
+        dense_candidates: int = 20,
+    ) -> Tuple[List[Dict], List[float]]:
+        """
+        Retrieve using hybrid BM25 + dense with RRF fusion.
+        
+        Args:
+            query: Query string
+            top_k: Number of final results
+            bm25_candidates: Number of BM25 candidates to fetch
+            dense_candidates: Number of dense candidates to fetch
+            
+        Returns:
+            Tuple of (passages, scores)
+        """
+        # Get BM25 results
+        bm25_passages, bm25_scores = self.bm25.retrieve(query, top_k=bm25_candidates)
+        
+        # Get dense results
+        dense_passages, dense_scores = self.dense.retrieve(query, top_k=dense_candidates)
+        
+        # Build passage ID to rank mapping
+        # Using (title, text[:100]) as pseudo-ID since we don't have unique IDs
+        def get_id(p):
+            return (p.get('title', ''), p.get('text', '')[:100])
+        
+        bm25_ranks = {get_id(p): i + 1 for i, p in enumerate(bm25_passages)}
+        dense_ranks = {get_id(p): i + 1 for i, p in enumerate(dense_passages)}
+        
+        # Collect all unique passages
+        all_passages = {}
+        for p in bm25_passages:
+            all_passages[get_id(p)] = p
+        for p in dense_passages:
+            all_passages[get_id(p)] = p
+        
+        # Calculate RRF scores
+        rrf_scores = {}
+        for pid in all_passages:
+            bm25_rank = bm25_ranks.get(pid, bm25_candidates + 1)
+            dense_rank = dense_ranks.get(pid, dense_candidates + 1)
+            
+            # RRF formula: sum of 1/(k + rank) weighted
+            bm25_rrf = self.bm25_weight / (self.rrf_k + bm25_rank)
+            dense_rrf = self.dense_weight / (self.rrf_k + dense_rank)
+            rrf_scores[pid] = bm25_rrf + dense_rrf
+        
+        # Sort by RRF score
+        sorted_pids = sorted(rrf_scores.keys(), key=lambda x: rrf_scores[x], reverse=True)
+        
+        # Return top-k
+        result_passages = [all_passages[pid] for pid in sorted_pids[:top_k]]
+        result_scores = [rrf_scores[pid] for pid in sorted_pids[:top_k]]
+        
+        return result_passages, result_scores
+
+
 def create_retriever(
     retriever_type: Literal["bm25", "dense"] = "bm25",
     **kwargs
