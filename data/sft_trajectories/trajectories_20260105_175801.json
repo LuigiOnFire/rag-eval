@@ -1,0 +1,634 @@
+{
+  "metadata": {
+    "timestamp": "20260105_175801",
+    "n_samples": 10,
+    "agent_type": "structured_agent_v2"
+  },
+  "stats": {
+    "total": 10,
+    "correct": 5,
+    "comparison_correct": 2,
+    "comparison_total": 3,
+    "bridge_correct": 3,
+    "bridge_total": 7,
+    "errors": [
+      {
+        "question": "What government position was held by the woman who portrayed",
+        "expected": "Chief of Protocol",
+        "got": "Shirley Temple, who portrayed Corliss Archer in the film \"Ki"
+      },
+      {
+        "question": "What science fantasy young adult series, told in first perso",
+        "expected": "Animorphs",
+        "got": "Based on the provided information, it is not possible to det"
+      },
+      {
+        "question": "Who was known by his stage name Aladin and helped organizati",
+        "expected": "Eenasul Fateh",
+        "got": "Based on the provided information, there is no evidence to s"
+      },
+      {
+        "question": "The arena where the Lewiston Maineiacs played their home gam",
+        "expected": "3,677 seated",
+        "got": "The exact number of people that the arena where the Lewiston"
+      },
+      {
+        "question": "Are Local H and For Against both from the United States?",
+        "expected": "yes",
+        "got": "No, Local H is from the United States, but there's no inform"
+      }
+    ]
+  },
+  "trajectories": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "ground_truth": "yes",
+      "answer": "Yes, both Scott Derrickson and Ed Wood were American.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "output": "1. What is the nationality of Scott Derrickson?\n2. What is the nationality of Ed Wood?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "Retrieved: ['Nationality', 'The Exorcism of Emily Rose', 'Scott Derrickson', \"Nationality law of the People'\", 'Si\u00e8ge social']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "Kept 1/5 docs (scores: [3, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "Scott Derrickson is an American director, screenwriter, and producer."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the nationality of Ed Wood? | History: ['What is the nationality of Scott Derrickson?']",
+          "output": "What is the nationality of Ed Wood? (Note that Ed Wood was not mentioned in the previous questions and answers.)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood was not mentioned in the previous questions and answers.)",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood was not mentioned in the previous questions and answers.)",
+          "output": "Retrieved: ['Woodson, Arkansas', 'Final Curtain (film)', 'Ed Wood (film)', 'Conrad Brooks', 'Deep-sea wood']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood was not mentioned in the previous questions and answers.)",
+          "output": "Kept 2/5 docs (scores: [1, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood was not mentioned in the previous questions and answers.)",
+          "output": "Ed Wood was an American filmmaker. He wrote and directed the television pilot \"Final Curtain\" in 1957."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "output": "Yes, both Scott Derrickson and Ed Wood were American."
+        }
+      ]
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "ground_truth": "Chief of Protocol",
+      "answer": "Shirley Temple, who portrayed Corliss Archer in the film \"Kiss and Tell,\" did not hold any government position.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "1. Who portrayed Corliss Archer in the film Kiss and Tell?\n2. What government position was held by the identified individual?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "Retrieved: ['Kiss and Tell (1945 film)', 'A Kiss for Corliss', 'Janet Waldo', 'Meet Corliss Archer (TV series', 'Alex Cross (film)']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "Kept 1/5 docs (scores: [3, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "Shirley Temple portrayed Corliss Archer in the film Kiss and Tell."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What government position was held by the identified individual? | History: ['Who portrayed Corliss Archer in the film Kiss and Tell?']",
+          "output": "What government position was held by Shirley Temple (who portrayed Corliss Archer in the film Kiss and Tell)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What government position was held by Shirley Temple (who portrayed Corliss Archer in the film Kiss and Tell)?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What government position was held by Shirley Temple (who portrayed Corliss Archer in the film Kiss and Tell)?",
+          "output": "Retrieved: ['A Kiss for Corliss', 'Kiss and Tell (1945 film)', 'Managed Money', 'Janet Waldo', 'Meet Corliss Archer (TV series']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What government position was held by Shirley Temple (who portrayed Corliss Archer in the film Kiss and Tell)?",
+          "output": "Kept 2/5 docs (scores: [1, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What government position was held by Shirley Temple (who portrayed Corliss Archer in the film Kiss and Tell)?",
+          "output": "Shirley Temple did not hold any government position. Her notable roles include portraying Corliss Archer in the film \"Kiss and Tell\" (1945) and reprising this role in its sequel, \"A Kiss for Corliss\" or \"Almost a Bride\" (1949)."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "Shirley Temple, who portrayed Corliss Archer in the film \"Kiss and Tell,\" did not hold any government position."
+        }
+      ]
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "ground_truth": "Animorphs",
+      "answer": "Based on the provided information, it is not possible to determine which science fantasy young adult series, if any, has a set of companion books narrating the stories of enslaved worlds and alien species in first person. The Time Quintet series was mentioned but its narrative perspective is not specified within the context given.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "output": "1. Which young adult series is categorized as science fantasy?\n2. In what narrative perspective (first person, third person, etc.) is the science fantasy young adult series presented?\n\nThese questions are factual and can be answered by looking up specific details about the book series in question."
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which young adult series is categorized as science fantasy?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which young adult series is categorized as science fantasy?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In what narrative perspective (first person, third person, etc.) is the science fantasy young adult series presented? | History: ['Which young adult series is categorized as science fantasy?']",
+          "output": "In what narrative perspective is the science fantasy young adult series featuring an unknown protagonist presented?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In what narrative perspective is the science fantasy young adult series featuring an unknown protagonist presented?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In what narrative perspective is the science fantasy young adult series featuring an unknown protagonist presented?",
+          "output": "Retrieved: ['Andre Norton Award', 'The Narrative of John Smith', 'Time Quintet', 'A Wind in the Door', 'Red Queen (novel)']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In what narrative perspective is the science fantasy young adult series featuring an unknown protagonist presented?",
+          "output": "Kept 2/5 docs (scores: [2, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In what narrative perspective is the science fantasy young adult series featuring an unknown protagonist presented?",
+          "output": "The science fantasy young adult series featuring an unknown protagonist is presented in a narrative perspective that is not specified within the provided context. However, it can be assumed that since the Time Quintet series falls under both fantasy and science fiction genres, various narrative perspectives could potentially apply depending on each individual book within the series. The specific narrative perspectives might include first-person (where the protagonist narrates their own story), third-person limited (focusing on one character's thoughts and feelings), or third-person omniscient (providing insights into multiple characters' thoughts and feelings). Without more context about the Time Quintet series, it is impossible to determine the exact narrative perspective used in each book."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "output": "Based on the provided information, it is not possible to determine which science fantasy young adult series, if any, has a set of companion books narrating the stories of enslaved worlds and alien species in first person. The Time Quintet series was mentioned but its narrative perspective is not specified within the context given."
+        }
+      ]
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "ground_truth": "no",
+      "answer": "No, the Laleli Mosque and Esma Sultan Mansion are not located in the same neighborhood. The Esma Sultan Mansion is in Ortak\u00f6y, while the location of the Laleli Mosque remains unknown based on the provided information.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "output": "1. In which neighborhood is the Laleli Mosque located?\n2. In which neighborhood is the Esma Sultan Mansion located?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which neighborhood is the Laleli Mosque located?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which neighborhood is the Laleli Mosque located?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which neighborhood is the Esma Sultan Mansion located? | History: ['In which neighborhood is the Laleli Mosque located?']",
+          "output": "In which neighborhood is the Esma Sultan Mansion located (if we know that the Laleli Mosque is in an unknown neighborhood)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which neighborhood is the Esma Sultan Mansion located (if we know that the Laleli Mosque is in an unknown neighborhood)?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which neighborhood is the Esma Sultan Mansion located (if we know that the Laleli Mosque is in an unknown neighborhood)?",
+          "output": "Retrieved: ['Esma Sultan Mansion', 'Mihrimah Sultan Mosque (Edirne', 'Pertevniyal Valide Sultan Mosq', 'Laleli Mosque', 'Gracie Mansion']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which neighborhood is the Esma Sultan Mansion located (if we know that the Laleli Mosque is in an unknown neighborhood)?",
+          "output": "Kept 2/5 docs (scores: [2, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which neighborhood is the Esma Sultan Mansion located (if we know that the Laleli Mosque is in an unknown neighborhood)?",
+          "output": "The Esma Sultan Mansion is located in the Ortak\u00f6y neighborhood of Istanbul, Turkey. This information was not directly provided in relation to the Laleli Mosque, but it was mentioned separately in the context about the Esma Sultan Mansion."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "output": "No, the Laleli Mosque and Esma Sultan Mansion are not located in the same neighborhood. The Esma Sultan Mansion is in Ortak\u00f6y, while the location of the Laleli Mosque remains unknown based on the provided information."
+        }
+      ]
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "ground_truth": "Greenwich Village, New York City",
+      "answer": "The director of the romantic comedy \"Big Stone Gap\" is based in New York City. More specifically, Adriana Trigiani resides in Greenwich Village, New York City.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "output": "1. Who is the director of the romantic comedy \"Big Stone Gap\"?\n2. What is the current residence of the identified director? (Assuming the director is based in New York City)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "Retrieved: ['Big Stone Gap (film)', 'Letters to Santa (film)', 'Great Stone of Fourstones', 'Magic in the Moonlight', 'Oliver Stone']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "Kept 1/5 docs (scores: [3, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "The director of the romantic comedy \"Big Stone Gap\" is Adriana Trigiani."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the current residence of the identified director? (Assuming the director is based in New York City) | History: ['Who is the director of the romantic comedy \"Big Stone Gap\"?']",
+          "output": "What is the current residence of Adriana Trigiani?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the current residence of Adriana Trigiani?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the current residence of Adriana Trigiani?",
+          "output": "Retrieved: ['Big Stone Gap (film)', 'Adriana Trigiani', \"New Mexico Governor's Mansion\", \"Alabama Governor's Mansion\", \"Victoria's Secret Fashion Show\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the current residence of Adriana Trigiani?",
+          "output": "Kept 1/5 docs (scores: [3, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the current residence of Adriana Trigiani?",
+          "output": "Adriana Trigiani currently resides in Greenwich Village, New York City."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "output": "The director of the romantic comedy \"Big Stone Gap\" is based in New York City. More specifically, Adriana Trigiani resides in Greenwich Village, New York City."
+        }
+      ]
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "ground_truth": "YG Entertainment",
+      "answer": "The debut album \"2014 S/S\" was formed by YG Entertainment.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "output": "1. Who formed the South Korean boy group that released the debut album \"2014 S/S\"?\n2. In which year was the debut album \"2014 S/S\" released by the South Korean boy group?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "Retrieved: ['SF9 (band)', '2014 S/S', 'Seventeen discography', 'Madtown', \"Girls' Generation\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "Kept 3/5 docs (scores: [3, 3, 3])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "The South Korean boy group that released the debut album \"2014 S/S\" was formed by YG Entertainment."
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which year was the debut album \"2014 S/S\" released by the South Korean boy group? | History: ['Who formed the South Korean boy group that released the debut album \"2014 S/S\"?']",
+          "output": "In which year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "Retrieved: ['2014 S/S', 'Good Boy (song)', 'Winner (band)', 'EXO-CBX', 'Seventeen discography']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "Kept 1/5 docs (scores: [3, 2, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "The debut album \"2014 S/S\" was released by the South Korean boy group formed by YG Entertainment in the year 2014."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "output": "The debut album \"2014 S/S\" was formed by YG Entertainment."
+        }
+      ]
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "ground_truth": "Eenasul Fateh",
+      "answer": "Based on the provided information, there is no evidence to suggest that someone known by the stage name Aladin worked as a consultant for any organization to improve their performance.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "output": "1. Who is known by the stage name Aladin?\n2. Which organization(s) did Aladin consult to improve their performance?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is known by the stage name Aladin?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who is known by the stage name Aladin?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which organization(s) did Aladin consult to improve their performance? | History: ['Who is known by the stage name Aladin?']",
+          "output": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Retrieved: ['Eenasul Fateh', 'Literacy Coalition of Palm Bea', 'Love Thy Neighbor (1940 film)', 'Repast (film)', 'Equinalysis']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Kept 2/5 docs (scores: [1, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Based on the provided context, there is no information suggesting that Aladin (Eenasul Fateh) has consulted for any organization to improve their performance. The details given pertain to his career as a magician and cultural practitioner, as well as the mission of the Literacy Coalition of Palm Beach County."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "output": "Based on the provided information, there is no evidence to suggest that someone known by the stage name Aladin worked as a consultant for any organization to improve their performance."
+        }
+      ]
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "ground_truth": "3,677 seated",
+      "answer": "The exact number of people that the arena where the Lewiston Maineiacs played their home games can seat is not explicitly stated in the provided context. Further research would be needed to determine the seating capacity for the Androscoggin Bank Colis\u00e9e, specifically for hockey events.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "output": "1. What is the name of the arena where the Lewiston Maineiacs played their home games?\n2. How many people can the identified arena seat?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What is the name of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "How many people can the identified arena seat? | History: ['What is the name of the arena where the Lewiston Maineiacs played their home games?']",
+          "output": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Retrieved: ['Lewiston Maineiacs', '2006\u201307 QMJHL season', '\u017dalgiris Arena', 'Los Angeles Memorial Coliseum', 'Billings Bulls']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Kept 2/5 docs (scores: [1, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "The seating capacity of the arena where the Lewiston Maineiacs played their home games is not explicitly stated in the provided context. However, it is known that they played at the Androscoggin Bank Colis\u00e9e. To find the exact seating capacity for this specific venue, additional research would be required as it varies depending on the event and configuration of seating."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "output": "The exact number of people that the arena where the Lewiston Maineiacs played their home games can seat is not explicitly stated in the provided context. Further research would be needed to determine the seating capacity for the Androscoggin Bank Colis\u00e9e, specifically for hockey events."
+        }
+      ]
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "ground_truth": "Terry Richardson",
+      "answer": "Based on the provided information, it cannot be determined who is older between Annie Morton and Terry Richardson since there is no specific mention of Terry Richardson's birth year in the context given.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Who is older, Annie Morton or Terry Richardson?",
+          "output": "1. What year was Annie Morton born?\n2. What year was Terry Richardson born?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What year was Annie Morton born?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What year was Annie Morton born?",
+          "output": "Retrieved: ['Alicia Morton', 'Pattern of My Life', 'Annie Morton', 'William Morton (footballer)', 'Hannah Gale']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What year was Annie Morton born?",
+          "output": "Kept 1/5 docs (scores: [3, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What year was Annie Morton born?",
+          "output": "Annie Morton was born in the year 1970."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What year was Terry Richardson born? | History: ['What year was Annie Morton born?']",
+          "output": "What year was Terry Richardson born? (Note: The question does not refer to any specific person named in previous questions and answers.)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What year was Terry Richardson born? (Note: The question does not refer to any specific person named in previous questions and answers.)",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What year was Terry Richardson born? (Note: The question does not refer to any specific person named in previous questions and answers.)",
+          "output": "Retrieved: ['GMO Answers', 'The Design Revolution', 'Oral exam', 'Watson (computer)', 'Gender-neutral language']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What year was Terry Richardson born? (Note: The question does not refer to any specific person named in previous questions and answers.)",
+          "output": "Kept 2/5 docs (scores: [1, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What year was Terry Richardson born? (Note: The question does not refer to any specific person named in previous questions and answers.)",
+          "output": "Terry Richardson was not specifically mentioned in the provided context regarding Annie Morton. Therefore, there is no information available to determine the year Terry Richardson was born based on this context. However, it should be noted that Terry Richardson is a photographer who has worked with Annie Morton, as stated in her biography."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Who is older, Annie Morton or Terry Richardson?",
+          "output": "Based on the provided information, it cannot be determined who is older between Annie Morton and Terry Richardson since there is no specific mention of Terry Richardson's birth year in the context given."
+        }
+      ]
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "ground_truth": "yes",
+      "answer": "No, Local H is from the United States, but there's no information provided to confirm whether For Against is also based in the U.S.",
+      "question_type": "comparison",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are Local H and For Against both from the United States?",
+          "output": "1. In which country is Local H based?\n2. In which country is For Against based?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which country is Local H based?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which country is Local H based?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which country is For Against based? | History: ['In which country is Local H based?']",
+          "output": "In which country is For Against, the band that Local H is not based in?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which country is For Against, the band that Local H is not based in?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which country is For Against, the band that Local H is not based in?",
+          "output": "Retrieved: [\"Hallelujah! I'm a Bum (album)\", 'The Team EP', 'Local H', 'Registered trademark symbol', 'Guarulhos']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which country is For Against, the band that Local H is not based in?",
+          "output": "Kept 2/5 docs (scores: [1, 1, 1])"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which country is For Against, the band that Local H is not based in?",
+          "output": "For Against is a band that Local H is not based in. As per the provided context, Local H is based in Chicago, United States. Therefore, For Against must be based outside of the United States. However, specific information about the location of For Against was not provided in the given context."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are Local H and For Against both from the United States?",
+          "output": "No, Local H is from the United States, but there's no information provided to confirm whether For Against is also based in the U.S."
+        }
+      ]
+    }
+  ]
+}

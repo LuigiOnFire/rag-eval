@@ -1,0 +1,233 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-18T15:05:06.659860",
+    "n_samples": 5,
+    "simplification_enabled": true,
+    "retry_enabled": true
+  },
+  "stats": {
+    "total": 5,
+    "correct_first_try": 2,
+    "correct_after_retry": 1,
+    "incorrect": 2,
+    "simplified": 0,
+    "total_steps": 10,
+    "total_energy_wh": 0.295,
+    "accuracy": 0.6,
+    "avg_steps": 2.0,
+    "avg_energy_wh": 0.059
+  },
+  "trajectories": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "ground_truth": "yes",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Scott Derrickson",
+          0
+        ],
+        [
+          "Ed Wood",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWere Scott Derrickson and Ed Wood of the same nationality?",
+          "llm_output": "Thought: The question is asking about the nationalities of two individuals, Scott Derrickson and Ed Wood. Since they are both filmmakers, I can assume that their nationalities might be related to their film careers.\n\nAction: RETRIEVE_KEYWORD[\"Scott Derrickson\" AND \"Ed Wood\" AND nationality]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": null,
+          "result": "Retrieved 5 documents for 'Were Scott Derrickson and Ed Wood of the same nationality?'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWere Scott Derrickson and Ed Wood of the same nationality?\n\n=== RETRIEVED CONTEXT ===\n[Woodson, Arkansas]: Woodson is a census-designated place (CDP) in Pulaski County, Arkansas, in the United States.  Its population was 403 at the 2010 census.  It is part of the Little Rock\u2013North Little Rock\u2013Conway Metropolitan Statistical Area.  Woodson and its accompanying Woodson Lake and Wood Hollow are the namesake for Ed Wood Sr., a prominent plantation owner, trader, and businessman at the ",
+          "llm_output": "Thought: The query asks whether Scott Derrickson and Ed Wood are of the same nationality, but we have context about both individuals. Scott Derrickson is an American film director, while Ed Wood Sr. was an American plantation owner, trader, and businessman. Therefore, it's likely that they shared a common nationality.\n\nAction: GENERATE_SLM",
+          "action": "GENERATE_SLM",
+          "parameters": null,
+          "result": "No, Scott Derrickson is American, while Ed Wood was Canadian."
+        }
+      ],
+      "answer": "No, Scott Derrickson is American, while Ed Wood was Canadian.",
+      "is_correct": false,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "ground_truth": "Chief of Protocol",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Kiss and Tell (1945 film)",
+          0
+        ],
+        [
+          "Shirley Temple",
+          0
+        ],
+        [
+          "Shirley Temple",
+          1
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhat government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "llm_output": "Thought: The question is asking about a specific actress who played Corliss Archer in the film Kiss and Tell, and we need to find her name.\n\nAction: RETRIEVE_KEYWORD[\"Corliss Archer\", \"Kiss and Tell\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": null,
+          "result": "Retrieved 5 documents for 'What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhat government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?\n\n=== RETRIEVED CONTEXT ===\n[A Kiss for Corliss]: A Kiss for Corliss is a 1949 American comedy film directed by Richard Wallace and written by Howard Dimsdale.  It stars Shirley Temple in her final starring role as well as her final film appearance.  It is a sequel to the 1945 film \"Kiss and Tell\".  \"A Kiss for Corliss\" was retitled \"Almost a Bride\" before release and this title ap",
+          "llm_output": "Thought: The context provided mentions that Shirley Temple played Corliss Archer in the film Kiss and Tell. Since we have relevant context, we can generate an answer based on this information.\n\nAction: GENERATE_SLM",
+          "action": "GENERATE_SLM",
+          "parameters": null,
+          "result": "There is no information provided that indicates the woman who portrayed Corliss Archer in the film Kiss and Tell held a government position. Shirley Temple, who played Corliss Archer, was an actress, not a politician or government official."
+        }
+      ],
+      "answer": "There is no information provided that indicates the woman who portrayed Corliss Archer in the film Kiss and Tell held a government position. Shirley Temple, who played Corliss Archer, was an actress, not a politician or government official.",
+      "is_correct": false,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "ground_truth": "Animorphs",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "The Hork-Bajir Chronicles",
+          0
+        ],
+        [
+          "The Hork-Bajir Chronicles",
+          1
+        ],
+        [
+          "The Hork-Bajir Chronicles",
+          2
+        ],
+        [
+          "Animorphs",
+          0
+        ],
+        [
+          "Animorphs",
+          1
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhat science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "llm_output": "Thought: The query mentions a science fantasy young adult series with a unique narrative structure, featuring first-person narration and companion books that explore the stories of enslaved worlds and alien species.\n\nAction: RETRIEVE_DENSE[\"science fantasy\", \"young adult\", \"first person\", \"companion books\", \"enslaved worlds\", \"alien species\"]",
+          "action": "RETRIEVE_DENSE",
+          "parameters": null,
+          "result": "Retrieved 5 documents for 'What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhat science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?\n\n=== RETRIEVED CONTEXT ===\n[Animorphs]: Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic.  It is told in first person, with all six main characters taking turns narrating the books thro",
+          "llm_output": "Thought: The query mentions a science fantasy young adult series with companion books narrating stories of enslaved worlds and alien species. Since we have retrieved context, we can generate an answer based on this information.\n\nAction: GENERATE_SLM",
+          "action": "GENERATE_SLM",
+          "parameters": null,
+          "result": "The Animorphs series, written by Katherine Applegate and Michael Grant, fits this description as it is a science fantasy young adult series told in first person, with some companion books exploring themes related to enslaved worlds and alien species."
+        }
+      ],
+      "answer": "The Animorphs series, written by Katherine Applegate and Michael Grant, fits this description as it is a science fantasy young adult series told in first person, with some companion books exploring themes related to enslaved worlds and alien species.",
+      "is_correct": true,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "ground_truth": "no",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Laleli Mosque",
+          0
+        ],
+        [
+          "Esma Sultan Mansion",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nAre the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "llm_output": "Thought: The question is asking about the location of two historical buildings, Laleli Mosque and Esma Sultan Mansion. Since it's a simple question with no context provided, we can start by retrieving relevant documents.\n\nAction: RETRIEVE_KEYWORD[\"Laleli Mosque\", \"Esma Sultan Mansion\", \"neighborhood\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": null,
+          "result": "Retrieved 5 documents for 'Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nAre the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?\n\n=== RETRIEVED CONTEXT ===\n[Esma Sultan Mansion]: The Esma Sultan Mansion (Turkish: \"Esma Sultan Yal\u0131s\u0131\" ), a historical yal\u0131 (English: waterside mansion ) located at Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey and named after its original owner Esma Sultan, is used today as a cultural center after being redeveloped.\n[Laleli Mosque]: The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ",
+          "llm_output": "Thought: We have retrieved context about several mosques and mansions, including Laleli Mosque and Esma Sultan Mansion. Since we already have relevant context, we can generate an answer based on this information.\n\nAction: GENERATE_SLM",
+          "action": "GENERATE_SLM",
+          "parameters": null,
+          "result": "No, the Laleli Mosque is located in the Laleli neighborhood, while the Esma Sultan Mansion is situated in Ortak\u00f6y."
+        }
+      ],
+      "answer": "No, the Laleli Mosque is located in the Laleli neighborhood, while the Esma Sultan Mansion is situated in Ortak\u00f6y.",
+      "is_correct": true,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "ground_truth": "Greenwich Village, New York City",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Big Stone Gap (film)",
+          0
+        ],
+        [
+          "Adriana Trigiani",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nThe director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\n[Hint: Look for information about: Big Stone Gap (film), Adriana Trigiani]",
+          "llm_output": "Thought: The question asks about the director of a specific film, and we have hints about the film's connection to a particular New York city.\n\nAction: RETRIEVE_KEYWORD[\"Big Stone Gap\", \"Adriana Trigiani\", \"New York city\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": null,
+          "result": "Retrieved 5 documents for 'The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\n[Hint: Look for information about: Big Stone Gap (film), Adriana Trigiani]'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nThe director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\n[Hint: Look for information about: Big Stone Gap (film), Adriana Trigiani]\n\n=== RETRIEVED CONTEXT ===\n[Big Stone Gap (film)]: Big Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society.  Based on Trigiani's 2000 best-selling novel of the same name, the story is set in ",
+          "llm_output": "Thought: The director Adriana Trigiani is based in Greenwich Village, New York City, which is mentioned in the context.\n\nAction: GENERATE_SLM or Action: GENERATE_LLM",
+          "action": "GENERATE_SLM",
+          "parameters": null,
+          "result": "Adriana Trigiani, the director of the film \"Big Stone Gap\", is based in Greenwich Village, New York City."
+        }
+      ],
+      "answer": "Adriana Trigiani, the director of the film \"Big Stone Gap\", is based in Greenwich Village, New York City.",
+      "is_correct": true,
+      "total_energy_wh": 0.059,
+      "attempt": 2,
+      "was_simplified": false,
+      "original_steps": null
+    }
+  ]
+}

@@ -1,0 +1,3299 @@
+{
+  "metadata": {
+    "timestamp": "20251218_173027",
+    "n_samples": 50,
+    "agent_type": "structured_agent_v2"
+  },
+  "stats": {
+    "total": 50,
+    "correct": 24,
+    "comparison_correct": 12,
+    "comparison_total": 14,
+    "bridge_correct": 12,
+    "bridge_total": 36,
+    "errors": [
+      {
+        "question": "What government position was held by the woman who portrayed",
+        "expected": "Chief of Protocol",
+        "got": "The woman who portrayed Corliss Archer in the film \"Kiss and"
+      },
+      {
+        "question": "What science fantasy young adult series, told in first perso",
+        "expected": "Animorphs",
+        "got": "I'm sorry for any confusion, but based on the information pr"
+      },
+      {
+        "question": "Who was known by his stage name Aladin and helped organizati",
+        "expected": "Eenasul Fateh",
+        "got": "Based on the provided findings, there is no information avai"
+      },
+      {
+        "question": "The arena where the Lewiston Maineiacs played their home gam",
+        "expected": "3,677 seated",
+        "got": "The arena where the Lewiston Maineiacs played their home gam"
+      },
+      {
+        "question": "The football manager who recruited David Beckham managed Man",
+        "expected": "from 1986 to 2013",
+        "got": "The football manager who recruited David Beckham managed Man"
+      },
+      {
+        "question": "Brown State Fishing Lake is in a country that has a populati",
+        "expected": "9,984",
+        "got": "The final answer cannot be determined based on the given con"
+      },
+      {
+        "question": "The Vermont Catamounts men's soccer team currently competes ",
+        "expected": "the North Atlantic Conference",
+        "got": "Based on the provided context, it is not possible to definit"
+      },
+      {
+        "question": "Roger O. Egeberg was Assistant Secretary for Health and Scie",
+        "expected": "1969 until 1974",
+        "got": "Roger O. Egeberg served as Assistant Secretary for Health an"
+      },
+      {
+        "question": "Which writer was from England, Henry Roth or Robert Erskine ",
+        "expected": "Robert Erskine Childers DSC",
+        "got": "Neither Henry Roth nor Robert Erskine Childers were from Eng"
+      },
+      {
+        "question": "Which other Mexican Formula One race car driver has held the",
+        "expected": "Pedro Rodr\u00edguez",
+        "got": "Based on the provided information, no other Mexican Formula "
+      },
+      {
+        "question": "This singer of A Rather Blustery Day also voiced what hedgeh",
+        "expected": "Sonic",
+        "got": "The singer of \"A Rather Blustery Day,\" Jim Cummings, did not"
+      },
+      {
+        "question": "Aside from the Apple Remote, what other device can control t",
+        "expected": "keyboard function keys",
+        "got": "Other devices that can control the program Apple Remote was "
+      },
+      {
+        "question": "What was the father of Kasper Schmeichel voted to be by the ",
+        "expected": "World's Best Goalkeeper",
+        "got": "Peter Schmeichel was voted as the best goalkeeper in the wor"
+      },
+      {
+        "question": "Who was the writer of These Boots Are Made for Walkin' and w",
+        "expected": "Barton Lee Hazlewood",
+        "got": "Lee Hazlewood, the writer of \"These Boots Are Made for Walki"
+      },
+      {
+        "question": "What is the name for the adventure in \"Tunnels and Trolls\", ",
+        "expected": "Arena of Khazan",
+        "got": "The provided findings do not specify the name of an adventur"
+      },
+      {
+        "question": "Hayden is a singer-songwriter from Canada, but where does Bu",
+        "expected": "Fujioka, Gunma",
+        "got": "Buck-Tick hails from Japan."
+      },
+      {
+        "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+        "expected": "Charles Eug\u00e8ne",
+        "got": "Charles Nungesser flew L'Oiseau Blanc."
+      },
+      {
+        "question": "Alexander Kerensky was defeated and destroyed by the Bolshev",
+        "expected": "October 1922",
+        "got": "The Russian Civil War ended in 1923."
+      },
+      {
+        "question": "Seven Brief Lessons on Physics was written by an Italian phy",
+        "expected": "2000",
+        "got": "Since the provided context does not specify the exact year C"
+      },
+      {
+        "question": "The Livesey Hal War Memorial commemorates the fallen of whic",
+        "expected": "World War II",
+        "got": "Based on the provided findings, it is not possible to determ"
+      },
+      {
+        "question": "Ralph Hefferline was a psychology professor at a university ",
+        "expected": "New York City",
+        "got": "The city where Ralph Hefferline's university (Columbia Unive"
+      },
+      {
+        "question": "A Japanese manga series based on a 16 year old high school s",
+        "expected": "1962",
+        "got": "The Japanese manga series featuring Ichitaka Seto, known as "
+      },
+      {
+        "question": "The battle in which Giuseppe Arimondi lost his life secured ",
+        "expected": "sovereignty",
+        "got": "Based on the provided findings, it is not possible to determ"
+      },
+      {
+        "question": "A medieval fortress in Dirleton, East Lothian, Scotland bord",
+        "expected": "Yellowcraig",
+        "got": "The medieval fortress in Dirleton, East Lothian, Scotland bo"
+      },
+      {
+        "question": "What type of forum did a former Soviet statesman initiate?",
+        "expected": "Organizations could come together to address global issues",
+        "got": "There is no information provided to determine the type of fo"
+      },
+      {
+        "question": "Which British first-generation jet-powered medium bomber was",
+        "expected": "English Electric Canberra",
+        "got": "Based on the provided context, it is not possible to determi"
+      }
+    ]
+  },
+  "trajectories": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "ground_truth": "yes",
+      "answer": "Yes, both Scott Derrickson and Ed Wood were American.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "output": "1. What is the nationality of Scott Derrickson?\n2. What is the nationality of Ed Wood?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "Retrieved: ['Nationality', 'The Exorcism of Emily Rose', 'Scott Derrickson', \"Nationality law of the People'\", 'Si\u00e8ge social']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the nationality of Scott Derrickson?",
+          "output": "Scott Derrickson is an American. He was born in the United States on July 16, 1966, and currently resides in Los Angeles, California."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the nationality of Ed Wood? | History: ['What is the nationality of Scott Derrickson?']",
+          "output": "What is the nationality of Ed Wood? (Note that Ed Wood is not one of the individuals mentioned in the previous questions and answers.)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood is not one of the individuals mentioned in the previous questions and answers.)",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood is not one of the individuals mentioned in the previous questions and answers.)",
+          "output": "Retrieved: ['Woodson, Arkansas', 'Deep-sea wood', 'Lantern Waste', 'Final Curtain (film)', \"Merlin's Wood\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood is not one of the individuals mentioned in the previous questions and answers.)",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood is not one of the individuals mentioned in the previous questions and answers.)",
+          "output": "Ed Wood birthplace\" or \"Where was Ed Wood from?"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Ed Wood birthplace\" or \"Where was Ed Wood from?",
+          "output": "Retrieved: ['Woodson, Arkansas', 'Final Curtain (film)', 'Ed Wood (film)', 'Conrad Brooks', \"Merlin's Wood\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood is not one of the individuals mentioned in the previous questions and answers.)",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the nationality of Ed Wood? (Note that Ed Wood is not one of the individuals mentioned in the previous questions and answers.)",
+          "output": "Ed Wood was an American. He was born in Baltimore, Maryland on January 3, 1930. He moved to Hollywood, California in 1948 to pursue a career in acting."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "output": "Yes, both Scott Derrickson and Ed Wood were American."
+        }
+      ]
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "ground_truth": "Chief of Protocol",
+      "answer": "The woman who portrayed Corliss Archer in the film \"Kiss and Tell,\" Shirley Temple, did not hold any known government position.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "1. Who played the role of Corliss Archer in the film \"Kiss and Tell\"?\n2. What government position was held by the individual identified in answer to question 1?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who played the role of Corliss Archer in the film \"Kiss and Tell\"?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who played the role of Corliss Archer in the film \"Kiss and Tell\"?",
+          "output": "Retrieved: ['A Kiss for Corliss', 'Kiss and Tell (1945 film)', 'Manfish', 'Meet Corliss Archer (TV series', 'Janet Waldo']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who played the role of Corliss Archer in the film \"Kiss and Tell\"?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who played the role of Corliss Archer in the film \"Kiss and Tell\"?",
+          "output": "Shirley Temple played the role of Corliss Archer in the film \"Kiss and Tell.\""
+        },
+        {
+          "action": "REWRITE",
+          "input": "What government position was held by the individual identified in answer to question 1? | History: ['Who played the role of Corliss Archer in the film \"Kiss and Tell\"?']",
+          "output": "What government position was held by Shirley Temple (who played the role of Corliss Archer in the film \"Kiss and Tell\")?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What government position was held by Shirley Temple (who played the role of Corliss Archer in the film \"Kiss and Tell\")?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What government position was held by Shirley Temple (who played the role of Corliss Archer in the film \"Kiss and Tell\")?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What government position was held by Shirley Temple (who played the role of Corliss Archer in the film \"Kiss and Tell\")?",
+          "output": "Shirley Temple, who played the role of Corliss Archer in the film \"Kiss and Tell,\" did not hold any known government position. She is primarily recognized for her acting career, particularly as a child star during Hollywood's Golden Age."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "output": "The woman who portrayed Corliss Archer in the film \"Kiss and Tell,\" Shirley Temple, did not hold any known government position."
+        }
+      ]
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "ground_truth": "Animorphs",
+      "answer": "I'm sorry for any confusion, but based on the information provided, it is not possible to determine which science fantasy young adult series, if any, is told in first person and has companion books narrating the stories of enslaved worlds and alien species. The findings do not include sufficient details about the identified series or the companion books.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "output": "1. Which young adult series is categorized as science fantasy?\n2. In which format are the companion books in the identified series narrated (first person, enslaved worlds, and alien species)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which young adult series is categorized as science fantasy?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which young adult series is categorized as science fantasy?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which format are the companion books in the identified series narrated (first person, enslaved worlds, and alien species)? | History: ['Which young adult series is categorized as science fantasy?']",
+          "output": "In which format are the companion books in the Unknown young adult series narrated (first person, enslaved worlds, and alien species)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which format are the companion books in the Unknown young adult series narrated (first person, enslaved worlds, and alien species)?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which format are the companion books in the Unknown young adult series narrated (first person, enslaved worlds, and alien species)?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which format are the companion books in the Unknown young adult series narrated (first person, enslaved worlds, and alien species)?",
+          "output": "The format of the companion books in the Unknown young adult series is not specified in the provided context. Therefore, I cannot provide a definitive answer regarding whether they are narrated in first person or not, nor about their content related to enslaved worlds or alien species."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "output": "I'm sorry for any confusion, but based on the information provided, it is not possible to determine which science fantasy young adult series, if any, is told in first person and has companion books narrating the stories of enslaved worlds and alien species. The findings do not include sufficient details about the identified series or the companion books."
+        }
+      ]
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "ground_truth": "no",
+      "answer": "No, it cannot be determined if the Laleli Mosque and Esma Sultan Mansion are located in the same neighborhood as both their locations are currently unknown.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "output": "1. In which neighborhood is the Laleli Mosque located?\n2. In which neighborhood is the Esma Sultan Mansion located?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which neighborhood is the Laleli Mosque located?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which neighborhood is the Laleli Mosque located?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which neighborhood is the Esma Sultan Mansion located? | History: ['In which neighborhood is the Laleli Mosque located?']",
+          "output": "In which neighborhood is the Esma Sultan Mansion located, given that the Laleli Mosque's location is currently unknown?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which neighborhood is the Esma Sultan Mansion located, given that the Laleli Mosque's location is currently unknown?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which neighborhood is the Esma Sultan Mansion located, given that the Laleli Mosque's location is currently unknown?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which neighborhood is the Esma Sultan Mansion located, given that the Laleli Mosque's location is currently unknown?",
+          "output": "The location of the Esma Sultan Mansion is unknown as the location of the Laleli Mosque, which was used for reference in this question, is also currently unknown. Therefore, I cannot definitively state where the Esma Sultan Mansion is located based on the provided context and previous findings."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "output": "No, it cannot be determined if the Laleli Mosque and Esma Sultan Mansion are located in the same neighborhood as both their locations are currently unknown."
+        }
+      ]
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "ground_truth": "Greenwich Village, New York City",
+      "answer": "The director of the romantic comedy \"Big Stone Gap\" is based in Greenwich Village, New York City.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "output": "1. Who is the director of the romantic comedy \"Big Stone Gap\"?\n2. What is the current residence of the identified director? (Assuming the director's current residence could be found in a city, and New York City is specified as the city of interest.)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "Retrieved: ['Big Stone Gap (film)', 'Letters to Santa (film)', 'Great Stone of Fourstones', 'Magic in the Moonlight', 'Oliver Stone']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who is the director of the romantic comedy \"Big Stone Gap\"?",
+          "output": "The director of the romantic comedy \"Big Stone Gap\" is Adriana Trigiani."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the current residence of the identified director? (Assuming the director's current residence could be found in a city, and New York City is specified as the city of interest.) | History: ['Who is the director of the romantic comedy \"Big Stone Gap\"?']",
+          "output": "What is Adriana Trigiani's current residence in New York City?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is Adriana Trigiani's current residence in New York City?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is Adriana Trigiani's current residence in New York City?",
+          "output": "Retrieved: ['Adriana Trigiani', 'Big Stone Gap (film)', 'Chirlane McCray', 'The Society Management', \"New Mexico Governor's Mansion\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is Adriana Trigiani's current residence in New York City?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is Adriana Trigiani's current residence in New York City?",
+          "output": "Adriana Trigiani's current residence is in Greenwich Village, New York City."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+          "output": "The director of the romantic comedy \"Big Stone Gap\" is based in Greenwich Village, New York City."
+        }
+      ]
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "ground_truth": "YG Entertainment",
+      "answer": "The South Korean boy group that released the debut album \"2014 S/S\" was formed by YG Entertainment.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "output": "1. Who formed the South Korean boy group that released the debut album \"2014 S/S\"?\n2. In what year was the debut album \"2014 S/S\" released by the South Korean boy group?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "Retrieved: ['SF9 (band)', '2014 S/S', 'Seventeen discography', 'Madtown', \"Girls' Generation\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "Kept 3/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who formed the South Korean boy group that released the debut album \"2014 S/S\"?",
+          "output": "The South Korean boy group that released the debut album \"2014 S/S\" was formed by YG Entertainment."
+        },
+        {
+          "action": "REWRITE",
+          "input": "In what year was the debut album \"2014 S/S\" released by the South Korean boy group? | History: ['Who formed the South Korean boy group that released the debut album \"2014 S/S\"?']",
+          "output": "In what year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In what year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In what year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "Retrieved: ['2014 S/S', 'Good Boy (song)', 'Winner (band)', 'EXO-CBX', 'Seventeen discography']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In what year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In what year was the debut album \"2014 S/S\" released by The South Korean boy group formed by YG Entertainment?",
+          "output": "The debut album \"2014 S/S\" was released by the South Korean boy group formed by YG Entertainment in the year 2014."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+          "output": "The South Korean boy group that released the debut album \"2014 S/S\" was formed by YG Entertainment."
+        }
+      ]
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "ground_truth": "Eenasul Fateh",
+      "answer": "Based on the provided findings, there is no information available about who was known by the stage name Aladin and helped organizations improve their performance as a consultant.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "output": "1. Who is known by the stage name Aladin?\n2. Which organization(s) did Aladin consult to improve their performance?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is known by the stage name Aladin?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who is known by the stage name Aladin?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which organization(s) did Aladin consult to improve their performance? | History: ['Who is known by the stage name Aladin?']",
+          "output": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Retrieved: ['Eenasul Fateh', 'Literacy Coalition of Palm Bea', 'Love Thy Neighbor (1940 film)', 'Repast (film)', 'Equinalysis']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Aladin diplomatic consultations\" or \"Aladin political advisory roles\" or \"Aladin nation organization collaboration"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Aladin diplomatic consultations\" or \"Aladin political advisory roles\" or \"Aladin nation organization collaboration",
+          "output": "Retrieved: ['Eenasul Fateh', 'Diplomatic bag', 'Nationalism', 'Diplomatic mission', 'Head of mission']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which organization(s) did Aladin (who is unknown by a stage name) consult to improve their performance?",
+          "output": "Based on the provided context and previous findings, there is no information available about which organizations Aladin (who is unknown by a stage name) consulted to improve their performance."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "output": "Based on the provided findings, there is no information available about who was known by the stage name Aladin and helped organizations improve their performance as a consultant."
+        }
+      ]
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "ground_truth": "3,677 seated",
+      "answer": "The arena where the Lewiston Maineiacs played their home games can seat 3,677 people.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "output": "1. What is the name of the arena where the Lewiston Maineiacs played their home games?\n2. How many people can the identified arena seat?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What is the name of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "How many people can the identified arena seat? | History: ['What is the name of the arena where the Lewiston Maineiacs played their home games?']",
+          "output": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Retrieved: ['Lewiston Maineiacs', '2006\u201307 QMJHL season', '\u017dalgiris Arena', 'Los Angeles Memorial Coliseum', 'Billings Bulls']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Lewiston arena seating capacity\" or \"Maineiacs home game venue capacity"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Lewiston arena seating capacity\" or \"Maineiacs home game venue capacity",
+          "output": "Retrieved: ['\u017dalgiris Arena', 'Androscoggin Bank Colis\u00e9e', 'Arrowhead Stadium', 'FirstEnergy Stadium', 'Chalkiopoulio Sports Hall']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the seating capacity of the arena where the Lewiston Maineiacs played their home games?",
+          "output": "The seating capacity of the arena where the Lewiston Maineiacs played their home games is 3,677. This information pertains to the Androscoggin Bank Colis\u00e9e, which was formerly known as the Central Maine Civic Center and Lewiston Colisee."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "output": "The arena where the Lewiston Maineiacs played their home games can seat 3,677 people."
+        }
+      ]
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "ground_truth": "Terry Richardson",
+      "answer": "Based on the given findings, Annie Morton is older than Terry Richardson as there is no specific mention of his birthdate in the provided context.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Who is older, Annie Morton or Terry Richardson?",
+          "output": "1. When was Annie Morton born?\n2. When was Terry Richardson born?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "When was Annie Morton born?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "When was Annie Morton born?",
+          "output": "Retrieved: ['Alicia Morton', 'Annie Morton', 'Hannah Gale', 'Morton F. Plant House', 'Anne No\u00eb']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "When was Annie Morton born?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "When was Annie Morton born?",
+          "output": "Annie Morton was born on October 8, 1970."
+        },
+        {
+          "action": "REWRITE",
+          "input": "When was Terry Richardson born? | History: ['When was Annie Morton born?']",
+          "output": "When was Terry Richardson born? (Note: The question does not refer to any specific individual named in previous questions.)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "When was Terry Richardson born? (Note: The question does not refer to any specific individual named in previous questions.)",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "When was Terry Richardson born? (Note: The question does not refer to any specific individual named in previous questions.)",
+          "output": "Retrieved: ['The Design Revolution', 'Oral exam', 'Watson (computer)', 'WebRIOT', 'Gender-neutral language']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "When was Terry Richardson born? (Note: The question does not refer to any specific individual named in previous questions.)",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "When was Terry Richardson born? (Note: The question does not refer to any specific individual named in previous questions.)",
+          "output": "Terry Richardson birth year\" or \"When was Terry born?"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Terry Richardson birth year\" or \"When was Terry born?",
+          "output": "Retrieved: ['Kenton Richardson', 'Lady Gaga x Terry Richardson', 'Terry Daniher', 'James L. Terry', 'Terry Eades']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "When was Terry Richardson born? (Note: The question does not refer to any specific individual named in previous questions.)",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "When was Terry Richardson born? (Note: The question does not refer to any specific individual named in previous questions.)",
+          "output": "Terry Richardson was a photographer who worked with Annie Morton. There is no specific mention of his birthdate in the provided context."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Who is older, Annie Morton or Terry Richardson?",
+          "output": "Based on the given findings, Annie Morton is older than Terry Richardson as there is no specific mention of his birthdate in the provided context."
+        }
+      ]
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "ground_truth": "yes",
+      "answer": "Yes, Local H is from the United States, but there's no information about the country of origin for For Against in the given context.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are Local H and For Against both from the United States?",
+          "output": "1. What is the country of origin for Local H?\n2. What is the country of origin for For Against?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the country of origin for Local H?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the country of origin for Local H?",
+          "output": "Retrieved: ['Rules of origin', 'William H. Cook Water Tank Hou', 'Glossary of French expressions', 'Homeland', \"O'Reilly\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the country of origin for Local H?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the country of origin for Local H?",
+          "output": "Local H origin country\" or \"Home town of Local H band members"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Local H origin country\" or \"Home town of Local H band members",
+          "output": "Retrieved: ['Local H', 'The Team EP', 'Amherst, Massachusetts', 'UFOFU', \"Local H's Awesome Mix Tape 2\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the country of origin for Local H?",
+          "output": "Kept 4/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the country of origin for Local H?",
+          "output": "The country of origin for Local H is the United States. This is based on the fact that they were formed by members who met in high school in Zion, Illinois in 1987."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the country of origin for For Against? | History: ['What is the country of origin for Local H?']",
+          "output": "What is the country of origin for For Against, a band that has not been previously mentioned in our conversation?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the country of origin for For Against, a band that has not been previously mentioned in our conversation?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the country of origin for For Against, a band that has not been previously mentioned in our conversation?",
+          "output": "Retrieved: ['Delayed judgement', 'Memory of Mankind', 'List of Korn band members', 'The Conversation (website)', 'Battle of Ticinus']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the country of origin for For Against, a band that has not been previously mentioned in our conversation?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the country of origin for For Against, a band that has not been previously mentioned in our conversation?",
+          "output": "Band origin: For Against nationality"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Band origin: For Against nationality",
+          "output": "Retrieved: ['North African communities of P', 'Si\u00e8ge social', 'Homeland', \"Nationality law of the People'\", 'Venezuelan nationality law']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the country of origin for For Against, a band that has not been previously mentioned in our conversation?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the country of origin for For Against, a band that has not been previously mentioned in our conversation?",
+          "output": "The country of origin for For Against has not been mentioned in our conversation as they were not part of the context provided."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are Local H and For Against both from the United States?",
+          "output": "Yes, Local H is from the United States, but there's no information about the country of origin for For Against in the given context."
+        }
+      ]
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "ground_truth": "Kansas Song",
+      "answer": "The name of the fight song for the university whose main campus is in Lawrence, Kansas and has branch campuses in the Kansas City metropolitan area is \"Kansas Song\" (We\u2019re From Kansas).",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+          "output": "1. What is the name of the university whose main campus is in Lawrence, Kansas?\n2. What is the name of the fight song for the above-mentioned university?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the university whose main campus is in Lawrence, Kansas?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What is the name of the university whose main campus is in Lawrence, Kansas?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the name of the fight song for the above-mentioned university? | History: ['What is the name of the university whose main campus is in Lawrence, Kansas?']",
+          "output": "What is the name of the fight song for the University in Lawrence, Kansas (whose name is unknown)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the fight song for the University in Lawrence, Kansas (whose name is unknown)?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the name of the fight song for the University in Lawrence, Kansas (whose name is unknown)?",
+          "output": "Retrieved: ['University of Kansas', 'Kansas Song', 'Kansas', 'Spectrum Sports (Kansas City)', 'M&amp;I Bank Border Showdown S']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the name of the fight song for the University in Lawrence, Kansas (whose name is unknown)?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the name of the fight song for the University in Lawrence, Kansas (whose name is unknown)?",
+          "output": "The fight song for the university whose main campus is in Lawrence, Kansas (whose name is unknown as per previous findings) is \"Kansas Song\" (We\u2019re From Kansas)."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+          "output": "The name of the fight song for the university whose main campus is in Lawrence, Kansas and has branch campuses in the Kansas City metropolitan area is \"Kansas Song\" (We\u2019re From Kansas)."
+        }
+      ]
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "ground_truth": "David Weissman",
+      "answer": "David Weissman, the screenwriter credited for \"Evolution,\" also co-wrote a film starring Nicolas Cage and T\u00e9a Leoni.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+          "output": "1. Who is the screenwriter credited for \"Evolution\"?\n2. Which film starring Nicolas Cage and T\u00e9a Leoni did this identified screenwriter co-write?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is the screenwriter credited for \"Evolution\"?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who is the screenwriter credited for \"Evolution\"?",
+          "output": "Retrieved: ['David Weissman', 'Frederick King Keller', 'No Code of Conduct', 'Jerry Coyne', 'Francis Ford Coppola']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who is the screenwriter credited for \"Evolution\"?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who is the screenwriter credited for \"Evolution\"?",
+          "output": "The screenwriter credited for \"Evolution\" is David Weissman."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which film starring Nicolas Cage and T\u00e9a Leoni did this identified screenwriter co-write? | History: ['Who is the screenwriter credited for \"Evolution\"?']",
+          "output": "Which film starring Nicolas Cage and T\u00e9a Leoni did David Weissman co-write?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which film starring Nicolas Cage and T\u00e9a Leoni did David Weissman co-write?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Which film starring Nicolas Cage and T\u00e9a Leoni did David Weissman co-write?",
+          "output": "Retrieved: ['The Family Man', 'Deadfall (1993 film)', 'Gone in 60 Seconds (2000 film)', 'It Could Happen to You (1994 f', 'Drive Angry']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Which film starring Nicolas Cage and T\u00e9a Leoni did David Weissman co-write?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which film starring Nicolas Cage and T\u00e9a Leoni did David Weissman co-write?",
+          "output": "David Weissman co-wrote \"The Family Man\" starring Nicolas Cage and T\u00e9a Leoni."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+          "output": "David Weissman, the screenwriter credited for \"Evolution,\" also co-wrote a film starring Nicolas Cage and T\u00e9a Leoni."
+        }
+      ]
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "ground_truth": "1999",
+      "answer": "There is no information provided that indicates Guns N' Roses performed a promotional event for a movie starring Arnold Schwarzenegger as a former New York Police detective in either 1993 or 1999.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "output": "1. In which year was the movie starring Arnold Schwarzenegger as a former New York Police detective released?\n2. What year did Guns N Roses have their most notable public performances?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which year was the movie starring Arnold Schwarzenegger as a former New York Police detective released?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which year was the movie starring Arnold Schwarzenegger as a former New York Police detective released?",
+          "output": "Retrieved: ['End of Days (film)', 'Mike Katz', 'Thal, Styria', 'Get Christie Love!', 'Last Action Hero']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which year was the movie starring Arnold Schwarzenegger as a former New York Police detective released?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which year was the movie starring Arnold Schwarzenegger as a former New York Police detective released?",
+          "output": "The movie starring Arnold Schwarzenegger as a former New York Police detective was released in 1999. This film is titled \"End of Days.\" Another film where he played the role of a former New York Police detective, although in a fictional universe, is \"Last Action Hero\" which was released in 1993. In this movie, Schwarzenegger plays Jack Slater, a Los Angeles police detective within the \"Jack Slater\" action film franchise."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What year did Guns N Roses have their most notable public performances? | History: ['In which year was the movie starring Arnold Schwarzenegger as a former New York Police detective released?']",
+          "output": "What year did Guns N Roses, whose movie starring member Arnold Schwarzenegger as a former New York Police detective was released in 1999, have their most notable public performances?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What year did Guns N Roses, whose movie starring member Arnold Schwarzenegger as a former New York Police detective was released in 1999, have their most notable public performances?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What year did Guns N Roses, whose movie starring member Arnold Schwarzenegger as a former New York Police detective was released in 1999, have their most notable public performances?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What year did Guns N Roses, whose movie starring member Arnold Schwarzenegger as a former New York Police detective was released in 1999, have their most notable public performances?",
+          "output": "Guns N' Roses did not have a movie starring a member as a former New York Police detective released in 1999. The only movies featuring Arnold Schwarzenegger as a former New York Police detective that were released in the given years are \"End of Days\" (1999) and \"Last Action Hero\" (1993)."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "output": "There is no information provided that indicates Guns N' Roses performed a promotional event for a movie starring Arnold Schwarzenegger as a former New York Police detective in either 1993 or 1999."
+        }
+      ]
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "ground_truth": "no",
+      "answer": "No, based on the provided findings, neither Random House Tower nor 888 7th Avenue are primarily used for real estate. They serve as the headquarters for a major publishing company, Random House.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+          "output": "1. What is the primary use of Random House Tower?\n2. What is the primary use of 888 7th Avenue?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the primary use of Random House Tower?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What is the primary use of Random House Tower?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the primary use of 888 7th Avenue? | History: ['What is the primary use of Random House Tower?']",
+          "output": "What is the primary use of the building associated with Random House (888 7th Avenue)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the primary use of the building associated with Random House (888 7th Avenue)?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What is the primary use of the building associated with Random House (888 7th Avenue)?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the primary use of the building associated with Random House (888 7th Avenue)?",
+          "output": "The primary use of the building associated with Random House (888 7th Avenue) is as the headquarters for Random House, a major publishing company. It houses various departments and operations related to book publishing, including editorial, design, marketing, sales, and distribution. The building also serves as a central hub for many authors, editors, designers, and other professionals working in the publishing industry."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+          "output": "No, based on the provided findings, neither Random House Tower nor 888 7th Avenue are primarily used for real estate. They serve as the headquarters for a major publishing company, Random House."
+        }
+      ]
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "ground_truth": "from 1986 to 2013",
+      "answer": "The football manager who recruited David Beckham managed Manchester United from 1992 to May 2003, as this was the timeframe during which David Beckham played for the club. However, it is unknown if this manager was the one who specifically recruited him.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+          "output": "1. Who was the football manager of Manchester United during David Beckham's tenure?\n2. What timeframe did David Beckham play for Manchester United?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was the football manager of Manchester United during David Beckham's tenure?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who was the football manager of Manchester United during David Beckham's tenure?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What timeframe did David Beckham play for Manchester United? | History: [\"Who was the football manager of Manchester United during David Beckham's tenure?\"]",
+          "output": "What was the timeframe during which David Beckham served as a football player for Manchester United?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What was the timeframe during which David Beckham served as a football player for Manchester United?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What was the timeframe during which David Beckham served as a football player for Manchester United?",
+          "output": "Retrieved: ['David Beckham Academy', 'Homme by David Beckham', 'David Beckham', \"David Beckham's Soccer USA\", \"The Class of '92\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What was the timeframe during which David Beckham served as a football player for Manchester United?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What was the timeframe during which David Beckham served as a football player for Manchester United?",
+          "output": "David Beckham served as a football player for Manchester United from 1992 (starting his career with the club) to May 2003. This timeframe covers his tenure until he left for Real Madrid."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+          "output": "The football manager who recruited David Beckham managed Manchester United from 1992 to May 2003, as this was the timeframe during which David Beckham played for the club. However, it is unknown if this manager was the one who specifically recruited him."
+        }
+      ]
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "ground_truth": "9,984",
+      "answer": "The final answer cannot be determined based on the given context and previous findings since the location of Brown State Fishing Lake is unknown.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+          "output": "1. What is the name of the country where Brown State Fishing Lake is located?\n2. What is the current population of the identified country?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the country where Brown State Fishing Lake is located?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What is the name of the country where Brown State Fishing Lake is located?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the current population of the identified country? | History: ['What is the name of the country where Brown State Fishing Lake is located?']",
+          "output": "What is the current population of the country where Brown State Fishing Lake is located?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the current population of the country where Brown State Fishing Lake is located?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the current population of the country where Brown State Fishing Lake is located?",
+          "output": "Retrieved: ['Brown State Fishing Lake', 'Neosho State Fishing Lake', 'Silver Lake (Silver Lake, Flor', 'Osage State Fishing Lake', 'Fishing Lake']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the current population of the country where Brown State Fishing Lake is located?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the current population of the country where Brown State Fishing Lake is located?",
+          "output": "Population of Brown State's country of origin"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Population of Brown State's country of origin",
+          "output": "Retrieved: ['Rules of origin', 'Country New South Wales rugby ', 'Brown County, Kansas', 'History of Minneapolis', 'Vatican City']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the current population of the country where Brown State Fishing Lake is located?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the current population of the country where Brown State Fishing Lake is located?",
+          "output": "The question asks for the population of the country where Brown State Fishing Lake is located, but since the location of Brown State Fishing Lake is unknown, it is not possible to provide an accurate answer based on the given context and previous findings. However, Brown County, Kansas, which was provided in the context, has a population of 9,984 as per the 2010 census."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+          "output": "The final answer cannot be determined based on the given context and previous findings since the location of Brown State Fishing Lake is unknown."
+        }
+      ]
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+      "ground_truth": "the North Atlantic Conference",
+      "answer": "Based on the provided context, it is not possible to definitively determine the name of the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996. Further research would be needed to find this information.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+          "output": "1. What was the name of the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996?\n2. In what year did the conference that the Vermont Catamounts men's soccer team previously competed in change its name (from the time period mentioned in the question)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What was the name of the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What was the name of the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In what year did the conference that the Vermont Catamounts men's soccer team previously competed in change its name (from the time period mentioned in the question)? | History: [\"What was the name of the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996?\"]",
+          "output": "What was the year in which the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What was the year in which the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What was the year in which the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name?",
+          "output": "Retrieved: [\"Vermont Catamounts men's socce\", '2010\u201311 Vermont Catamounts men', \"Vermont Catamounts men's ice h\", \"Vermont Catamounts men's baske\", '2016\u201317 Vermont Catamounts men']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What was the year in which the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What was the year in which the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name?",
+          "output": "1988-1996 Vermont soccer conference name change\" or \"Vermont Catamounts soccer conference rename year"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "1988-1996 Vermont soccer conference name change\" or \"Vermont Catamounts soccer conference rename year",
+          "output": "Retrieved: [\"Vermont Catamounts men's socce\", '2010\u201311 Vermont Catamounts men', '2013\u201314 Vermont Catamounts men', \"Vermont Catamounts men's baske\", '2016\u201317 Vermont Catamounts men']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What was the year in which the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What was the year in which the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name?",
+          "output": "Unfortunately, the provided context does not contain information about when the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996 changed its name. To find this information, one would need to research historical changes in college athletic conferences during that time period and determine if any of them involved the conference that the Vermont Catamounts were a part of. Some possible conferences could include America East (which they joined in 1999), the Yankee Conference (which disbanded in 1996), or the Northeast Conference (which they joined in 2003). However, without more specific information about the conference they were in during those years, it is not possible to definitively answer this question."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+          "output": "Based on the provided context, it is not possible to definitively determine the name of the conference that the Vermont Catamounts men's soccer team competed in from 1988 to 1996. Further research would be needed to find this information."
+        }
+      ]
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "ground_truth": "yes",
+      "answer": "Yes, both Giuseppe Verdi and Ambroise Thomas were opera composers.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "output": "1. Who was Giuseppe Verdi?\n2. Who was Ambroise Thomas?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was Giuseppe Verdi?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who was Giuseppe Verdi?",
+          "output": "Retrieved: ['Parma Airport', 'Teatro Verdi (Florence)', 'Verdi, the King of Melody', 'Teatro Giuseppe Verdi', 'Giuseppe Verdi (film)']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who was Giuseppe Verdi?",
+          "output": "Kept 4/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who was Giuseppe Verdi?",
+          "output": "Giuseppe Verdi was an Italian composer who lived from 1813 to 1901. He is renowned for his significant contributions to the operatic world and is often referred to as the \"King of Melody.\" Two biographical films have been made about him, both released under different titles: Giuseppe Verdi (1938) directed by Carmine Gallone, also known as The Life of Giuseppe Verdi, and Verdi, the King of Melody (1953), which was released in the USA as The Life and Music of Giuseppe Verdi.\n\nThe airport serving Parma, Italy, where he resided, is named after him - it's called Giuseppe Verdi Airport or Parma \"Giuseppe Verdi\" Airport. Additionally, there is a small opera house in Busseto, Italy, known as Teatro Giuseppe Verdi, which opened on August 15, 1868, and seats 300. This theatre is closely associated with the life of the composer.\n\nIn terms of his personal life, he was born in 1813 and passed away in 1901. His patriotism was emphasized in films about him, such as Giuseppe Verdi (1938), where Fosco Giachetti portrayed him as a patriotic figure."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Who was Ambroise Thomas? | History: ['Who was Giuseppe Verdi?']",
+          "output": "Who was Ambroise Thomas, the French composer who was not Giuseppe Verdi?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was Ambroise Thomas, the French composer who was not Giuseppe Verdi?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who was Ambroise Thomas, the French composer who was not Giuseppe Verdi?",
+          "output": "Retrieved: ['Giuseppe Verdi (film)', 'Verdi, the King of Melody', 'Teatro Giuseppe Verdi', 'Ambroise Thomas', 'Les v\u00eapres siciliennes']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who was Ambroise Thomas, the French composer who was not Giuseppe Verdi?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who was Ambroise Thomas, the French composer who was not Giuseppe Verdi?",
+          "output": "Ambroise Thomas was a French composer who lived from August 5, 1811 to February 12, 1896. He is best known for his operas \"Mignon\" (1866) and \"Hamlet\" (1868, after Shakespeare). In addition, he served as Director of the Conservatoire de Paris from 1871 till his death. Unlike Giuseppe Verdi, Ambroise Thomas was not an Italian composer or a patriotic figure portrayed in films like Giuseppe Verdi (1938) and Verdi, the King of Melody (1953)."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "output": "Yes, both Giuseppe Verdi and Ambroise Thomas were opera composers."
+        }
+      ]
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "ground_truth": "1969 until 1974",
+      "answer": "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the years of Richard Nixon's presidency, specifically within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services). The exact years are not specified in the provided context.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "output": "1. In which years did Roger O. Egeberg serve as Assistant Secretary for Health and Scientific Affairs?\n2. Who was the president that served during the years when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which years did Roger O. Egeberg serve as Assistant Secretary for Health and Scientific Affairs?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which years did Roger O. Egeberg serve as Assistant Secretary for Health and Scientific Affairs?",
+          "output": "Retrieved: ['Roger O. Egeberg', 'Office of Population Affairs', 'Edward D. Martin', 'Robert R. Hood', 'Assistant Secretary of State f']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which years did Roger O. Egeberg serve as Assistant Secretary for Health and Scientific Affairs?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which years did Roger O. Egeberg serve as Assistant Secretary for Health and Scientific Affairs?",
+          "output": "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the Nixon administration. The exact years of his tenure in this position are not specified in the provided context, but it is known that he held this role within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services)."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Who was the president that served during the years when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs? | History: ['In which years did Roger O. Egeberg serve as Assistant Secretary for Health and Scientific Affairs?']",
+          "output": "Which president served during the years when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which president served during the years when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services)?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which president served during the years when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services)?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which president served during the years when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services)?",
+          "output": "The president who served during the years when Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services) was Richard Nixon."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "output": "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the years of Richard Nixon's presidency, specifically within the Department of Health, Education, and Welfare (now the United States Department of Health and Human Services). The exact years are not specified in the provided context."
+        }
+      ]
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "ground_truth": "Robert Erskine Childers DSC",
+      "answer": "Neither Henry Roth nor Robert Erskine Childers were from England.",
+      "question_type": "comparison",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+          "output": "1. In which country was Henry Roth born?\n2. In which country was Robert Erskine Childers born?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which country was Henry Roth born?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which country was Henry Roth born?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which country was Robert Erskine Childers born? | History: ['In which country was Henry Roth born?']",
+          "output": "In which country was Robert Erskine Childers born? (Note: The person referred to here is not Henry Roth.)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which country was Robert Erskine Childers born? (Note: The person referred to here is not Henry Roth.)",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which country was Robert Erskine Childers born? (Note: The person referred to here is not Henry Roth.)",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which country was Robert Erskine Childers born? (Note: The person referred to here is not Henry Roth.)",
+          "output": "Robert Erskine Childers was born in Ireland. There is no known connection between his birthplace and Henry Roth."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+          "output": "Neither Henry Roth nor Robert Erskine Childers were from England."
+        }
+      ]
+    },
+    {
+      "question": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+      "ground_truth": "Pedro Rodr\u00edguez",
+      "answer": "Based on the provided information, no other Mexican Formula One race car driver besides Sergio Perez (born in 1990) is known to have held a podium position. Further research may reveal additional details about other Mexican drivers' achievements.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+          "output": "1. Who are the other Mexican Formula One race car drivers besides the one born in 1990?\n2. Which of these Mexican Formula One drivers have held the podium position?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who are the other Mexican Formula One race car drivers besides the one born in 1990?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who are the other Mexican Formula One race car drivers besides the one born in 1990?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which of these Mexican Formula One drivers have held the podium position? | History: ['Who are the other Mexican Formula One race car drivers besides the one born in 1990?']",
+          "output": "Which of these Mexican Formula One drivers have held a podium position (Perez or Massa)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which of these Mexican Formula One drivers have held a podium position (Perez or Massa)?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which of these Mexican Formula One drivers have held a podium position (Perez or Massa)?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which of these Mexican Formula One drivers have held a podium position (Perez or Massa)?",
+          "output": "Based on the available context and no specific mention of Felipe Massa's nationality, it is assumed that he is Brazilian, not Mexican. However, Sergio Perez, a Mexican race car driver born in 1990, has held a podium position in Formula One. As for other Mexican Formula One drivers, further research is needed to identify them and confirm if any have also held a podium position."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Which other Mexican Formula One race car driver has held the podium besides the Force India driver born in 1990?",
+          "output": "Based on the provided information, no other Mexican Formula One race car driver besides Sergio Perez (born in 1990) is known to have held a podium position. Further research may reveal additional details about other Mexican drivers' achievements."
+        }
+      ]
+    },
+    {
+      "question": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+      "ground_truth": "Sonic",
+      "answer": "The singer of \"A Rather Blustery Day,\" Jim Cummings, did not voice any hedgehog character in the movie \"Winnie the Pooh and the Blustery Day.\"",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+          "output": "1. Who is the singer of A Rather Blustery Day?\n2. Which hedgehog was voiced by the identified singer?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is the singer of A Rather Blustery Day?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who is the singer of A Rather Blustery Day?",
+          "output": "Retrieved: ['A Rather Blustery Day', 'The Rain Rain Rain Came Down D', 'Hip Hip Pooh-Ray!', 'RT\u00c9 Executive Board', 'Heffalumps and Woozles']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who is the singer of A Rather Blustery Day?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who is the singer of A Rather Blustery Day?",
+          "output": "The singer of \"A Rather Blustery Day\" is Jim Cummings. He voiced Pooh in the Walt Disney musical film featurette, \"Winnie the Pooh and the Blustery Day\"."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which hedgehog was voiced by the identified singer? | History: ['Who is the singer of A Rather Blustery Day?']",
+          "output": "Which hedgehog was voiced by Jim Cummings, who sang \"A Rather Blustery Day\" in the Walt Disney musical film featurette, \"Winnie the Pooh and the Blustery Day\"?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which hedgehog was voiced by Jim Cummings, who sang \"A Rather Blustery Day\" in the Walt Disney musical film featurette, \"Winnie the Pooh and the Blustery Day\"?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which hedgehog was voiced by Jim Cummings, who sang \"A Rather Blustery Day\" in the Walt Disney musical film featurette, \"Winnie the Pooh and the Blustery Day\"?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which hedgehog was voiced by Jim Cummings, who sang \"A Rather Blustery Day\" in the Walt Disney musical film featurette, \"Winnie the Pooh and the Blustery Day\"?",
+          "output": "Jim Cummings voiced Pooh in the Walt Disney musical film featurette, \"Winnie the Pooh and the Blustery Day\". Therefore, he did not voice any hedgehog character in this particular movie."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "This singer of A Rather Blustery Day also voiced what hedgehog?",
+          "output": "The singer of \"A Rather Blustery Day,\" Jim Cummings, did not voice any hedgehog character in the movie \"Winnie the Pooh and the Blustery Day.\""
+        }
+      ]
+    },
+    {
+      "question": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+      "ground_truth": "keyboard function keys",
+      "answer": "Other devices that can control the program Apple Remote was originally designed for include iOS devices, macOS devices, Siri, keyboard shortcuts on macOS, and certain game controllers.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+          "output": "1. What device is the Apple Remote originally designed to interact with?\n2. Can other devices aside from the Apple Remote control the identified device mentioned in question 1? (If yes, list some of these devices)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What device is the Apple Remote originally designed to interact with?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What device is the Apple Remote originally designed to interact with?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "Can other devices aside from the Apple Remote control the identified device mentioned in question 1? (If yes, list some of these devices) | History: ['What device is the Apple Remote originally designed to interact with?']",
+          "output": "Can other devices aside from the Apple Remote control the Apple device mentioned in the previous answer? If yes, list some of these devices."
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Can other devices aside from the Apple Remote control the Apple device mentioned in the previous answer? If yes, list some of these devices.",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Can other devices aside from the Apple Remote control the Apple device mentioned in the previous answer? If yes, list some of these devices.",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Can other devices aside from the Apple Remote control the Apple device mentioned in the previous answer? If yes, list some of these devices.",
+          "output": "While the original purpose of the Apple Remote was to interact with an Apple device, there are indeed other devices and methods available for controlling Apple devices. Here are some examples:\n\n1. iOS Devices (iPhone, iPad): These devices can control various Apple TV functions using the built-in Remote app.\n\n2. macOS Devices (MacBook, iMac, etc.): These can also act as a remote control for Apple TV via AirPlay or through the Apple TV Remote app.\n\n3. Siri: Apple's virtual assistant can be used to control Apple TV functions on compatible devices.\n\n4. Keyboard Shortcuts: Certain keyboard shortcuts can be used to navigate and control Apple TV on a Mac.\n\n5. Game Controllers: Some game controllers, such as the PlayStation DualShock 4 or Xbox One controller, can be used to play games on Apple TV when paired with the appropriate software."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Aside from the Apple Remote, what other device can control the program Apple Remote was originally designed to interact with?",
+          "output": "Other devices that can control the program Apple Remote was originally designed for include iOS devices, macOS devices, Siri, keyboard shortcuts on macOS, and certain game controllers."
+        }
+      ]
+    },
+    {
+      "question": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+      "ground_truth": "Badly Drawn Boy",
+      "answer": "Based on the provided findings, it is not possible to determine which performance act has a higher instrument to person ratio as neither Badly Drawn Boy nor Wolf Alice have their specific instrument usage detailed enough to calculate a ratio. Additionally, Badly Drawn Boy is a solo artist while Wolf Alice is a band, but without knowing the exact number of instruments each uses, we cannot compare them directly.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+          "output": "1. How many instruments are typically used by Badly Drawn Boy during their performances?\n2. How many members does Wolf Alice usually have in their band during performances?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "How many instruments are typically used by Badly Drawn Boy during their performances?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "How many instruments are typically used by Badly Drawn Boy during their performances?",
+          "output": "Retrieved: ['The Hour of Bewilderbeast', 'Silent Sigh', 'Badly Drawn Boy', 'Something to Talk About (Badly', 'About a Boy (soundtrack)']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "How many instruments are typically used by Badly Drawn Boy during their performances?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "How many instruments are typically used by Badly Drawn Boy during their performances?",
+          "output": "Badly Drawn Boy, whose real name is Damon Michael Gough, is known to be a multi-instrumentalist. However, the specific number of instruments he typically uses during his performances isn't explicitly stated in the provided context. As a singer-songwriter, it can be assumed that at least guitar and vocals are among the instruments he plays. Other instruments he might use could include piano, harmonica, or drums based on some of his recorded work, but without more specific information, it's challenging to provide an exhaustive list."
+        },
+        {
+          "action": "REWRITE",
+          "input": "How many members does Wolf Alice usually have in their band during performances? | History: ['How many instruments are typically used by Badly Drawn Boy during their performances?']",
+          "output": "How many members does Badly Drawn Boy (Damon Michael Gough) usually have in his band during performances?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "How many members does Badly Drawn Boy (Damon Michael Gough) usually have in his band during performances?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "How many members does Badly Drawn Boy (Damon Michael Gough) usually have in his band during performances?",
+          "output": "Retrieved: ['Badly Drawn Boy', 'Badly Drawn Boy discography', 'The Hour of Bewilderbeast', 'About a Boy (soundtrack)', 'Silent Sigh']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "How many members does Badly Drawn Boy (Damon Michael Gough) usually have in his band during performances?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "How many members does Badly Drawn Boy (Damon Michael Gough) usually have in his band during performances?",
+          "output": "Badly Drawn Boy band members during performances"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Badly Drawn Boy band members during performances",
+          "output": "Retrieved: ['The Hour of Bewilderbeast', 'Silent Sigh', 'Badly Drawn Boy', 'Something to Talk About (Badly', 'Badly Drawn Boy discography']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "How many members does Badly Drawn Boy (Damon Michael Gough) usually have in his band during performances?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "How many members does Badly Drawn Boy (Damon Michael Gough) usually have in his band during performances?",
+          "output": "Badly Drawn Boy (Damon Michael Gough) is a solo artist and does not typically have other members in his band during performances. He is a multi-instrumentalist who plays various instruments such as guitar, piano, harmonica, and possibly others based on his recorded work. However, the provided context does not specify the number of these instruments he uses during live performances or mention any additional band members."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Which performance act has a higher instrument to person ratio, Badly Drawn Boy or Wolf Alice? ",
+          "output": "Based on the provided findings, it is not possible to determine which performance act has a higher instrument to person ratio as neither Badly Drawn Boy nor Wolf Alice have their specific instrument usage detailed enough to calculate a ratio. Additionally, Badly Drawn Boy is a solo artist while Wolf Alice is a band, but without knowing the exact number of instruments each uses, we cannot compare them directly."
+        }
+      ]
+    },
+    {
+      "question": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+      "ground_truth": "World's Best Goalkeeper",
+      "answer": "Peter Schmeichel was voted as the best goalkeeper in the world by the IFFHS in 1992.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+          "output": "1. Who was Kasper Schmeichel's father?\n2. Who was voted as the best goalkeeper in the world by the IFFHS in 1992? (Assuming that the person voted in 1992 is the same person who is Kasper Schmeichel's father)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was Kasper Schmeichel's father?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who was Kasper Schmeichel's father?",
+          "output": "Retrieved: ['Kasper Schmeichel', 'Gus Williams (musician)', 'Isaak Hassler', 'Kasper Andersen', 'Peter Schmeichel']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who was Kasper Schmeichel's father?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who was Kasper Schmeichel's father?",
+          "output": "Kasper Schmeichel's father is Peter Schmeichel. Peter Schmeichel is a former professional footballer who also played as a goalkeeper. He had an illustrious career, most notably with Manchester United and the Danish national team."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Who was voted as the best goalkeeper in the world by the IFFHS in 1992? (Assuming that the person voted in 1992 is the same person who is Kasper Schmeichel's father) | History: [\"Who was Kasper Schmeichel's father?\"]",
+          "output": "Who was Peter Schmeichel voted as the best goalkeeper in the world by the IFFHS in 1992?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was Peter Schmeichel voted as the best goalkeeper in the world by the IFFHS in 1992?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who was Peter Schmeichel voted as the best goalkeeper in the world by the IFFHS in 1992?",
+          "output": "Retrieved: ['Peter Schmeichel', 'Rinat Dasayev', \"IFFHS World's Best Goalkeeper\", 'Pel\u00e9', \"IFFHS World's Best Club Coach\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who was Peter Schmeichel voted as the best goalkeeper in the world by the IFFHS in 1992?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who was Peter Schmeichel voted as the best goalkeeper in the world by the IFFHS in 1992?",
+          "output": "Peter Schmeichel was voted as the best goalkeeper in the world by the IFFHS in 1992."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What was the father of Kasper Schmeichel voted to be by the IFFHS in 1992?",
+          "output": "Peter Schmeichel was voted as the best goalkeeper in the world by the IFFHS in 1992."
+        }
+      ]
+    },
+    {
+      "question": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+      "ground_truth": "Barton Lee Hazlewood",
+      "answer": "Lee Hazlewood, the writer of \"These Boots Are Made for Walkin'\", died in 2007.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+          "output": "1. Who wrote the song \"These Boots Are Made for Walkin'?\"\n2. Who died in the year 2007?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who wrote the song \"These Boots Are Made for Walkin'?\"",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who wrote the song \"These Boots Are Made for Walkin'?\"",
+          "output": "Retrieved: ['Boots (EP)', \"Puss N' Boots/These Boots Are \", 'Kon Kan', 'Boots (album)', 'These Boots Are Made for Walki']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who wrote the song \"These Boots Are Made for Walkin'?\"",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who wrote the song \"These Boots Are Made for Walkin'?\"",
+          "output": "The song \"These Boots Are Made for Walkin'\" was written by Lee Hazlewood."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Who died in the year 2007? | History: ['Who wrote the song \"These Boots Are Made for Walkin\\'?\"']",
+          "output": "Who was Lee Hazlewood in the year 2007?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was Lee Hazlewood in the year 2007?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who was Lee Hazlewood in the year 2007?",
+          "output": "Retrieved: ['Lee Hazlewood', 'These Boots Are Made for Walki', 'Stop Smiling', 'Boots (album)', 'Harper Lee']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who was Lee Hazlewood in the year 2007?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who was Lee Hazlewood in the year 2007?",
+          "output": "Lee Hazlewood was an American country and pop singer, songwriter, and record producer in the year 2007. He is most widely known for his work with guitarist Duane Eddy during the late 1950s and singer Nancy Sinatra in the 1960s. In the context of music, he was a producer (of Nancy Sinatra's album \"Boots\" in 1966), a songwriter (of the hit song \"These Boots Are Made for Walkin'\"), and a record producer."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Who was the writer of These Boots Are Made for Walkin' and who died in 2007?",
+          "output": "Lee Hazlewood, the writer of \"These Boots Are Made for Walkin'\", died in 2007."
+        }
+      ]
+    },
+    {
+      "question": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+      "ground_truth": "1838",
+      "answer": "Virginia Commonwealth University was founded in 1838.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+          "output": "1. In what year was Virginia Commonwealth University founded?\n2. Who led the 2011\u201312 VCU Rams men's basketball team as head coach?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In what year was Virginia Commonwealth University founded?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In what year was Virginia Commonwealth University founded?",
+          "output": "Retrieved: ['Virginia Commonwealth Universi', 'University of Virginia', 'Andrew Sprowle', \"1995\u201396 VCU Rams men's basketb\", 'Old Dominion\u2013VCU basketball ri']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In what year was Virginia Commonwealth University founded?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In what year was Virginia Commonwealth University founded?",
+          "output": "Virginia Commonwealth University was founded in 1838 as the medical department of Hampden\u2013Sydney College. It later became the Medical College of Virginia in 1854."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Who led the 2011\u201312 VCU Rams men's basketball team as head coach? | History: ['In what year was Virginia Commonwealth University founded?']",
+          "output": "Who led the 2011\u201312 VCU Rams men's basketball team as head coach, given that Virginia Commonwealth University was founded in 1838 and later became the Medical College of Virginia in 1854?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who led the 2011\u201312 VCU Rams men's basketball team as head coach, given that Virginia Commonwealth University was founded in 1838 and later became the Medical College of Virginia in 1854?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who led the 2011\u201312 VCU Rams men's basketball team as head coach, given that Virginia Commonwealth University was founded in 1838 and later became the Medical College of Virginia in 1854?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who led the 2011\u201312 VCU Rams men's basketball team as head coach, given that Virginia Commonwealth University was founded in 1838 and later became the Medical College of Virginia in 1854?",
+          "output": "Shaka Smart led the 2011\u201312 VCU Rams men's basketball team as head coach. This is relevant because the question asks about a specific event in more recent years, while the provided context discusses the history of Virginia Commonwealth University (VCU) dating back to its founding in 1838 and becoming the Medical College of Virginia in 1854. However, it's important to note that Shaka Smart took over as head coach in 2009, and his tenure with VCU includes the 2011\u201312 season when the team became notable for their \"First Four\" victory in the NCAA tournament, often referred to as the \"First Four-peal.\""
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The 2011\u201312 VCU Rams men's basketball team, led by third year head coach Shaka Smart, represented Virginia Commonwealth University which was founded in what year?",
+          "output": "Virginia Commonwealth University was founded in 1838."
+        }
+      ]
+    },
+    {
+      "question": "Are both Dictyosperma, and Huernia described as a genus?",
+      "ground_truth": "yes",
+      "answer": "Yes, both Dictyosperma and Huernia are described as a genus in their respective taxonomic classifications.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are both Dictyosperma, and Huernia described as a genus?",
+          "output": "1. What is the taxonomic classification of Dictyosperma?\n2. What is the taxonomic classification of Huernia?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the taxonomic classification of Dictyosperma?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the taxonomic classification of Dictyosperma?",
+          "output": "Retrieved: ['Dictyosperma', 'Kraepelinian dichotomy', 'List of Utricularia species', 'Cladorhiza inversa', 'Cladorhiza segonzaci']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the taxonomic classification of Dictyosperma?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the taxonomic classification of Dictyosperma?",
+          "output": "The taxonomic classification of Dictyosperma is as follows:\n\n- Kingdom: Plantae (plants)\n- Division: Magnoliophyta (flowering plants)\n- Class: Liliopsida (monocotyledons)\n- Subclass: Arecales\n- Order: Arecales (palm order)\n- Family: Arecaceae (palm family)\n- Genus: Dictyosperma\n- Species: Dictyosperma album\n\nThis classification reflects the hierarchical organization of living organisms, with each category representing a broader or more specific grouping. In this case, Dictyosperma is a single genus within the palm family (Arecaceae), which is part of the larger order Arecales and class Liliopsida."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the taxonomic classification of Huernia? | History: ['What is the taxonomic classification of Dictyosperma?']",
+          "output": "What is the taxonomic classification of Dictyosperma's counterpart in the plant kingdom?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the taxonomic classification of Dictyosperma's counterpart in the plant kingdom?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the taxonomic classification of Dictyosperma's counterpart in the plant kingdom?",
+          "output": "Retrieved: ['Dictyosperma', 'List of Utricularia species', 'Taipei Representative Office i', 'Melodorum siamense', 'Kraepelinian dichotomy']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the taxonomic classification of Dictyosperma's counterpart in the plant kingdom?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the taxonomic classification of Dictyosperma's counterpart in the plant kingdom?",
+          "output": "Dictyosperma plant taxonomy\" or \"Taxonomic classification of Dictyosperma"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Dictyosperma plant taxonomy\" or \"Taxonomic classification of Dictyosperma",
+          "output": "Retrieved: ['Dictyosperma', 'Heterostropha', 'Diplazium', 'Rhexia', 'C\u00e1ssio van den Berg']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the taxonomic classification of Dictyosperma's counterpart in the plant kingdom?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the taxonomic classification of Dictyosperma's counterpart in the plant kingdom?",
+          "output": "The taxonomic classification of Dictyosperma's counterpart in the plant kingdom is not explicitly provided in the context. However, since Dictyosperma is closely related to and resembles palms in the \"Archontophoenix\" genus, it can be inferred that the taxonomic classification of Archontophoenix would also fall under the same categories as Dictyosperma, with some differences in the genus level.\n\nHere's a possible taxonomic classification for Archontophoenix:\n\n- Kingdom: Plantae (plants)\n- Division: Magnoliophyta (flowering plants)\n- Class: Liliopsida (monocotyledons)\n- Subclass: Arecales\n- Order: Arecales (palm order)\n- Family: Arecaceae (palm family)\n- Genus: Archontophoenix\n\nThis classification reflects the hierarchical organization of living organisms, with each category representing a broader or more specific grouping. In this case, Archontophoenix is a single genus within the palm family (Arecaceae), which is part of the larger order Arecales and class Liliopsida."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are both Dictyosperma, and Huernia described as a genus?",
+          "output": "Yes, both Dictyosperma and Huernia are described as a genus in their respective taxonomic classifications."
+        }
+      ]
+    },
+    {
+      "question": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+      "ground_truth": "Henry J. Kaiser",
+      "answer": "Yes, Kaiser Ventures corporation was founded by Henry J. Kaiser, who is often referred to as the father of modern American shipbuilding.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+          "output": "1. Who was the American industrialist often referred to as the father of modern American shipbuilding?\n2. When was Kaiser Ventures corporation founded by the identified industrialist?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was the American industrialist often referred to as the father of modern American shipbuilding?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who was the American industrialist often referred to as the father of modern American shipbuilding?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "When was Kaiser Ventures corporation founded by the identified industrialist? | History: ['Who was the American industrialist often referred to as the father of modern American shipbuilding?']",
+          "output": "When was Kaiser Ventures corporation founded by Henry J. Kaiser, referred to as the American industrialist often known as the father of modern American shipbuilding?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "When was Kaiser Ventures corporation founded by Henry J. Kaiser, referred to as the American industrialist often known as the father of modern American shipbuilding?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "When was Kaiser Ventures corporation founded by Henry J. Kaiser, referred to as the American industrialist often known as the father of modern American shipbuilding?",
+          "output": "Retrieved: ['Kaiser Shipyards', 'Henry J. Kaiser', 'Kaiser Ventures', 'Edgar Kaiser Sr.', 'Edgar Kaiser Jr.']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "When was Kaiser Ventures corporation founded by Henry J. Kaiser, referred to as the American industrialist often known as the father of modern American shipbuilding?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "When was Kaiser Ventures corporation founded by Henry J. Kaiser, referred to as the American industrialist often known as the father of modern American shipbuilding?",
+          "output": "Kaiser Ventures (formerly Kaiser Steel) corporation was founded by Henry J. Kaiser in an unspecified year, although it can be inferred that this occurred at some point during the expansion of the Pacific Coast shipbuilding industry, which took place primarily during World War II and the Korean War. Kaiser is often referred to as the father of modern American shipbuilding due to his significant contributions to the industry."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Kaiser Ventures corporation was founded by an American industrialist who became known as the father of modern American shipbuilding?",
+          "output": "Yes, Kaiser Ventures corporation was founded by Henry J. Kaiser, who is often referred to as the father of modern American shipbuilding."
+        }
+      ]
+    },
+    {
+      "question": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+      "ground_truth": "Arena of Khazan",
+      "answer": "The provided findings do not specify the name of an adventure in \"Tunnels and Trolls\" designed by Ken St. Andre, as he is not credited with designing any specific adventure for the game.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+          "output": "1. Who designed the game \"Tunnels and Trolls\"?\n2. What is the name of the adventure in \"Tunnels and Trolls\"?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who designed the game \"Tunnels and Trolls\"?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who designed the game \"Tunnels and Trolls\"?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the name of the adventure in \"Tunnels and Trolls\"? | History: ['Who designed the game \"Tunnels and Trolls\"?']",
+          "output": "What is the name of the adventure in the game \"Tunnels and Trolls,\" designed by an unknown creator?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the adventure in the game \"Tunnels and Trolls,\" designed by an unknown creator?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the name of the adventure in the game \"Tunnels and Trolls,\" designed by an unknown creator?",
+          "output": "Retrieved: ['Tunnels &amp; Trolls: Crusader', 'Mercenaries, Spies and Private', 'Tunnels &amp; Trolls', 'Steve Crompton', 'The Last Express']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the name of the adventure in the game \"Tunnels and Trolls,\" designed by an unknown creator?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the name of the adventure in the game \"Tunnels and Trolls,\" designed by an unknown creator?",
+          "output": "The name of an adventure in the game \"Tunnels and Trolls\" designed by an unknown creator is not explicitly stated in the provided context. However, it is known that Steven S. Crompton has worked on \"Tunnels & Trolls,\" contributing as an artist and designer. Additionally, he has contributed to other role-playing game supplements, comics, and games such as Grimtooth Traps books, various Catalyst game supplements, and the \"Nuclear War\" card game. It's possible that one of these projects could be an adventure in \"Tunnels & Trolls,\" but without more specific information, it remains unknown which one."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What is the name for the adventure in \"Tunnels and Trolls\", a game designed by Ken St. Andre?",
+          "output": "The provided findings do not specify the name of an adventure in \"Tunnels and Trolls\" designed by Ken St. Andre, as he is not credited with designing any specific adventure for the game."
+        }
+      ]
+    },
+    {
+      "question": "When was Poison's album \"Shut Up, Make Love\" released?",
+      "ground_truth": "2000",
+      "answer": "The album \"Shut Up, Make Love\" by Poison was released in February 2000.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "When was Poison's album \"Shut Up, Make Love\" released?",
+          "output": "1. What year was the album \"Shut Up, Make Love\" by Poison released?\n2. In which month of that year was the album \"Shut Up, Make Love\" by Poison released?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What year was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What year was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "Retrieved: ['Shut Up, Make Love', 'Be the One (Poison song)', 'Was ist das', 'Songs of Life (Bret Michaels a', 'All I Wanna Do Is Make Love to']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What year was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What year was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "The album \"Shut Up, Make Love\" by Poison was released in the year 2000."
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which month of that year was the album \"Shut Up, Make Love\" by Poison released? | History: ['What year was the album \"Shut Up, Make Love\" by Poison released?']",
+          "output": "In which month of the year 2000 was the album \"Shut Up, Make Love\" by Poison released?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which month of the year 2000 was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which month of the year 2000 was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "Retrieved: ['Shut Up, Make Love', 'Be the One (Poison song)', 'Mind If We Make Love to You', 'Live at the Grand Olympic Audi', 'List of songs recorded by The ']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which month of the year 2000 was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which month of the year 2000 was the album \"Shut Up, Make Love\" by Poison released?",
+          "output": "The album \"Shut Up, Make Love\" by Poison was released in February 2000. This is because the single/sampler featuring this song as a B-side was released in February 2000. Additionally, the album \"Crack a Smile...and More!\" from which \"Shut Up, Make Love\" originates, was also released on March 14, 2000."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "When was Poison's album \"Shut Up, Make Love\" released?",
+          "output": "The album \"Shut Up, Make Love\" by Poison was released in February 2000."
+        }
+      ]
+    },
+    {
+      "question": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+      "ground_truth": "Fujioka, Gunma",
+      "answer": "Buck-Tick hails from Japan.",
+      "question_type": "comparison",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+          "output": "1. Who is the nationality of the band Buck-Tick?\n2. Where was Hayden born?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is the nationality of the band Buck-Tick?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who is the nationality of the band Buck-Tick?",
+          "output": "Retrieved: ['Buck-Tick', 'Atsushi Sakurai', 'Gessekai', 'Kyo (musician)', 'Japanese nationality law']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who is the nationality of the band Buck-Tick?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who is the nationality of the band Buck-Tick?",
+          "output": "The nationality of the band Buck-Tick is Japanese. All members of the band are Japanese as they were formed in Fujioka, Gunma, Japan in 1983 and have remained consistent since 1985 with Atsushi Sakurai (lead vocals), Hisashi Imai (guitar), Hidehiko Hoshino (guitar), Yutaka Higuchi (bass) and Toll Yagami (drums)."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Where was Hayden born? | History: ['Who is the nationality of the band Buck-Tick?']",
+          "output": "Where was Atsushi Sakurai (lead vocals of Buck-Tick) born?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Where was Atsushi Sakurai (lead vocals of Buck-Tick) born?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Where was Atsushi Sakurai (lead vocals of Buck-Tick) born?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Where was Atsushi Sakurai (lead vocals of Buck-Tick) born?",
+          "output": "Atsushi Sakurai was born in Fujioka, Gunma. He is a Japanese musician and singer-songwriter who has been the vocalist of the rock band Buck-Tick since 1985. Prior to that, he was their drummer from 1983."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Hayden is a singer-songwriter from Canada, but where does Buck-Tick hail from?",
+          "output": "Buck-Tick hails from Japan."
+        }
+      ]
+    },
+    {
+      "question": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+      "ground_truth": "Charles Eug\u00e8ne",
+      "answer": "Charles Nungesser flew L'Oiseau Blanc.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+          "output": "1. Who was the French ace pilot during World War I?\n2. Which aircraft did the identified French ace pilot fly on his famous transatlantic flight known as L'Oiseau Blanc (The White Bird)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was the French ace pilot during World War I?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who was the French ace pilot during World War I?",
+          "output": "Retrieved: ['Gervais Raoul Lufbery', 'Charles Nungesser', 'Manfred von Richthofen', 'Pappy Boyington', 'Georges Madon']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who was the French ace pilot during World War I?",
+          "output": "Kept 4/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who was the French ace pilot during World War I?",
+          "output": "The French ace pilots during World War I were Gervais Raoul Lufbery, Charles Nungesser, and Georges Madon. Lufbery is sometimes listed as an American ace due to his service in both the French Air Force and the United States Army Air Service, but officially, all but one of his 17 combat victories came while flying in French units. Nungesser ranked third highest in France with 43 air combat victories, while Madon was the fourth ranked French ace with a lengthy career and wide variety of aviation experiences."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which aircraft did the identified French ace pilot fly on his famous transatlantic flight known as L'Oiseau Blanc (The White Bird)? | History: ['Who was the French ace pilot during World War I?']",
+          "output": "Which aircraft did Charles Nungesser fly during his famous transatlantic flight known as L'Oiseau Blanc (The White Bird)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which aircraft did Charles Nungesser fly during his famous transatlantic flight known as L'Oiseau Blanc (The White Bird)?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which aircraft did Charles Nungesser fly during his famous transatlantic flight known as L'Oiseau Blanc (The White Bird)?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which aircraft did Charles Nungesser fly during his famous transatlantic flight known as L'Oiseau Blanc (The White Bird)?",
+          "output": "Charles Nungesser flew a Salmson 2A2 during his famous transatlantic flight known as L'Oiseau Blanc (The White Bird). This aircraft was a French single-seat biplane fighter, which he used for many of his air combat victories during World War I."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Which  French ace pilot and adventurer fly L'Oiseau Blanc",
+          "output": "Charles Nungesser flew L'Oiseau Blanc."
+        }
+      ]
+    },
+    {
+      "question": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+      "ground_truth": "no",
+      "answer": "No, based on the provided findings, neither \"Freakonomics\" nor \"In the Realm of the Hackers\" are identified as being American documentaries.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+          "output": "1. What is the nationality of Freakonomics?\n2. What is the nationality of In the Realm of the Hackers?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the nationality of Freakonomics?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the nationality of Freakonomics?",
+          "output": "Retrieved: ['Freakonomics Radio', 'Nationality', \"Nationality law of the People'\", 'Si\u00e8ge social', 'Japanese nationality law']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of Freakonomics?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the nationality of Freakonomics?",
+          "output": "Freakonomics authors nationality\" or \"Where are Freakonomics authors from?"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Freakonomics authors nationality\" or \"Where are Freakonomics authors from?",
+          "output": "Retrieved: ['Robin Goldstein', 'Freakonomics Radio', 'Freakonomics (film)', 'Author editing', 'Christian science fiction']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of Freakonomics?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the nationality of In the Realm of the Hackers? | History: ['What is the nationality of Freakonomics?']",
+          "output": "What is the nationality of the author of \"In the Realm of the Hackers\"? (The authors of Freakonomics are unknown)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the nationality of the author of \"In the Realm of the Hackers\"? (The authors of Freakonomics are unknown)",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the nationality of the author of \"In the Realm of the Hackers\"? (The authors of Freakonomics are unknown)",
+          "output": "Retrieved: ['Robin Goldstein', 'In the Realm of the Hackers', 'Hackers (film)', 'Holarctic', 'Man Booker International Prize']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the nationality of the author of \"In the Realm of the Hackers\"? (The authors of Freakonomics are unknown)",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the nationality of the author of \"In the Realm of the Hackers\"? (The authors of Freakonomics are unknown)",
+          "output": "The nationality of the author of \"In the Realm of the Hackers\" is unknown as the provided context does not mention any books by this title and it does not pertain to Robin Goldstein, the author of \"The Wine Trials\", \"The Beer Trials\", and an upcoming book tentatively entitled \"A Defense of Fast Food\". The authors of \"Freakonomics\" are also unknown in this context."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are Freakonomics and In the Realm of the Hackers both American documentaries?",
+          "output": "No, based on the provided findings, neither \"Freakonomics\" nor \"In the Realm of the Hackers\" are identified as being American documentaries."
+        }
+      ]
+    },
+    {
+      "question": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+      "ground_truth": "Letters to Cleo",
+      "answer": "During their most successful periods, Screaming Trees had 5 members while Letters to Cleo had 6 members. So, Letters to Cleo had more members.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+          "output": "1. How many members does Letters to Cleo have?\n2. How many members does Screaming Trees have?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "How many members does Letters to Cleo have?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "How many members does Letters to Cleo have?",
+          "output": "Retrieved: ['Letters to Cleo', 'Cleo (company)', 'American Hi-Fi', 'Raya (app)', 'The Letters of Kingsley Amis']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "How many members does Letters to Cleo have?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "How many members does Letters to Cleo have?",
+          "output": "Letters to Cleo has six members. The members are Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, and Tom Polce."
+        },
+        {
+          "action": "REWRITE",
+          "input": "How many members does Screaming Trees have? | History: ['How many members does Letters to Cleo have?']",
+          "output": "How many members does Screaming Trees have (not referring to Letters to Cleo members Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, or Tom Polce)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "How many members does Screaming Trees have (not referring to Letters to Cleo members Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, or Tom Polce)?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "How many members does Screaming Trees have (not referring to Letters to Cleo members Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, or Tom Polce)?",
+          "output": "Retrieved: ['Letters to Cleo', 'American Hi-Fi', 'Screaming Trees discography', 'Truly', 'Raya (app)']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "How many members does Screaming Trees have (not referring to Letters to Cleo members Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, or Tom Polce)?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "How many members does Screaming Trees have (not referring to Letters to Cleo members Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, or Tom Polce)?",
+          "output": "Screaming Trees band members count\" or \"Number of Screaming Trees musicians"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Screaming Trees band members count\" or \"Number of Screaming Trees musicians",
+          "output": "Retrieved: ['Screaming Trees discography', 'Screaming Trees', 'Change Has Come', 'Beat Happening/Screaming Trees', 'Truly']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "How many members does Screaming Trees have (not referring to Letters to Cleo members Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, or Tom Polce)?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "How many members does Screaming Trees have (not referring to Letters to Cleo members Kay Hanley, Greg McKenna, Michael Eisenstein, Stacy Jones, Scott Riebling, or Tom Polce)?",
+          "output": "Screaming Trees had five members during its most successful period. These members were vocalist Mark Lanegan, guitarist Gary Lee Conner, bass player Van Conner, and drummer Barrett Martin."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Which band, Letters to Cleo or Screaming Trees, had more members?",
+          "output": "During their most successful periods, Screaming Trees had 5 members while Letters to Cleo had 6 members. So, Letters to Cleo had more members."
+        }
+      ]
+    },
+    {
+      "question": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+      "ground_truth": "October 1922",
+      "answer": "The Russian Civil War ended in 1923.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+          "output": "1. In what year did the Russian Civil War end?\n2. Who defeated Alexander Kerensky during the Russian Civil War?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In what year did the Russian Civil War end?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In what year did the Russian Civil War end?",
+          "output": "Retrieved: ['October Manifesto', 'Battle of Romanovka', 'Spillover of the Syrian Civil ', 'Star Wolves', 'Antonio Goicoechea']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In what year did the Russian Civil War end?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In what year did the Russian Civil War end?",
+          "output": "The Russian Civil War ended in the year 1923. However, it is important to note that the Battle of Romanovka and the Suchan Valley Campaign occurred in June 1919, which was during the course of the Russian Civil War. These battles were considered the final major engagements involving the United States in the conflict."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Who defeated Alexander Kerensky during the Russian Civil War? | History: ['In what year did the Russian Civil War end?']",
+          "output": "Who defeated Alexander Kerensky during the Russian Civil War, the leader of the Provisional Government that was overthrown by the Bolsheviks in October 1917?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who defeated Alexander Kerensky during the Russian Civil War, the leader of the Provisional Government that was overthrown by the Bolsheviks in October 1917?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who defeated Alexander Kerensky during the Russian Civil War, the leader of the Provisional Government that was overthrown by the Bolsheviks in October 1917?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who defeated Alexander Kerensky during the Russian Civil War, the leader of the Provisional Government that was overthrown by the Bolsheviks in October 1917?",
+          "output": "Alexander Kerensky was overthrown by the Bolsheviks during the October Revolution in 1917. The Bolsheviks, led by Vladimir Lenin, were the ones who defeated him and took control of Russia's Provisional Government. After his ousting, Kerensky did not play a significant role in the Russian Civil War that followed."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Alexander Kerensky was defeated and destroyed by the Bolsheviks in the course of a civil war that ended when ?",
+          "output": "The Russian Civil War ended in 1923."
+        }
+      ]
+    },
+    {
+      "question": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+      "ground_truth": "2000",
+      "answer": "Since the provided context does not specify the exact year Carlo Rovelli, the author of \"Seven Brief Lessons on Physics,\" began working in France, it is impossible to provide a definitive answer. However, based on his current position at Aix-Marseille University in France and the publication of his book there in 2016, he must have started working in France before that year.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+          "output": "1. Who is the Italian physicist that wrote Seven Brief Lessons on Physics?\n2. In what year did this Italian physicist start working in France?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is the Italian physicist that wrote Seven Brief Lessons on Physics?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who is the Italian physicist that wrote Seven Brief Lessons on Physics?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In what year did this Italian physicist start working in France? | History: ['Who is the Italian physicist that wrote Seven Brief Lessons on Physics?']",
+          "output": "What year did the Italian physicist known as \"Unknown\" begin working in France?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What year did the Italian physicist known as \"Unknown\" begin working in France?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What year did the Italian physicist known as \"Unknown\" begin working in France?",
+          "output": "Retrieved: ['\u00c9mile Verdet', 'Carlo Rovelli', 'Henry II style', 'Jean-Baptiste Lully', 'Seven Brief Lessons on Physics']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What year did the Italian physicist known as \"Unknown\" begin working in France?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What year did the Italian physicist known as \"Unknown\" begin working in France?",
+          "output": "Italian physicist French career start year"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Italian physicist French career start year",
+          "output": "Retrieved: ['Seven Brief Lessons on Physics', 'Chiara Nappi', 'Annie Belle', 'Last Year at Marienbad', 'Francesca Schiavone']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What year did the Italian physicist known as \"Unknown\" begin working in France?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What year did the Italian physicist known as \"Unknown\" begin working in France?",
+          "output": "The provided context does not contain enough information to determine the year when the unknown Italian physicist began working in France. To find this information, one would need additional sources or research about the specific physicist in question. However, it is known that the author of \"Seven Brief Lessons on Physics\" (which was published in 2016) is Carlo Rovelli, an Italian theoretical physicist and professor at Aix-Marseille University in France. So, based on this information, Carlo Rovelli began working in France at some point before 2016 when he published his book there."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Seven Brief Lessons on Physics was written by an Italian physicist that has worked in France since what year?",
+          "output": "Since the provided context does not specify the exact year Carlo Rovelli, the author of \"Seven Brief Lessons on Physics,\" began working in France, it is impossible to provide a definitive answer. However, based on his current position at Aix-Marseille University in France and the publication of his book there in 2016, he must have started working in France before that year."
+        }
+      ]
+    },
+    {
+      "question": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+      "ground_truth": "World War II",
+      "answer": "Based on the provided findings, it is not possible to determine the war that the Livesey Hal War Memorial commemorates.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+          "output": "1. What war had over 60 million casualties?\n2. Which memorial is the Livesey Hal War Memorial?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What war had over 60 million casualties?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What war had over 60 million casualties?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which memorial is the Livesey Hal War Memorial? | History: ['What war had over 60 million casualties?']",
+          "output": "Which memorial is the Livesey Hal, who is unknown, War Memorial?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which memorial is the Livesey Hal, who is unknown, War Memorial?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Which memorial is the Livesey Hal, who is unknown, War Memorial?",
+          "output": "Retrieved: ['Civil War Memorial (Sycamore, ', 'Livesey Hall War Memorial', 'Dras War Memorial', 'Alamein Memorial', 'Vietnam War Memorial, Hanoi']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Which memorial is the Livesey Hal, who is unknown, War Memorial?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "Which memorial is the Livesey Hal, who is unknown, War Memorial?",
+          "output": "Unknown diplomat war memorial"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Unknown diplomat war memorial",
+          "output": "Retrieved: ['Civil War Memorial (Sycamore, ', 'Alamein Memorial', 'Devon County War Memorial', 'Freetown Memorial', 'Portsmouth Naval Memorial']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Which memorial is the Livesey Hal, who is unknown, War Memorial?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which memorial is the Livesey Hal, who is unknown, War Memorial?",
+          "output": "The context and previous findings do not provide enough information to definitively determine which memorial the Livesey Hal War Memorial is. Since we don't know who Livesey Hal is or what war he might be associated with, it's impossible to identify the specific memorial in question."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The Livesey Hal War Memorial commemorates the fallen of which war, that had over 60 million casualties?",
+          "output": "Based on the provided findings, it is not possible to determine the war that the Livesey Hal War Memorial commemorates."
+        }
+      ]
+    },
+    {
+      "question": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+      "ground_truth": "no",
+      "answer": "No, Elko Regional Airport is located in Nevada, while Gerald R. Ford International Airport is located in Michigan.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+          "output": "1. Where is Elko Regional Airport located?\n2. Where is Gerald R. Ford International Airport located?\n   (Both questions aim to find the specific location of each airport.)"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Where is Elko Regional Airport located?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Where is Elko Regional Airport located?",
+          "output": "Retrieved: ['Elko Regional Airport', 'Manassas Regional Airport', 'Sharp County Regional Airport', 'Elizabeth City Regional Airpor', 'Roanoke\u2013Blacksburg Regional Ai']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Where is Elko Regional Airport located?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Where is Elko Regional Airport located?",
+          "output": "The Elko Regional Airport is located a mile west of downtown Elko in Elko County, Nevada."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Where is Gerald R. Ford International Airport located? | History: ['Where is Elko Regional Airport located?']",
+          "output": "Where is Gerald R. Ford International Airport located, similarly to how Elko Regional Airport is located a mile west of downtown Elko in Elko County, Nevada?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Where is Gerald R. Ford International Airport located, similarly to how Elko Regional Airport is located a mile west of downtown Elko in Elko County, Nevada?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Where is Gerald R. Ford International Airport located, similarly to how Elko Regional Airport is located a mile west of downtown Elko in Elko County, Nevada?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Where is Gerald R. Ford International Airport located, similarly to how Elko Regional Airport is located a mile west of downtown Elko in Elko County, Nevada?",
+          "output": "Gerald R. Ford International Airport is not located similarly to how Elko Regional Airport is located a mile west of downtown Elko in Elko County, Nevada. The Gerald R. Ford International Airport (IATA: GRR, ICAO: KGRR, FAA LID: GRR) is actually located 16 miles northeast of Grand Rapids, Michigan, United States. It serves the Grand Rapids metropolitan area and is owned by the Kent County Department of Aviation. Unlike Elko Regional Airport, it's not situated within the city limits but rather in a suburban area."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are both Elko Regional Airport and Gerald R. Ford International Airport located in Michigan?",
+          "output": "No, Elko Regional Airport is located in Nevada, while Gerald R. Ford International Airport is located in Michigan."
+        }
+      ]
+    },
+    {
+      "question": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+      "ground_truth": "New York City",
+      "answer": "The city where Ralph Hefferline's university (Columbia University) is located is not explicitly stated in the provided context.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+          "output": "1. What is the name of the university where Ralph Hefferline was a psychology professor?\n2. In which city is this university located?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the university where Ralph Hefferline was a psychology professor?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the name of the university where Ralph Hefferline was a psychology professor?",
+          "output": "Retrieved: ['Ralph Hefferline', 'Princeton Neuroscience Institu', 'James Jordan (conductor)', 'Geraldine Dawson', 'Kimberly Young']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the name of the university where Ralph Hefferline was a psychology professor?",
+          "output": "Kept 3/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the name of the university where Ralph Hefferline was a psychology professor?",
+          "output": "Ralph Hefferline was a psychology professor at Columbia University."
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which city is this university located? | History: ['What is the name of the university where Ralph Hefferline was a psychology professor?']",
+          "output": "In which city is Columbia University located?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which city is Columbia University located?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which city is Columbia University located?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which city is Columbia University located?",
+          "output": "The city where Columbia University is located is not explicitly stated in the provided context. However, it can be inferred that Ralph Hefferline was a psychology professor at Columbia University, and as such, the university must be located in a city. Without further information, we cannot definitively state which city Columbia University is located in."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Ralph Hefferline was a psychology professor at a university that is located in what city?",
+          "output": "The city where Ralph Hefferline's university (Columbia University) is located is not explicitly stated in the provided context."
+        }
+      ]
+    },
+    {
+      "question": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+      "ground_truth": "Scotch Collie",
+      "answer": "Neither the Manchester Terrier nor the Scotch Collie's ancestors include Gordon or Irish Setters.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+          "output": "1. What breeds are the ancestors of the Manchester Terrier?\n2. What breeds are the ancestors of the Scotch Collie?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What breeds are the ancestors of the Manchester Terrier?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What breeds are the ancestors of the Manchester Terrier?",
+          "output": "Retrieved: ['Fox Terrier', 'Toy Manchester Terrier', 'Scottish Terrier', 'Wire Fox Terrier', 'Russkiy Toy']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What breeds are the ancestors of the Manchester Terrier?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What breeds are the ancestors of the Manchester Terrier?",
+          "output": "The ancestors of the Manchester Terrier are the English Toy Terriers. However, it's important to note that the Russian Toy, which is similar to the Manchester Terrier and shares its ancestry, was originally bred from the English Toy Terrier as well."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What breeds are the ancestors of the Scotch Collie? | History: ['What breeds are the ancestors of the Manchester Terrier?']",
+          "output": "What breeds are the ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What breeds are the ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What breeds are the ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie?",
+          "output": "Retrieved: ['Russkiy Toy', 'Toy Manchester Terrier', 'Fox Terrier', 'Affenpinscher', 'Airedale Terrier']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What breeds are the ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What breeds are the ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie?",
+          "output": "English Toy Terrier ancestry breeds\" or \"Scotch Collie Manchester Terrier origins"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "English Toy Terrier ancestry breeds\" or \"Scotch Collie Manchester Terrier origins",
+          "output": "Retrieved: ['Toy Manchester Terrier', 'Russkiy Toy', 'Teddy Roosevelt Terrier', 'Terrier Group', 'Fox Terrier']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What breeds are the ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What breeds are the ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie?",
+          "output": "The ancestors of the Manchester Terrier's English Toy Terrier counterparts, also known as the Scotch Collie, are not explicitly mentioned in the provided context. However, given that the Manchester Terrier and the English Toy Terrier share a common ancestry, it can be inferred that the ancestors of the Scotch Collie would likely be similar to those of the English Toy Terrier. These ancestors include various earlier varieties of British terriers, as well as the Fox Terrier (both Smooth and Wire-haired). It's important to note that the exact lineage may vary depending on the specific strain or era of the Scotch Collie being referred to."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Which dog's ancestors include Gordon and Irish Setters: the Manchester Terrier or the Scotch Collie?",
+          "output": "Neither the Manchester Terrier nor the Scotch Collie's ancestors include Gordon or Irish Setters."
+        }
+      ]
+    },
+    {
+      "question": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+      "ground_truth": "Mumbai",
+      "answer": "Tata Consultancy Services (TCS) is headquartered in Mumbai, India.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+          "output": "1. Who is Sachin Warrier?\n2. For which company did Sachin Warrier work as a software engineer?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who is Sachin Warrier?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who is Sachin Warrier?",
+          "output": "Retrieved: ['Kanave Kalayathe', 'Muthuchippi Poloru', 'Sachin Warrier', 'Sachin Bansal', 'Chhote Miyan']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who is Sachin Warrier?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who is Sachin Warrier?",
+          "output": "Sachin Warrier is a playback singer and composer in the Malayalam cinema industry from Kerala. He gained notable recognition with the song \"Muthuchippi Poloru\" from the film Thattathin Marayathu. His debut was with the movie Malarvaadi Arts Club. Currently, he works as a composer for movies, with his latest work being as a composer for the movie Aanandam. Initially, he worked as a software engineer in Tata Consultancy Services in Kochi but later resigned to concentrate more on music."
+        },
+        {
+          "action": "REWRITE",
+          "input": "For which company did Sachin Warrier work as a software engineer? | History: ['Who is Sachin Warrier?']",
+          "output": "For which company did Sachin Warrier work as a software engineer?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "For which company did Sachin Warrier work as a software engineer?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "For which company did Sachin Warrier work as a software engineer?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "For which company did Sachin Warrier work as a software engineer?",
+          "output": "Sachin Warrier worked as a software engineer for Tata Consultancy Services (TCS) in Kochi."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Where is the company that Sachin Warrier worked for as a software engineer headquartered? ",
+          "output": "Tata Consultancy Services (TCS) is headquartered in Mumbai, India."
+        }
+      ]
+    },
+    {
+      "question": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+      "ground_truth": "1962",
+      "answer": "The Japanese manga series featuring Ichitaka Seto, known as \"The Prince of Tennis,\" was created by Takeshi Konomi, who was born before 1999.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+          "output": "1. In which year was the author of Ichitaka Seto's manga series born?\n2. What is the name of the author who wrote and illustrated the manga series featuring Ichitaka Seto?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which year was the author of Ichitaka Seto's manga series born?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which year was the author of Ichitaka Seto's manga series born?",
+          "output": "Retrieved: ['I&quot;s', 'My Bride is a Mermaid', 'Touch (manga)', 'The Prince of Tennis', 'Manga Bible (series)']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which year was the author of Ichitaka Seto's manga series born?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which year was the author of Ichitaka Seto's manga series born?",
+          "output": "The author of \"The Prince of Tennis\" manga series, Takeshi Konomi, was born in a year that is not explicitly stated within the provided context. However, it can be inferred that he was active and publishing his work during the late 1990s to early 2000s, as \"The Prince of Tennis\" was first published in July 1999 and ended publication on March 3, 2008. Therefore, it can be assumed that Takeshi Konomi was born before 1999."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the name of the author who wrote and illustrated the manga series featuring Ichitaka Seto? | History: [\"In which year was the author of Ichitaka Seto's manga series born?\"]",
+          "output": "What is the name of Takeshi Konomi, the author who wrote and illustrated the manga series featuring Ichitaka Seto?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of Takeshi Konomi, the author who wrote and illustrated the manga series featuring Ichitaka Seto?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the name of Takeshi Konomi, the author who wrote and illustrated the manga series featuring Ichitaka Seto?",
+          "output": "Retrieved: ['I&quot;s', 'The Prince of Tennis', 'Manga Bible (series)', 'My Bride is a Mermaid', 'First Human Giatrus']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the name of Takeshi Konomi, the author who wrote and illustrated the manga series featuring Ichitaka Seto?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the name of Takeshi Konomi, the author who wrote and illustrated the manga series featuring Ichitaka Seto?",
+          "output": "The author who wrote and illustrated the manga series featuring Ichitaka Seto is Takeshi Konomi. He is the creator of \"The Prince of Tennis\" manga series, which was first published in Japan in Shueisha's \"Weekly Sh\u014dnen Jump\" in July 1999, and ended publication on March 3, 2008. The title of the manga series is often shortened to Tenni-Pri (\u30c6\u30cb\u30d7\u30ea), a portmanteau of the words \"Tennis Prince\". As of volume 40, the manga has sold over 40 million copies in Japan, and a sequel entitled \"New Prince of Tennis\" began serialization in the \"Jump Square\" magazine on March 4, 2009. Viz Media acquired the license to distribute the series in English in North America."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "A Japanese manga series based on a 16 year old high school student Ichitaka Seto, is written and illustrated by someone born in what year?",
+          "output": "The Japanese manga series featuring Ichitaka Seto, known as \"The Prince of Tennis,\" was created by Takeshi Konomi, who was born before 1999."
+        }
+      ]
+    },
+    {
+      "question": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+      "ground_truth": "sovereignty",
+      "answer": "Based on the provided findings, it is not possible to determine the specific battle that led to Giuseppe Arimondi's death or the outcome of that battle for Ethiopia. Therefore, we cannot accurately answer the question about what was secured in the battle where Giuseppe Arimondi lost his life for Ethiopia.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+          "output": "1. In which battle did Giuseppe Arimondi lose his life?\n2. What was the outcome or result of that specific battle for Ethiopia?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which battle did Giuseppe Arimondi lose his life?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which battle did Giuseppe Arimondi lose his life?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What was the outcome or result of that specific battle for Ethiopia? | History: ['In which battle did Giuseppe Arimondi lose his life?']",
+          "output": "What was the outcome or result of the battle in which Giuseppe Arimondi lost his life for Ethiopia?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What was the outcome or result of the battle in which Giuseppe Arimondi lost his life for Ethiopia?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What was the outcome or result of the battle in which Giuseppe Arimondi lost his life for Ethiopia?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What was the outcome or result of the battle in which Giuseppe Arimondi lost his life for Ethiopia?",
+          "output": "The previous findings do not provide information about the battle in which Giuseppe Arimondi lost his life for Ethiopia, nor does it specify the outcome of that battle. To answer this question accurately, we would need additional historical data or sources that detail the events surrounding Giuseppe Arimondi's death during his service in Ethiopia."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "The battle in which Giuseppe Arimondi lost his life secured what for Ethiopia?",
+          "output": "Based on the provided findings, it is not possible to determine the specific battle that led to Giuseppe Arimondi's death or the outcome of that battle for Ethiopia. Therefore, we cannot accurately answer the question about what was secured in the battle where Giuseppe Arimondi lost his life for Ethiopia."
+        }
+      ]
+    },
+    {
+      "question": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+      "ground_truth": "Nelson Rockefeller",
+      "answer": "Nelson Rockefeller, who became Vice President after Spiro Agnew's resignation.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+          "output": "1. Who served as the United States Vice President during the time period when Alfred Balk was secretary of the Committee on the Employment of Minority Groups in the News Media?\n2. What committee did Alfred Balk serve as secretary for, specifically?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who served as the United States Vice President during the time period when Alfred Balk was secretary of the Committee on the Employment of Minority Groups in the News Media?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who served as the United States Vice President during the time period when Alfred Balk was secretary of the Committee on the Employment of Minority Groups in the News Media?",
+          "output": "Retrieved: ['Alfred Balk', 'Cynthia Hogan', 'United States Deputy Secretary', 'Gerald Ford', 'Timeline of the presidency of ']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who served as the United States Vice President during the time period when Alfred Balk was secretary of the Committee on the Employment of Minority Groups in the News Media?",
+          "output": "Kept 3/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who served as the United States Vice President during the time period when Alfred Balk was secretary of the Committee on the Employment of Minority Groups in the News Media?",
+          "output": "During the time period when Alfred Balk was secretary of the Committee on the Employment of Minority Groups in the News Media, there is no direct information provided about who served as the United States Vice President. The context only mentions Gerald Ford as the 38th President of the United States and the first person to have served as both Vice President and President without being elected to either office, but it does not specify the exact timeframe for his tenure as Vice President. However, Gerald Ford served as Vice President from August 1973 (following Spiro Agnew's resignation) until Richard Nixon's resignation in August 1974, which is before Alfred Balk's tenure as secretary of the Committee on the Employment of Minority Groups in the News Media. Therefore, it can be inferred that during Alfred Balk's tenure (the exact dates are not provided in the context), Nelson Rockefeller served as Vice President, as he was appointed to the position by President Ford after Spiro Agnew's resignation and remained in office until Ford became president."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What committee did Alfred Balk serve as secretary for, specifically? | History: ['Who served as the United States Vice President during the time period when Alfred Balk was secretary of the Committee on the Employment of Minority Groups in the News Media?']",
+          "output": "What committee did Alfred Balk serve as secretary for, specifically?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What committee did Alfred Balk serve as secretary for, specifically?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What committee did Alfred Balk serve as secretary for, specifically?",
+          "output": "Retrieved: ['Alfred Balk', 'What of the Mormons?', 'Dave Lopez', 'Oklahoma Secretary of Commerce', 'David Kerr (Missouri politicia']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What committee did Alfred Balk serve as secretary for, specifically?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What committee did Alfred Balk serve as secretary for, specifically?",
+          "output": "Alfred Balk served as secretary of the Committee on the Employment of Minority Groups in the News Media."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Alfred Balk served as the secretary of the Committee on the Employment of Minority Groups in the News Media under which United States Vice President?",
+          "output": "Nelson Rockefeller, who became Vice President after Spiro Agnew's resignation."
+        }
+      ]
+    },
+    {
+      "question": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+      "ground_truth": "Yellowcraig",
+      "answer": "The medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of the coastal area located within East Lothian, Scotland.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+          "output": "1. What is the name of the coastal area that Dirleton, East Lothian, Scotland borders on its south side?\n2. In which county is the coastal area located where Dirleton, East Lothian, Scotland borders on its south side?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the name of the coastal area that Dirleton, East Lothian, Scotland borders on its south side?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "What is the name of the coastal area that Dirleton, East Lothian, Scotland borders on its south side?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which county is the coastal area located where Dirleton, East Lothian, Scotland borders on its south side? | History: ['What is the name of the coastal area that Dirleton, East Lothian, Scotland borders on its south side?']",
+          "output": "In which county is the coastal area located where Dirleton, East Lothian, Scotland borders on its south side, named as Unknown?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which county is the coastal area located where Dirleton, East Lothian, Scotland borders on its south side, named as Unknown?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "In which county is the coastal area located where Dirleton, East Lothian, Scotland borders on its south side, named as Unknown?",
+          "output": "Retrieved: ['Lothian and Borders', 'Yellowcraigs', 'Dirleton Kirk', 'Scottish Borders', 'Dirleton']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "In which county is the coastal area located where Dirleton, East Lothian, Scotland borders on its south side, named as Unknown?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which county is the coastal area located where Dirleton, East Lothian, Scotland borders on its south side, named as Unknown?",
+          "output": "The coastal area that Dirleton, East Lothian, Scotland borders on its south side is located in the county of East Lothian, Scotland."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "A medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of what coastal area?",
+          "output": "The medieval fortress in Dirleton, East Lothian, Scotland borders on the south side of the coastal area located within East Lothian, Scotland."
+        }
+      ]
+    },
+    {
+      "question": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+      "ground_truth": "Phil Spector",
+      "answer": "The writer of \"To Know Him Is to Love Him,\" which was potentially the first track on the box set \"Back to Mono,\" is Phil Spector. However, it's not explicitly stated that this song is the first track in the box set.",
+      "question_type": "bridge",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+          "output": "1. Who wrote the song that was inspired by words on a tombstone?\n2. Which song was the first track on the box set Back to Mono?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who wrote the song that was inspired by words on a tombstone?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Who wrote the song that was inspired by words on a tombstone?",
+          "output": "Retrieved: ['To Know Him Is to Love Him', 'One (Ed Sheeran song)', 'Bloody Mary Morning', 'Galang (song)', \"Triumphant (Get 'Em)\"]"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "Who wrote the song that was inspired by words on a tombstone?",
+          "output": "Kept 2/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Who wrote the song that was inspired by words on a tombstone?",
+          "output": "The song that was inspired by words on a tombstone is \"To Know Him Is to Love Him,\" which was written by Phil Spector."
+        },
+        {
+          "action": "REWRITE",
+          "input": "Which song was the first track on the box set Back to Mono? | History: ['Who wrote the song that was inspired by words on a tombstone?']",
+          "output": "Which song was the first track on the box set Back to Mono, as written by Phil Spector who wrote \"To Know Him Is to Love Him,\" a song inspired by words on a tombstone?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which song was the first track on the box set Back to Mono, as written by Phil Spector who wrote \"To Know Him Is to Love Him,\" a song inspired by words on a tombstone?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which song was the first track on the box set Back to Mono, as written by Phil Spector who wrote \"To Know Him Is to Love Him,\" a song inspired by words on a tombstone?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "Which song was the first track on the box set Back to Mono, as written by Phil Spector who wrote \"To Know Him Is to Love Him,\" a song inspired by words on a tombstone?",
+          "output": "The first track on the box set \"Back to Mono\" is not explicitly stated in the provided context. However, since \"To Know Him Is to Love Him\" was a successful song written by Phil Spector, it could potentially be included in such a compilation. Other songs by Phil Spector that might also be included are those he wrote for The Teddy Bears, such as \"Crying,\" \"Oh Oh I'm Falling in Love Again,\" and \"Don't You Worry My Little Pet.\" Additionally, Willie Nelson's \"Bloody Mary Morning\" (originally titled \"Bloody Merry Morning\") is not a song written by Phil Spector and would not be included in the box set based on the given context."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Who is the writer of this song that was inspired by words on a tombstone and was the first track on the box set Back to Mono?",
+          "output": "The writer of \"To Know Him Is to Love Him,\" which was potentially the first track on the box set \"Back to Mono,\" is Phil Spector. However, it's not explicitly stated that this song is the first track in the box set."
+        }
+      ]
+    },
+    {
+      "question": "What type of forum did a former Soviet statesman initiate?",
+      "ground_truth": "Organizations could come together to address global issues",
+      "answer": "There is no information provided to determine the type of forum initiated by a former Soviet statesman.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "What type of forum did a former Soviet statesman initiate?",
+          "output": "1. Who was the former Soviet statesman in question?\n2. What type of forum did this specific individual initiate?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Who was the former Soviet statesman in question?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Who was the former Soviet statesman in question?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "What type of forum did this specific individual initiate? | History: ['Who was the former Soviet statesman in question?']",
+          "output": "What type of forum did the former Soviet statesman Unknown initiate?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What type of forum did the former Soviet statesman Unknown initiate?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What type of forum did the former Soviet statesman Unknown initiate?",
+          "output": "Retrieved: ['Mikhail Gorbachev', 'Sergo Mikoyan', 'MS Excelsior Neptune', 'Anastas Mikoyan', 'Column of Phocas']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What type of forum did the former Soviet statesman Unknown initiate?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What type of forum did the former Soviet statesman Unknown initiate?",
+          "output": "Unnamed diplomatic career in Soviet states"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Unnamed diplomatic career in Soviet states",
+          "output": "Retrieved: ['Russian Soviet Government Bure', 'Embassy of the United States, ', 'United States Mission to the E', 'Denis Greenhill, Baron Greenhi', 'High Commission of Australia, ']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What type of forum did the former Soviet statesman Unknown initiate?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What type of forum did the former Soviet statesman Unknown initiate?",
+          "output": "Based on the provided context, there is no information available about which former Soviet statesman initiated a specific forum. Therefore, I cannot provide an accurate answer to this question."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "What type of forum did a former Soviet statesman initiate?",
+          "output": "There is no information provided to determine the type of forum initiated by a former Soviet statesman."
+        }
+      ]
+    },
+    {
+      "question": "Are Ferocactus and Silene both types of plant?",
+      "ground_truth": "yes",
+      "answer": "Yes, both Ferocactus and Silene are types of plants. They belong to the Kingdom Plantae.",
+      "question_type": "comparison",
+      "correct": true,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Are Ferocactus and Silene both types of plant?",
+          "output": "1. What is the taxonomic classification of Ferocactus?\n2. What is the taxonomic classification of Silene?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the taxonomic classification of Ferocactus?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the taxonomic classification of Ferocactus?",
+          "output": "Retrieved: ['Echinocactus', 'Kraepelinian dichotomy', 'List of Utricularia species', 'Cladorhiza inversa', 'Cladorhiza segonzaci']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the taxonomic classification of Ferocactus?",
+          "output": "Kept 0/5 docs"
+        },
+        {
+          "action": "REFINE_QUERY",
+          "input": "What is the taxonomic classification of Ferocactus?",
+          "output": "Ferocactus species classification\" or \"Taxonomy of Ferocactus cacti"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "Ferocactus species classification\" or \"Taxonomy of Ferocactus cacti",
+          "output": "Retrieved: ['Ferocactus', 'Echinocactus', 'Cereus (plant)', 'Echinopsis', 'Schlumbergera']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the taxonomic classification of Ferocactus?",
+          "output": "Kept 1/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the taxonomic classification of Ferocactus?",
+          "output": "The taxonomic classification of Ferocactus is as follows:\n\n- Kingdom: Plantae (Plants)\n- Phylum: Cactophyta (Cacti and their allies)\n- Class: Magnoliopsida (Dicotyledons)\n- Subclass: Caryophyllidae\n- Order: Caryophyllales\n- Family: Cactaceae (Cactus family)\n- Genus: Ferocactus (Genus of large barrel-shaped cacti)\n\nThis classification reflects the hierarchical organization of living organisms, with each category representing a broader or more specific grouping."
+        },
+        {
+          "action": "REWRITE",
+          "input": "What is the taxonomic classification of Silene? | History: ['What is the taxonomic classification of Ferocactus?']",
+          "output": "What is the taxonomic classification of Silene (the Genus being studied)?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "What is the taxonomic classification of Silene (the Genus being studied)?",
+          "output": "SEARCH"
+        },
+        {
+          "action": "RETRIEVE",
+          "input": "What is the taxonomic classification of Silene (the Genus being studied)?",
+          "output": "Retrieved: ['List of Utricularia species', 'Silene', 'Silene tomentosa', 'Sex determination in Silene', 'Silene stenophylla']"
+        },
+        {
+          "action": "FILTER_RELEVANT",
+          "input": "What is the taxonomic classification of Silene (the Genus being studied)?",
+          "output": "Kept 4/5 docs"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "What is the taxonomic classification of Silene (the Genus being studied)?",
+          "output": "The taxonomic classification of Silene (the Genus being studied) is as follows:\n\n- Kingdom: Plantae (Plants)\n- Phylum: Tracheophyta (Vascular plants)\n- Class: Magnoliopsida (Dicotyledons)\n- Subclass: Caryophyllidae\n- Order: Caryophyllales\n- Family: Caryophyllaceae (Pink family or Catchfly family)\n- Genus: Silene (Genus of flowering plants, commonly known as campion and catchfly)"
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Are Ferocactus and Silene both types of plant?",
+          "output": "Yes, both Ferocactus and Silene are types of plants. They belong to the Kingdom Plantae."
+        }
+      ]
+    },
+    {
+      "question": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+      "ground_truth": "English Electric Canberra",
+      "answer": "Based on the provided context, it is not possible to determine which specific British first-generation jet-powered medium bomber was used in the South West Pacific theater of World War II as no such information was given.",
+      "question_type": "bridge",
+      "correct": false,
+      "steps": [
+        {
+          "action": "DECOMPOSE",
+          "input": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+          "output": "1. Which British jet-powered medium bomber was developed during World War II?\n2. In which theater of World War II was the identified British jet-powered medium bomber used?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "Which British jet-powered medium bomber was developed during World War II?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "Which British jet-powered medium bomber was developed during World War II?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "REWRITE",
+          "input": "In which theater of World War II was the identified British jet-powered medium bomber used? | History: ['Which British jet-powered medium bomber was developed during World War II?']",
+          "output": "In which theater of World War II was the British jet-powered medium bomber, the Unknown, used?"
+        },
+        {
+          "action": "CHECK_RETRIEVAL_NEEDED",
+          "input": "In which theater of World War II was the British jet-powered medium bomber, the Unknown, used?",
+          "output": "REASON"
+        },
+        {
+          "action": "SKIP_RETRIEVAL",
+          "input": "In which theater of World War II was the British jet-powered medium bomber, the Unknown, used?",
+          "output": "Synthesis step - no retrieval needed"
+        },
+        {
+          "action": "EXTRACT",
+          "input": "In which theater of World War II was the British jet-powered medium bomber, the Unknown, used?",
+          "output": "The British jet-powered medium bomber, whose exact name is unknown from the provided context, was used in the European Theater of World War II. This assumption is based on the fact that most of the significant combat operations involving jet aircraft during World War II took place in Europe. However, it's important to note that the specific use of this unnamed bomber in other theaters such as the Pacific or Middle East isn't ruled out without further information about its deployment history."
+        },
+        {
+          "action": "GENERATE_FINAL",
+          "input": "Which British first-generation jet-powered medium bomber was used in the South West Pacific theatre of World War II?",
+          "output": "Based on the provided context, it is not possible to determine which specific British first-generation jet-powered medium bomber was used in the South West Pacific theater of World War II as no such information was given."
+        }
+      ]
+    }
+  ]
+}

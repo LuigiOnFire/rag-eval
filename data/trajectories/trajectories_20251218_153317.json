@@ -1,0 +1,1026 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-18T15:34:58.677120",
+    "n_samples": 20,
+    "simplification_enabled": true,
+    "retry_enabled": true
+  },
+  "stats": {
+    "total": 20,
+    "correct_first_try": 9,
+    "correct_after_retry": 3,
+    "incorrect": 8,
+    "simplified": 0,
+    "total_steps": 63,
+    "total_energy_wh": 1.7319999999999995,
+    "accuracy": 0.6,
+    "avg_steps": 3.15,
+    "avg_energy_wh": 0.08659999999999998
+  },
+  "trajectories": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "ground_truth": "yes",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Scott Derrickson",
+          0
+        ],
+        [
+          "Ed Wood",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWere Scott Derrickson and Ed Wood of the same nationality?",
+          "llm_output": "Action: RETRIEVE_KEYWORD[\"Scott Derrickson nationality\"]\n\nThought: We need to find information about Scott Derrickson's nationality.",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Scott Derrickson nationality",
+          "result": "Retrieved 5 documents for 'Scott Derrickson nationality'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWere Scott Derrickson and Ed Wood of the same nationality?\n\n=== RETRIEVED CONTEXT ===\n[Sinister (film)]: Sinister is a 2012 supernatural horror film directed by Scott Derrickson and written by Derrickson and C. Robert Cargill.  It stars Ethan Hawke as fictional true-crime writer Ellison Oswalt who discovers a box of home movies in his attic that puts his family in danger.\n[Scott Derrickson]: Scott Derrickson (born July 16, 1966) is an American director, screenwriter and producer.  ",
+          "llm_output": "Thought: Both Scott Derrickson and Ed Wood are known for their work in the film industry.\nAction: GENERATE_SLM[\"Were Scott Derrickson and Ed Wood of the same nationality?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Were Scott Derrickson and Ed Wood of the same nationality?",
+          "result": "No, Scott Derrickson is American, while Ed Wood was Canadian."
+        }
+      ],
+      "answer": "No, Scott Derrickson is American, while Ed Wood was Canadian.",
+      "is_correct": false,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "ground_truth": "Chief of Protocol",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Kiss and Tell (1945 film)",
+          0
+        ],
+        [
+          "Shirley Temple",
+          0
+        ],
+        [
+          "Shirley Temple",
+          1
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhat government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+          "llm_output": "Thought: The query is asking about a specific actress who played a character named Corliss Archer in a film.\nAction: RETRIEVE_KEYWORD[\"actress who played Corliss Archer in Kiss and Tell\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "actress who played Corliss Archer in Kiss and Tell",
+          "result": "Retrieved 5 documents for 'actress who played Corliss Archer in Kiss and Tell'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhat government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?\n\n=== RETRIEVED CONTEXT ===\n[Kiss and Tell (1945 film)]: Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer.  In the film, two teenage girls cause their respective parents much concern when they start to become interested in boys.  The parents' bickering about which girl is the worse influence causes more problems than it solves.",
+          "llm_output": "Thought: We have retrieved context about Shirley Temple, Corliss Archer, and various films and TV shows.\nAction: GENERATE_SLM[\"What government position was held by Janet Waldo?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "What government position was held by Janet Waldo?",
+          "result": "There is no information provided in the context that suggests the woman who portrayed Corliss Archer in the film Kiss and Tell held a government position."
+        }
+      ],
+      "answer": "There is no information provided in the context that suggests the woman who portrayed Corliss Archer in the film Kiss and Tell held a government position.",
+      "is_correct": false,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "ground_truth": "Animorphs",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "The Hork-Bajir Chronicles",
+          0
+        ],
+        [
+          "The Hork-Bajir Chronicles",
+          1
+        ],
+        [
+          "The Hork-Bajir Chronicles",
+          2
+        ],
+        [
+          "Animorphs",
+          0
+        ],
+        [
+          "Animorphs",
+          1
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhat science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "llm_output": "Thought: The query seems to be asking about a specific science fantasy young adult book series with unique narrative features.\nAction: RETRIEVE_KEYWORD[\"science fantasy young adult series told in first person with companion books on enslaved worlds and alien species\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "science fantasy young adult series told in first person with companion books on enslaved worlds and alien species",
+          "result": "Retrieved 5 documents for 'science fantasy young adult series told in first person with companion books on enslaved worlds and alien species'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhat science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?\n\n=== RETRIEVED CONTEXT ===\n[Animorphs]: Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic.  It is told in first person, with all six main characters taking turns narrating the books thro",
+          "llm_output": "Thought: The query mentions a science fantasy young adult series with companion books narrating stories of enslaved worlds and alien species.\nAction: RETRIEVE_KEYWORD[\"science fantasy young adult series with companion books narrating stories of enslaved worlds and alien species\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "science fantasy young adult series with companion books narrating stories of enslaved worlds and alien species",
+          "result": "Retrieved 5 documents for 'science fantasy young adult series with companion books narrating stories of enslaved worlds and alien species'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nWhat science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?\n\n=== RETRIEVED CONTEXT ===\n[Animorphs]: Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic.  It is told in first person, with all six main characters taking turns narrating the books thro",
+          "llm_output": "Thought: This query seems to be asking about a science fantasy young adult series with companion books, told in first person.\nAction: RETRIEVE_KEYWORD[\"science fantasy young adult series with companion books told in first person\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "science fantasy young adult series with companion books told in first person",
+          "result": "Retrieved 5 documents for 'science fantasy young adult series with companion books told in first person'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nWhat science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?\n\n=== RETRIEVED CONTEXT ===\n[Animorphs]: Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic.  It is told in first person, with all six main characters taking turns narrating the books thro",
+          "llm_output": "Thought: Based on the retrieved context, I will generate a response that answers the query.\n\nAction: GENERATE_SLM[\"What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+          "result": "The Animorphs series is a science fantasy young adult series, told in first person, that has a set of companion books narrating the stories of enslaved worlds and alien species."
+        }
+      ],
+      "answer": "The Animorphs series is a science fantasy young adult series, told in first person, that has a set of companion books narrating the stories of enslaved worlds and alien species.",
+      "is_correct": true,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "ground_truth": "no",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Laleli Mosque",
+          0
+        ],
+        [
+          "Esma Sultan Mansion",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nAre the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "llm_output": "Thought: Since this is a comparison question, I'll retrieve information about each location separately.\nAction: RETRIEVE_KEYWORD[\"What is the location of Laleli Mosque?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "What is the location of Laleli Mosque?",
+          "result": "Retrieved 5 documents for 'What is the location of Laleli Mosque?'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nAre the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?\n\n=== RETRIEVED CONTEXT ===\n[Laleli Mosque]: The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ) is an 18th-century Ottoman imperial mosque located in Laleli, Fatih, Istanbul, Turkey.\n[Begumpur Mosque, Dindigul]: Begumpur Mosque (also called Begumpur Big Mosque) is a mosque located in Madurai Road, Begampur in Dindigul, the capital of the South Indian state of Tamil Nadu.  Constructed in the Mu",
+          "llm_output": "Thought: Since we have retrieved context about several mosques, let's focus on finding information about Laleli Mosque and Esma Sultan Mansion.\nAction: RETRIEVE_KEYWORD[\"Laleli Mosque\" AND \"Esma Sultan Mansion\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": null,
+          "result": "Retrieved 5 documents for 'Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nAre the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?\n\n=== RETRIEVED CONTEXT ===\n[Esma Sultan Mansion]: The Esma Sultan Mansion (Turkish: \"Esma Sultan Yal\u0131s\u0131\" ), a historical yal\u0131 (English: waterside mansion ) located at Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey and named after its original owner Esma Sultan, is used today as a cultural center after being redeveloped.\n[Laleli Mosque]: The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ",
+          "llm_output": "Thought: Both Laleli Mosque and Esma Sultan Mansion are located in Istanbul, Turkey.\nAction: RETRIEVE_KEYWORD[\"Are both Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Are both Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "result": "Retrieved 5 documents for 'Are both Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nAre the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?\n\n=== RETRIEVED CONTEXT ===\n[Esma Sultan Mansion]: The Esma Sultan Mansion (Turkish: \"Esma Sultan Yal\u0131s\u0131\" ), a historical yal\u0131 (English: waterside mansion ) located at Bosphorus in Ortak\u00f6y neighborhood of Istanbul, Turkey and named after its original owner Esma Sultan, is used today as a cultural center after being redeveloped.\n[Laleli Mosque]: The Laleli Mosque (Turkish: \"Laleli Camii, or Tulip Mosque\" ",
+          "llm_output": "Thought: Based on the retrieved context, it seems that Laleli Mosque and Esma Sultan Mansion are located in different neighborhoods.\nAction: GENERATE_SLM[\"Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+          "result": "No, the Laleli Mosque is located in the Laleli neighborhood, while the Esma Sultan Mansion is situated in Ortak\u00f6y."
+        }
+      ],
+      "answer": "No, the Laleli Mosque is located in the Laleli neighborhood, while the Esma Sultan Mansion is situated in Ortak\u00f6y.",
+      "is_correct": true,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "ground_truth": "Greenwich Village, New York City",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Big Stone Gap (film)",
+          0
+        ],
+        [
+          "Adriana Trigiani",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nThe director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\n[Hint: Look for information about: Big Stone Gap (film), Adriana Trigiani]",
+          "llm_output": "Thought: The query seems to be asking about the location of a specific person, likely the director of the film \"Big Stone Gap\".\nAction: RETRIEVE_KEYWORD[\"Adriana Trigiani Big Stone Gap\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Adriana Trigiani Big Stone Gap",
+          "result": "Retrieved 5 documents for 'Adriana Trigiani Big Stone Gap'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nThe director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\n[Hint: Look for information about: Big Stone Gap (film), Adriana Trigiani]\n\n=== RETRIEVED CONTEXT ===\n[Big Stone Gap (film)]: Big Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society.  Based on Trigiani's 2000 best-selling novel of the same name, the story is set in ",
+          "llm_output": "Thought: The query asks about the director's location based on a romantic comedy film.\nAction: RETRIEVE_KEYWORD[\"Adriana Trigiani's base\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Adriana Trigiani's base",
+          "result": "Retrieved 5 documents for 'Adriana Trigiani's base'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nThe director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\n[Hint: Look for information about: Big Stone Gap (film), Adriana Trigiani]\n\n=== RETRIEVED CONTEXT ===\n[Adriana Trigiani]: Adriana Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entrepreneur based in Greenwich Village, New York City.  Trigiani has published a novel a year since 2000.\n[Big Stone Gap (film)]: Big Stone Gap is a 2014 American",
+          "llm_output": "Thought: The query is asking about the director of the romantic comedy \"Big Stone Gap\" based in what New York city.\nAction: RETRIEVE_KEYWORD[\"What New York city is Adriana Trigiani based in?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "What New York city is Adriana Trigiani based in?",
+          "result": "Retrieved 5 documents for 'What New York city is Adriana Trigiani based in?'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nThe director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\n[Hint: Look for information about: Big Stone Gap (film), Adriana Trigiani]\n\n=== RETRIEVED CONTEXT ===\n[Adriana Trigiani]: Adriana Trigiani is an Italian American best-selling author of sixteen books, television writer, film director, and entrepreneur based in Greenwich Village, New York City.  Trigiani has published a novel a year since 2000.\n[Big Stone Gap (film)]: Big Stone Gap is a 2014 American",
+          "llm_output": "Thought: The director of the romantic comedy \"Big Stone Gap\" is Adriana Trigiani, and she is based in Greenwich Village, New York City.\n\nAction: GENERATE_SLM[\"The director of the romantic comedy 'Big Stone Gap' is based in what New York city?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "The director of the romantic comedy 'Big Stone Gap' is based in what New York city?",
+          "result": "Adriana Trigiani, the director of the romantic comedy \"Big Stone Gap\", is based in Greenwich Village, New York City."
+        }
+      ],
+      "answer": "Adriana Trigiani, the director of the romantic comedy \"Big Stone Gap\", is based in Greenwich Village, New York City.",
+      "is_correct": true,
+      "total_energy_wh": 0.107,
+      "attempt": 2,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "ground_truth": "YG Entertainment",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "2014 S/S",
+          0
+        ],
+        [
+          "Winner (band)",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\n2014 S/S is the debut album of a South Korean boy group that was formed by who?\n\n[Hint: Look for information about: 2014 S/S, Winner (band)]",
+          "llm_output": "Thought: Let's start by searching for keywords related to the query.\nAction: RETRIEVE_KEYWORD[\"2014 S/S debut album South Korean boy group\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "2014 S/S debut album South Korean boy group",
+          "result": "Retrieved 5 documents for '2014 S/S debut album South Korean boy group'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\n2014 S/S is the debut album of a South Korean boy group that was formed by who?\n\n[Hint: Look for information about: 2014 S/S, Winner (band)]\n\n=== RETRIEVED CONTEXT ===\n[SF9 (band)]: SF9 (Korean: \uc5d0\uc2a4\uc5d0\ud504\ub098\uc778 ; shortened from Sensational Feeling 9) is a South Korean boy group formed by FNC Entertainment.  SF9 is the company's first dance boy group to ever debut.  SF9 debuted on October 5, 2016 with the release of their first single album \"Feeling Sensation\".\n[2014 S/S]: 2014 S/S is the de",
+          "llm_output": "Thought: The query asks about the debut album of a South Korean boy group formed by who? Since we have retrieved context about WINNER and their debut album \"2014 S/S\", it seems likely that the answer is related to YG Entertainment, which is mentioned in the context.\n\nAction: RETRIEVE_KEYWORD[\"Who formed the South Korean boy group behind 2014 S/S album?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Who formed the South Korean boy group behind 2014 S/S album?",
+          "result": "Retrieved 5 documents for 'Who formed the South Korean boy group behind 2014 S/S album?'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\n2014 S/S is the debut album of a South Korean boy group that was formed by who?\n\n[Hint: Look for information about: 2014 S/S, Winner (band)]\n\n=== RETRIEVED CONTEXT ===\n[Seventeen discography]: This is the discography of South Korean boy group Seventeen.  Seventeen (Hangul: \uc138\ube10\ud2f4), also stylized as SEVENTEEN or SVT, is a South Korean boy group formed by Pledis Entertainment in 2015.  They have released one album and four EPs.\n[SF9 (band)]: SF9 (Korean: \uc5d0\uc2a4\uc5d0\ud504\ub098\uc778 ; shortened from Sensatio",
+          "llm_output": "Thought: The query is about the debut album of a South Korean boy group formed by someone.\nAction: RETRIEVE_KEYWORD[\"Who formed Winner (band) in 2013?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Who formed Winner (band) in 2013?",
+          "result": "Retrieved 5 documents for 'Who formed Winner (band) in 2013?'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\n2014 S/S is the debut album of a South Korean boy group that was formed by who?\n\n[Hint: Look for information about: 2014 S/S, Winner (band)]\n\n=== RETRIEVED CONTEXT ===\n[Winner (band)]: Winner (Hangul: \uc704\ub108), often stylized as WINNER, is a South Korean boy group formed in 2013 by YG Entertainment and debuted in 2014.  It currently consists of four members, Jinwoo, Seunghoon, Mino and Seungyoon.  Originally a five-piece group with Taehyun, who later departed from the group in November ",
+          "llm_output": "Thought: Based on the retrieved context, it seems that Winner (band) is the South Korean boy group formed by YG Entertainment and debuted in 2014.\n\nAction: GENERATE_SLM[\"Who formed the South Korean boy group Winner?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Who formed the South Korean boy group Winner?",
+          "result": "The 2014 S/S album is the debut album of the South Korean boy group Winner, which was formed by YG Entertainment."
+        }
+      ],
+      "answer": "The 2014 S/S album is the debut album of the South Korean boy group Winner, which was formed by YG Entertainment.",
+      "is_correct": true,
+      "total_energy_wh": 0.107,
+      "attempt": 2,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "ground_truth": "Eenasul Fateh",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Eenasul Fateh",
+          0
+        ],
+        [
+          "Management consulting",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWho was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "llm_output": "Thought: Let's search for information about the person known by the stage name Aladin.\nAction: RETRIEVE_KEYWORD[\"Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "result": "Retrieved 5 documents for 'Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWho was known by his stage name Aladin and helped organizations improve their performance as a consultant?\n\n=== RETRIEVED CONTEXT ===\n[Eenasul Fateh]: Eenasul Fateh (Bengali: \u0988\u09a8\u09be\u09b8\u09c1\u09b2 \u09ab\u09be\u09a4\u09c7\u09b9 ; born 3 April 1959), also known by his stage name Aladin, is a Bangladeshi-British cultural practitioner, magician, live artist and former international management consultant.\n[Management consulting]: Management consulting is the practice of helping organizations to improve their performance, ope",
+          "llm_output": "Thought: The query is asking about someone known by the stage name Aladin who helped organizations improve their performance.\nAction: GENERATE_SLM[\"Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+          "result": "Eenasul Fateh, also known by his stage name Aladin, is the individual who helped organizations improve their performance as a consultant."
+        }
+      ],
+      "answer": "Eenasul Fateh, also known by his stage name Aladin, is the individual who helped organizations improve their performance as a consultant.",
+      "is_correct": true,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "ground_truth": "3,677 seated",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Lewiston Maineiacs",
+          1
+        ],
+        [
+          "Androscoggin Bank Colis\u00e9e",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nThe arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "llm_output": "Thought: Let's search for information about the Lewiston Maineiacs and their home arena.\nAction: RETRIEVE_KEYWORD[\"Lewiston Maineiacs home arena seating capacity\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Lewiston Maineiacs home arena seating capacity",
+          "result": "Retrieved 5 documents for 'Lewiston Maineiacs home arena seating capacity'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nThe arena where the Lewiston Maineiacs played their home games can seat how many people?\n\n=== RETRIEVED CONTEXT ===\n[Lewiston Maineiacs]: The Lewiston Maineiacs were a junior ice hockey team of the Quebec Major Junior Hockey League based in Lewiston, Maine.  The team played its home games at the Androscoggin Bank Colis\u00e9e.  They were the second QMJHL team in the United States, and the only one to play a full season.  They won the President's Cup in 2007.\n[Androscoggin Bank Colis\u00e9e]:",
+          "llm_output": "Thought: Since we have retrieved relevant information about the Androscoggin Bank Colis\u00e9e, we can generate an answer based on that.\nAction: GENERATE_SLM[\"The arena where the Lewiston Maineiacs played their home games can seat how many people?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+          "result": "The Androscoggin Bank Colis\u00e9e, where the Lewiston Maineiacs played their home games, has a seating capacity of 3,677."
+        }
+      ],
+      "answer": "The Androscoggin Bank Colis\u00e9e, where the Lewiston Maineiacs played their home games, has a seating capacity of 3,677.",
+      "is_correct": false,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "ground_truth": "Terry Richardson",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Annie Morton",
+          0
+        ],
+        [
+          "Annie Morton",
+          2
+        ],
+        [
+          "Terry Richardson",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWho is older, Annie Morton or Terry Richardson?",
+          "llm_output": "Action: RETRIEVE_KEYWORD[\"Annie Morton\"]\n\nPlease provide more context or clarify the query if needed.",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Annie Morton",
+          "result": "Retrieved 5 documents for 'Annie Morton'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWho is older, Annie Morton or Terry Richardson?\n\n=== RETRIEVED CONTEXT ===\n[Alicia Morton]: Alicia Morton (born April 29, 1987) is a former American actress and singer best known for playing Annie in the 1999 remake.\n[Annie Morton]: Annie Morton (born October 8, 1970) is an American model born in Pennsylvania.  She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines.  She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; ",
+          "llm_output": "Action: RETRIEVE_KEYWORD[\"Who is older Annie Morton or Terry Richardson?\"]\n\nThought: Since we have retrieved context about multiple individuals with the name \"Morton\", I will focus on retrieving information about Annie Morton and Terry Richardson to determine which one is older.",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Who is older Annie Morton or Terry Richardson?",
+          "result": "Retrieved 5 documents for 'Who is older Annie Morton or Terry Richardson?'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nWho is older, Annie Morton or Terry Richardson?\n\n=== RETRIEVED CONTEXT ===\n[Annie Morton]: Annie Morton (born October 8, 1970) is an American model born in Pennsylvania.  She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines.  She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"H",
+          "llm_output": "Thought: Comparing ages requires information about Annie Morton and Terry Richardson.\nAction: RETRIEVE_KEYWORD[\"Annie Morton age\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Annie Morton age",
+          "result": "Retrieved 5 documents for 'Annie Morton age'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nWho is older, Annie Morton or Terry Richardson?\n\n=== RETRIEVED CONTEXT ===\n[Alicia Morton]: Alicia Morton (born April 29, 1987) is a former American actress and singer best known for playing Annie in the 1999 remake.\n[Annie Morton]: Annie Morton (born October 8, 1970) is an American model born in Pennsylvania.  She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines.  She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; ",
+          "llm_output": "Thought: Comparing the names Annie Morton and Terry Richardson, it seems that they are both individuals with different professions and backgrounds.\n\nAction: GENERATE_SLM[\"Who is older, Annie Morton or Terry Richardson?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Who is older, Annie Morton or Terry Richardson?",
+          "result": "Annie Morton is older than Terry Richardson."
+        }
+      ],
+      "answer": "Annie Morton is older than Terry Richardson.",
+      "is_correct": true,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "ground_truth": "yes",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Local H",
+          0
+        ],
+        [
+          "For Against",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nAre Local H and For Against both from the United States?",
+          "llm_output": "Thought: Since this is a comparison question, I'll retrieve information about Local H and For Against separately.\n\nAction: RETRIEVE_KEYWORD[\"Local H\"]\n\nPlease wait for the retrieval results...",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Local H",
+          "result": "Retrieved 5 documents for 'Local H'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nAre Local H and For Against both from the United States?\n\n=== RETRIEVED CONTEXT ===\n[The Team EP]: The Team EP (stylized as The TEAM ep) is an extended play (EP) by American alternative rock band Local H.  \"The Team EP\" is the first Local H release to feature drummer Ryan Harding, who joined the band in November 2013, and was initially sold exclusively at Local H concerts.  Limited copies have since been made available online from G&P Records, the band's official merchandiser.\n[Loc",
+          "llm_output": "Thought: Since we have retrieved context about Local H, I will analyze this information to answer the query.\nAction: GENERATE_SLM[\"Are Local H and For Against both from the United States?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Are Local H and For Against both from the United States?",
+          "result": "Yes, both Local H and UFOFU are American bands."
+        }
+      ],
+      "answer": "Yes, both Local H and UFOFU are American bands.",
+      "is_correct": true,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "What is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+      "ground_truth": "Kansas Song",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Kansas Song",
+          0
+        ],
+        [
+          "University of Kansas",
+          1
+        ],
+        [
+          "University of Kansas",
+          2
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhat is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?",
+          "llm_output": "Thought: The query mentions a specific location (Lawrence, Kansas) and a metropolitan area (Kansas City), which suggests that we're looking for information about a university with multiple campuses.\nAction: RETRIEVE_KEYWORD[\"University with main campus in Lawrence, Kansas and branch campuses in Kansas City metropolitan area\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "University with main campus in Lawrence, Kansas and branch campuses in Kansas City metropolitan area",
+          "result": "Retrieved 5 documents for 'University with main campus in Lawrence, Kansas and branch campuses in Kansas City metropolitan area'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhat is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?\n\n=== RETRIEVED CONTEXT ===\n[University of Kansas]: The University of Kansas, often referred to as KU or Kansas, is a public research university in the U.S. state of Kansas.  The main campus in Lawrence, one of the largest college towns in Kansas, is on Mount Oread, the highest elevation in Lawrence.  Two branch campuses ar",
+          "llm_output": "Thought: The query is asking for the name of the fight song of a university with its main campus in Lawrence, Kansas, and branch campuses in the Kansas City metropolitan area.\n\nAction: RETRIEVE_KEYWORD[\"What is the fight song of the University of Kansas?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "What is the fight song of the University of Kansas?",
+          "result": "Retrieved 5 documents for 'What is the fight song of the University of Kansas?'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nWhat is the name of the fight song of the university whose main campus is in Lawrence, Kansas and whose branch campuses are in the Kansas City metropolitan area?\n\n=== RETRIEVED CONTEXT ===\n[Kansas Song]: Kansas Song (We\u2019re From Kansas) is a fight song of the University of Kansas.\n[University of Kansas]: The University of Kansas, often referred to as KU or Kansas, is a public research university in the U.S. state of Kansas.  The main campus in Lawrence, one of the largest college to",
+          "llm_output": "Thought: The query asks about the fight song of a university whose main campus is in Lawrence, Kansas and has branch campuses in the Kansas City metropolitan area.\nAction: GENERATE_SLM[\"What is the name of the fight song of the University of Kansas?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "What is the name of the fight song of the University of Kansas?",
+          "result": "The name of the fight song for the university whose main campus is in Lawrence, Kansas, and whose branch campuses are in the Kansas City metropolitan area, is Kansas Song (We\u2019re From Kansas)."
+        }
+      ],
+      "answer": "The name of the fight song for the university whose main campus is in Lawrence, Kansas, and whose branch campuses are in the Kansas City metropolitan area, is Kansas Song (We\u2019re From Kansas).",
+      "is_correct": true,
+      "total_energy_wh": 0.083,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "What screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+      "ground_truth": "David Weissman",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "David Weissman",
+          0
+        ],
+        [
+          "David Weissman",
+          1
+        ],
+        [
+          "The Family Man",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhat screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+          "llm_output": "Thought: Let's search for information about the screenwriter who co-wrote \"Evolution\" and also worked on a film featuring Nicolas Cage and T\u00e9a Leoni.\nAction: RETRIEVE_KEYWORD[\"screenwriter credits Evolution Nicolas Cage T\u00e9a Leoni\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "screenwriter credits Evolution Nicolas Cage T\u00e9a Leoni",
+          "result": "Retrieved 5 documents for 'screenwriter credits Evolution Nicolas Cage T\u00e9a Leoni'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhat screenwriter with credits for \"Evolution\" co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?\n\n=== RETRIEVED CONTEXT ===\n[The Family Man]: The Family Man is a 2000 American romantic comedy-drama film directed by Brett Ratner, written by David Diamond and David Weissman, and starring Nicolas Cage and T\u00e9a Leoni.  Cage's production company, Saturn Films, helped produce the film.  The film centers on a man who sees what could have been had he made a different decision 13 years pr",
+          "llm_output": "Thought: The query asks about a screenwriter who co-wrote \"Evolution\" and also worked on a film starring Nicolas Cage and T\u00e9a Leoni.\nAction: GENERATE_SLM[\"What screenwriter with credits for 'Evolution' co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "What screenwriter with credits for 'Evolution' co-wrote a film starring Nicolas Cage and T\u00e9a Leoni?",
+          "result": "David Weissman, who also co-wrote the film \"Deadfall\" (1993) that starred Nicolas Cage."
+        }
+      ],
+      "answer": "David Weissman, who also co-wrote the film \"Deadfall\" (1993) that starred Nicolas Cage.",
+      "is_correct": true,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+      "ground_truth": "1999",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Oh My God (Guns N' Roses song)",
+          0
+        ],
+        [
+          "Oh My God (Guns N' Roses song)",
+          1
+        ],
+        [
+          "End of Days (film)",
+          1
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhat year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "llm_output": "Thought: This question seems to be about the intersection of music and film.\nAction: RETRIEVE_KEYWORD[\"Guns N' Roses\" AND \"Arnold Schwarzenegger\" AND \"New York Police\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": null,
+          "result": "Retrieved 5 documents for 'What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhat year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?\n\n=== RETRIEVED CONTEXT ===\n[End of Days (film)]: End of Days is a 1999 American fantasy action horror thriller film directed by Peter Hyams and starring Arnold Schwarzenegger, Gabriel Byrne, Robin Tunney, Kevin Pollak, Rod Steiger, CCH Pounder, and Udo Kier.  The film follows former New York Police Department detective Jericho Cane (Schwarzenegger) after he s",
+          "llm_output": "Thought: The query is asking about the year Guns N' Roses performed a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective.\n\nAction: RETRIEVE_KEYWORD[\"What year did Guns N' Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "What year did Guns N' Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "result": "Retrieved 5 documents for 'What year did Guns N' Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nWhat year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?\n\n=== RETRIEVED CONTEXT ===\n[End of Days (film)]: End of Days is a 1999 American fantasy action horror thriller film directed by Peter Hyams and starring Arnold Schwarzenegger, Gabriel Byrne, Robin Tunney, Kevin Pollak, Rod Steiger, CCH Pounder, and Udo Kier.  The film follows former New York Police Department detective Jericho Cane (Schwarzenegger) after he s",
+          "llm_output": "Thought: The query is asking about the year Guns N' Roses performed a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective.\n\nAction: RETRIEVE_KEYWORD[\"Guns N' Roses promo Arnold Schwarzenegger End of Days\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Guns N' Roses promo Arnold Schwarzenegger End of Days",
+          "result": "Retrieved 5 documents for 'Guns N' Roses promo Arnold Schwarzenegger End of Days'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nWhat year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?\n\n=== RETRIEVED CONTEXT ===\n[Oh My God (Guns N' Roses song)]: \"Oh My God\" is a song by Guns N' Roses released in 1999 on the soundtrack to the film \"End of Days\".  The song was sent out to radio stations in November 1999 as a promo for the soundtrack and the band.  Despite being the band's first recorded release in almost five years, it was never issued as a s",
+          "llm_output": "Thought: The query asks about a movie starring Arnold Schwarzenegger as a former New York Police detective, and Guns N' Roses performing a promo for that movie.\n\nAction: GENERATE_SLM[\"What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?\"]\n\nAnswer: The retrieved documents suggest that the movie is \"End of Days\" (1999), and Guns N' Roses performed a promo for it in 1999. Therefore, the answer is 1999.",
+          "action": "GENERATE_SLM",
+          "parameters": "What year did Guns N Roses perform a promo for a movie starring Arnold Schwarzenegger as a former New York Police detective?",
+          "result": "The promo for the movie was done in 1999, but there is no specific mention of it being a film starring Arnold Schwarzenegger as a former New York Police detective. However, Schwarzenegger did star in the film \"End of Days\" released in 1999, which could be the movie referenced. But without more context or information, it's not possible to confirm with certainty that Guns N' Roses performed a promo for this specific Arnold Schwarzenegger film."
+        }
+      ],
+      "answer": "The promo for the movie was done in 1999, but there is no specific mention of it being a film starring Arnold Schwarzenegger as a former New York Police detective. However, Schwarzenegger did star in the film \"End of Days\" released in 1999, which could be the movie referenced. But without more context or information, it's not possible to confirm with certainty that Guns N' Roses performed a promo for this specific Arnold Schwarzenegger film.",
+      "is_correct": true,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+      "ground_truth": "no",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Random House Tower",
+          0
+        ],
+        [
+          "888 7th Avenue",
+          2
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nAre Random House Tower and 888 7th Avenue both used for real estate?",
+          "llm_output": "Thought: Since this is a comparison question, I'll retrieve information about Random House Tower and 888 7th Avenue separately.\n\nAction: RETRIEVE_KEYWORD[\"Random House Tower\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Random House Tower",
+          "result": "Retrieved 5 documents for 'Random House Tower'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nAre Random House Tower and 888 7th Avenue both used for real estate?\n\n=== RETRIEVED CONTEXT ===\n[Random House Tower]: The Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a luxury apartment complex.  The book publisher entrance is on Broadway and goes up to 27 floors, while the apartment complex entrance is on West 56th Street.\n[Villard (",
+          "llm_output": "Thought: Both buildings are used for different purposes.\nAction: GENERATE_SLM[\"Are Random House Tower and 888 7th Avenue both used for real estate?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Are Random House Tower and 888 7th Avenue both used for real estate?",
+          "result": "Yes, both Random House Tower (Park Imperial Apartments) and 888 7th Avenue are used for real estate purposes. The Random House Tower houses a luxury apartment complex, while 888 7th Avenue is a commercial skyscraper in New York City that includes office spaces."
+        }
+      ],
+      "answer": "Yes, both Random House Tower (Park Imperial Apartments) and 888 7th Avenue are used for real estate purposes. The Random House Tower houses a luxury apartment complex, while 888 7th Avenue is a commercial skyscraper in New York City that includes office spaces.",
+      "is_correct": false,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+      "ground_truth": "from 1986 to 2013",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "1995\u201396 Manchester United F.C. season",
+          2
+        ],
+        [
+          "1995\u201396 Manchester United F.C. season",
+          3
+        ],
+        [
+          "Alex Ferguson",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nThe football manager who recruited David Beckham managed Manchester United during what timeframe?\n\n[Hint: Look for information about: Alex Ferguson, 1995\u201396 Manchester United F.C. season]",
+          "llm_output": "Thought: Let's start by searching for information about the football manager who recruited David Beckham.\nAction: RETRIEVE_KEYWORD[\"football manager who recruited David Beckham\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "football manager who recruited David Beckham",
+          "result": "Retrieved 5 documents for 'football manager who recruited David Beckham'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nThe football manager who recruited David Beckham managed Manchester United during what timeframe?\n\n[Hint: Look for information about: Alex Ferguson, 1995\u201396 Manchester United F.C. season]\n\n=== RETRIEVED CONTEXT ===\n[James Younghusband]: James Joseph Younghusband (born 4 September 1986) is a Filipino footballer who plays as right midfielder or Striker for Davao Aguilas and the Philippines national team.  He was also called as the \"David Beckham of the Philippines\" due to his childho",
+          "llm_output": "Thought: The query is asking about the timeframe during which a certain football manager managed Manchester United, specifically mentioning David Beckham.\nAction: RETRIEVE_KEYWORD[\"Alex Ferguson 1995\u201396 Manchester United F.C. season\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Alex Ferguson 1995\u201396 Manchester United F.C. season",
+          "result": "Retrieved 5 documents for 'Alex Ferguson 1995\u201396 Manchester United F.C. season'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nThe football manager who recruited David Beckham managed Manchester United during what timeframe?\n\n[Hint: Look for information about: Alex Ferguson, 1995\u201396 Manchester United F.C. season]\n\n=== RETRIEVED CONTEXT ===\n[1995\u201396 Manchester United F.C. season]: The 1995\u201396 season was Manchester United's fourth season in the Premier League, and their 21st consecutive season in the top division of English football.  United finished the season by becoming the first English team to win the D",
+          "llm_output": "Thought: The query is asking about the timeframe during which Alex Ferguson managed Manchester United and recruited David Beckham.\nAction: RETRIEVE_KEYWORD[\"Alex Ferguson's managerial tenure at Manchester United\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Alex Ferguson's managerial tenure at Manchester United",
+          "result": "Retrieved 5 documents for 'Alex Ferguson's managerial tenure at Manchester United'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nThe football manager who recruited David Beckham managed Manchester United during what timeframe?\n\n[Hint: Look for information about: Alex Ferguson, 1995\u201396 Manchester United F.C. season]\n\n=== RETRIEVED CONTEXT ===\n[Matt Busby]: Sir Alexander Matthew Busby, CBE, KCSG (26 May 1909 \u2013 20 January 1994) was a Scottish football player and manager, who managed Manchester United between 1945 and 1969 and again for the second half of the 1970\u201371 season.  He is widely regarded as one of the ",
+          "llm_output": "Thought: The query is asking about the timeframe during which a specific football manager managed Manchester United and recruited David Beckham.\nAction: GENERATE_SLM[\"The football manager who recruited David Beckham managed Manchester United during what timeframe?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "The football manager who recruited David Beckham managed Manchester United during what timeframe?",
+          "result": "Alex Ferguson managed Manchester United from 1986 to 2013, which includes the 1995-96 season. However, it's important to note that David Beckham joined Manchester United in 1992, so Ferguson recruited him before the 1995-96 season."
+        }
+      ],
+      "answer": "Alex Ferguson managed Manchester United from 1986 to 2013, which includes the 1995-96 season. However, it's important to note that David Beckham joined Manchester United in 1992, so Ferguson recruited him before the 1995-96 season.",
+      "is_correct": true,
+      "total_energy_wh": 0.107,
+      "attempt": 2,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Brown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+      "ground_truth": "9,984",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Brown State Fishing Lake",
+          0
+        ],
+        [
+          "Brown County, Kansas",
+          1
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nBrown State Fishing Lake is in a country that has a population of how many inhabitants ?",
+          "llm_output": "Thought: The query seems to be asking for the population of the country where Brown State Fishing Lake is located.\nAction: RETRIEVE_KEYWORD[\"location of Brown State Fishing Lake\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "location of Brown State Fishing Lake",
+          "result": "Retrieved 5 documents for 'location of Brown State Fishing Lake'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nBrown State Fishing Lake is in a country that has a population of how many inhabitants ?\n\n=== RETRIEVED CONTEXT ===\n[Brown State Fishing Lake]: Brown State Fishing Lake (sometimes also known as Brown State Fishing Lake And Wildlife Area) is a protected area in Brown County, Kansas in the United States.  The lake is 62 acres (0.25 km\u00b2) in area and up to 13 feet (4 m) deep.  The area was formerly known as Brown County State Park, and is 8 miles (13 km) east of Hiawatha, Kansas.\n[Neos",
+          "llm_output": "Thought: Since we have retrieved context about Brown State Fishing Lake, let's try to find the country with a population of how many inhabitants.\nAction: RETRIEVE_KEYWORD[\"population of the country where Brown State Fishing Lake is located\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "population of the country where Brown State Fishing Lake is located",
+          "result": "Retrieved 5 documents for 'population of the country where Brown State Fishing Lake is located'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nBrown State Fishing Lake is in a country that has a population of how many inhabitants ?\n\n=== RETRIEVED CONTEXT ===\n[Brown State Fishing Lake]: Brown State Fishing Lake (sometimes also known as Brown State Fishing Lake And Wildlife Area) is a protected area in Brown County, Kansas in the United States.  The lake is 62 acres (0.25 km\u00b2) in area and up to 13 feet (4 m) deep.  The area was formerly known as Brown County State Park, and is 8 miles (13 km) east of Hiawatha, Kansas.\n[Neos",
+          "llm_output": "Thought: Since we have retrieved context about Brown State Fishing Lake, let's try to find information about the country it is located in.\nAction: RETRIEVE_KEYWORD[\"What country is Brown State Fishing Lake located in?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "What country is Brown State Fishing Lake located in?",
+          "result": "Retrieved 5 documents for 'What country is Brown State Fishing Lake located in?'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nBrown State Fishing Lake is in a country that has a population of how many inhabitants ?\n\n=== RETRIEVED CONTEXT ===\n[Brown State Fishing Lake]: Brown State Fishing Lake (sometimes also known as Brown State Fishing Lake And Wildlife Area) is a protected area in Brown County, Kansas in the United States.  The lake is 62 acres (0.25 km\u00b2) in area and up to 13 feet (4 m) deep.  The area was formerly known as Brown County State Park, and is 8 miles (13 km) east of Hiawatha, Kansas.\n[Neos",
+          "llm_output": "Thought: Based on the retrieved context, it seems that Brown State Fishing Lake is located in Kansas, USA.\nAction: GENERATE_SLM[\"Brown State Fishing Lake population\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Brown State Fishing Lake population",
+          "result": "The context provided does not specify the population of the country where Brown State Fishing Lake is located."
+        }
+      ],
+      "answer": "The context provided does not specify the population of the country where Brown State Fishing Lake is located.",
+      "is_correct": false,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "The Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+      "ground_truth": "the North Atlantic Conference",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Vermont Catamounts men's soccer",
+          0
+        ],
+        [
+          "Vermont Catamounts men's soccer",
+          1
+        ],
+        [
+          "America East Conference",
+          1
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nThe Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?",
+          "llm_output": "Thought: Trying to find the answer by searching with keywords.\nAction: RETRIEVE_KEYWORD[\"Vermont Catamounts men's soccer team and former conference name\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Vermont Catamounts men's soccer team and former conference name",
+          "result": "Retrieved 5 documents for 'Vermont Catamounts men's soccer team and former conference name'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nThe Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?\n\n=== RETRIEVED CONTEXT ===\n[Vermont Catamounts men's soccer]: The Vermont Catamounts men's soccer team represents the University of Vermont in all NCAA Division I men's college soccer competitions.  The team competes in the America East Conference.\n[Vermont Catamounts men's basketball]: The Vermont Catamounts Basketball team is the basketball team that repr",
+          "llm_output": "Thought: The query is asking about the conference name that the Vermont Catamounts men's soccer team competed in from 1988 to 1996.\nAction: RETRIEVE_KEYWORD[\"What was the name of the conference that the Vermont Catamounts men's soccer team played in from 1988 to 1996?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "What was the name of the conference that the Vermont Catamounts men's soccer team played in from 1988 to 1996?",
+          "result": "Retrieved 5 documents for 'What was the name of the conference that the Vermont Catamounts men's soccer team played in from 1988 to 1996?'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nThe Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?\n\n=== RETRIEVED CONTEXT ===\n[Vermont Catamounts men's soccer]: The Vermont Catamounts men's soccer team represents the University of Vermont in all NCAA Division I men's college soccer competitions.  The team competes in the America East Conference.\n[2010\u201311 Vermont Catamounts men's basketball team]: The 2010\u201311 Vermont Catamounts men's basketball team repre",
+          "llm_output": "Thought: The Vermont Catamounts men's soccer team was previously part of a conference that existed from 1988 to 1996.\nAction: RETRIEVE_KEYWORD[\"conference name from 1988 to 1996\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "conference name from 1988 to 1996",
+          "result": "Retrieved 5 documents for 'conference name from 1988 to 1996'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nThe Vermont Catamounts men's soccer team currently competes in a conference that was formerly known as what from 1988 to 1996?\n\n=== RETRIEVED CONTEXT ===\n[America East Conference]: The America East Conference is a collegiate athletic conference affiliated with the NCAA Division I, whose members are located mainly in the Northeastern United States.  The conference was known as the Eastern College Athletic Conference-North from 1979 to 1988 and the North Atlantic Conference from 1988",
+          "llm_output": "Thought: Based on the retrieved context, it seems that the Vermont Catamounts men's soccer team was previously part of the North Atlantic Conference from 1988 to 1996.\n\nAction: GENERATE_SLM[\"The conference that the Vermont Catamounts men's soccer team was previously part of from 1988 to 1996.\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "The conference that the Vermont Catamounts men's soccer team was previously part of from 1988 to 1996.",
+          "result": "America East Conference (from 1988 to 1996)"
+        }
+      ],
+      "answer": "America East Conference (from 1988 to 1996)",
+      "is_correct": false,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+      "ground_truth": "yes",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Giuseppe Verdi",
+          0
+        ],
+        [
+          "Ambroise Thomas",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nAre Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "llm_output": "Thought: Since this is a comparison question, I'll retrieve information about Giuseppe Verdi and Ambroise Thomas separately.\nAction: RETRIEVE_KEYWORD[\"Giuseppe Verdi\"] and RETRIEVE_KEYWORD[\"Ambroise Thomas\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Giuseppe Verdi",
+          "result": "Retrieved 5 documents for 'Giuseppe Verdi'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nAre Giuseppe Verdi and Ambroise Thomas both Opera composers ?\n\n=== RETRIEVED CONTEXT ===\n[Parma Airport]: Parma Airport (Italian: \"Aeroporto di Parma\" , IATA: PMF,\u00a0ICAO: LIMP ) is located 1.3 NM northwest of Parma, a city in the Emilia-Romagna region of Italy.  The airport was opened on 5 May 1991.  It is also known as Giuseppe Verdi Airport or Parma \"Giuseppe Verdi\" Airport, named after Giuseppe Verdi.\n[Teatro Giuseppe Verdi]: Teatro Giuseppe Verdi (the Giuseppe Verdi Theatre) is ",
+          "llm_output": "Thought: Both Giuseppe Verdi and Ambroise Thomas are famous opera composers.\nAction: GENERATE_SLM[\"Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Are Giuseppe Verdi and Ambroise Thomas both Opera composers ?",
+          "result": "Yes, both Giuseppe Verdi and Ambroise Thomas were opera composers. While the question does not mention Ambroise Thomas in the provided context, he is a well-known French composer who wrote several operas, including \"Mignon\" and \"Hamlet\"."
+        }
+      ],
+      "answer": "Yes, both Giuseppe Verdi and Ambroise Thomas were opera composers. While the question does not mention Ambroise Thomas in the provided context, he is a well-known French composer who wrote several operas, including \"Mignon\" and \"Hamlet\".",
+      "is_correct": true,
+      "total_energy_wh": 0.059,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+      "ground_truth": "1969 until 1974",
+      "question_type": "bridge",
+      "supporting_facts": [
+        [
+          "Roger O. Egeberg",
+          2
+        ],
+        [
+          "Richard Nixon",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nRoger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "llm_output": "Thought: Let's search for information about Roger O. Egeberg and his role as Assistant Secretary for Health and Scientific Affairs.\nAction: RETRIEVE_KEYWORD[\"Roger O. Egeberg Assistant Secretary for Health and Scientific Affairs\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Roger O. Egeberg Assistant Secretary for Health and Scientific Affairs",
+          "result": "Retrieved 5 documents for 'Roger O. Egeberg Assistant Secretary for Health and Scientific Affairs'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nRoger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?\n\n=== RETRIEVED CONTEXT ===\n[Roger O. Egeberg]: Roger Olaf Egeberg, M.D. (13 November 1902 \u2013 13 September 1997 Washington, D.C.) was an American medical educator, administrator and advocate of public health.  He was General Douglas MacArthur's personal physician during World War II in the Pacific theater.  His other roles included Assista",
+          "llm_output": "Thought: The query is asking about Roger O. Egeberg's tenure as Assistant Secretary for Health and Scientific Affairs, which was during the Nixon administration.\n\nAction: RETRIEVE_KEYWORD[\"Roger O. Egeberg Nixon administration\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "Roger O. Egeberg Nixon administration",
+          "result": "Retrieved 5 documents for 'Roger O. Egeberg Nixon administration'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nRoger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?\n\n=== RETRIEVED CONTEXT ===\n[Roger O. Egeberg]: Roger Olaf Egeberg, M.D. (13 November 1902 \u2013 13 September 1997 Washington, D.C.) was an American medical educator, administrator and advocate of public health.  He was General Douglas MacArthur's personal physician during World War II in the Pacific theater.  His other roles included Assista",
+          "llm_output": "Thought: Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the administration of President Richard Nixon.\nAction: RETRIEVE_KEYWORD[\"What years did Richard Nixon serve as president?\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "What years did Richard Nixon serve as president?",
+          "result": "Retrieved 5 documents for 'What years did Richard Nixon serve as president?'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nRoger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?\n\n=== RETRIEVED CONTEXT ===\n[Donald A. Nixon]: Donald A. Nixon (born 1946) is a businessman.  He is the nephew of former President Richard Nixon and the son of Richard Nixon's brother, Donald Nixon and Clara Jane.\n[Age of Secrets]: Age of Secrets: The Conspiracy that Toppled Richard Nixon and the Hidden Death of Howard Hughes is a conspir",
+          "llm_output": "Thought: Based on the retrieved context, Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of President Richard Nixon.\n\nAction: GENERATE_SLM[\"Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Roger O. Egeberg was Assistant Secretary for Health and Scientific Affairs during the administration of a president that served during what years?",
+          "result": "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the administration of President Richard Nixon, who served from 1969 to 1974."
+        }
+      ],
+      "answer": "Roger O. Egeberg served as Assistant Secretary for Health and Scientific Affairs during the administration of President Richard Nixon, who served from 1969 to 1974.",
+      "is_correct": false,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    },
+    {
+      "question": "Which writer was from England, Henry Roth or Robert Erskine Childers?",
+      "ground_truth": "Robert Erskine Childers DSC",
+      "question_type": "comparison",
+      "supporting_facts": [
+        [
+          "Henry Roth",
+          0
+        ],
+        [
+          "Robert Erskine Childers",
+          0
+        ]
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "state_summary": "=== QUERY ===\nWhich writer was from England, Henry Roth or Robert Erskine Childers?",
+          "llm_output": "Thought: The query is asking about two writers, one of whom is from England.\nAction: RETRIEVE_KEYWORD[\"writer from England\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "writer from England",
+          "result": "Retrieved 5 documents for 'writer from England'"
+        },
+        {
+          "step": 2,
+          "state_summary": "=== QUERY ===\nWhich writer was from England, Henry Roth or Robert Erskine Childers?\n\n=== RETRIEVED CONTEXT ===\n[Danny Cannon]: John Danny Cannon (born 1968 in Luton, England) is a British film and television writer, director and producer.\n[Philip Lindsay]: Philip Lindsay (1906\u20131958) was an Australian writer, who mostly wrote historical novels.  He was the son of Norman Lindsay, an Australian artist and a younger brother of writer Jack Lindsay.  He was educated at the Anglican Church Grammar Scho",
+          "llm_output": "Thought: The query is asking about writers from England.\nAction: RETRIEVE_KEYWORD[\"writer from England\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "writer from England",
+          "result": "Retrieved 5 documents for 'writer from England'"
+        },
+        {
+          "step": 3,
+          "state_summary": "=== QUERY ===\nWhich writer was from England, Henry Roth or Robert Erskine Childers?\n\n=== RETRIEVED CONTEXT ===\n[Danny Cannon]: John Danny Cannon (born 1968 in Luton, England) is a British film and television writer, director and producer.\n[Philip Lindsay]: Philip Lindsay (1906\u20131958) was an Australian writer, who mostly wrote historical novels.  He was the son of Norman Lindsay, an Australian artist and a younger brother of writer Jack Lindsay.  He was educated at the Anglican Church Grammar Scho",
+          "llm_output": "Thought: The query is asking about writers from England.\nAction: RETRIEVE_KEYWORD[\"writer from England\"]",
+          "action": "RETRIEVE_KEYWORD",
+          "parameters": "writer from England",
+          "result": "Retrieved 5 documents for 'writer from England'"
+        },
+        {
+          "step": 4,
+          "state_summary": "=== QUERY ===\nWhich writer was from England, Henry Roth or Robert Erskine Childers?\n\n=== RETRIEVED CONTEXT ===\n[Danny Cannon]: John Danny Cannon (born 1968 in Luton, England) is a British film and television writer, director and producer.\n[Philip Lindsay]: Philip Lindsay (1906\u20131958) was an Australian writer, who mostly wrote historical novels.  He was the son of Norman Lindsay, an Australian artist and a younger brother of writer Jack Lindsay.  He was educated at the Anglican Church Grammar Scho",
+          "llm_output": "Thought: Based on the retrieved context, it's clear that Robert Erskine Childers is not from England, as he was Irish. Henry Roth is also not mentioned in the retrieved documents.\n\nAction: GENERATE_SLM[\"Which writer was from England?\"]",
+          "action": "GENERATE_SLM",
+          "parameters": "Which writer was from England?",
+          "result": "Neither Henry Roth nor Robert Erskine Childers are mentioned in the provided context."
+        }
+      ],
+      "answer": "Neither Henry Roth nor Robert Erskine Childers are mentioned in the provided context.",
+      "is_correct": false,
+      "total_energy_wh": 0.107,
+      "attempt": 1,
+      "was_simplified": false,
+      "original_steps": null
+    }
+  ]
+}

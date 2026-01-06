@@ -3,7 +3,7 @@ Structured RAG Agent with Decompose-Retrieve-Reflect-Generate architecture.
 
 Key insight: The agent must CHECK if retrieved context actually answers
 the sub-question before moving on. One refinement retry per sub-query.
-"""
+Now with Tiered Retrieval: FAST → SMART → DEEP escalation."""
 import json
 import logging
 import re
@@ -53,17 +53,20 @@ class StructuredAgent:
     3. GENERATE: Combine partial answers into final answer
     """
     
-    def __init__(self, llm, retriever, max_docs_per_query: int = 5):
+    def __init__(self, llm, retriever, max_docs_per_query: int = 5, use_tiered_retrieval: bool = True):
         """
         Args:
             llm: Language model with .generate(prompt) -> str
-            retriever: Retriever with .search(query, top_k) -> List[Dict]
+            retriever: Retriever with .search(query, top_k) -> List[Dict] or tiered search
             max_docs_per_query: Max documents to retrieve per query
+            use_tiered_retrieval: Whether to use FAST → SMART → DEEP escalation
         """
         self.llm = llm
         self.retriever = retriever
         self.max_docs = max_docs_per_query
+        self.use_tiered_retrieval = use_tiered_retrieval
         self.steps: List[Step] = []
+        self.total_energy_cost = 0.0
         
     def run(self, question: str) -> TrajectoryResult:
         """Run the full pipeline on a question."""
@@ -83,17 +86,13 @@ class StructuredAgent:
             
             # FIX 2: Check if retrieval is necessary (Ed Wood fix)
             if self._is_retrieval_necessary(executable_query):
-                # Retrieve
-                docs = self._retrieve(executable_query)
-                
-                # FIX 3: Filter for relevance (CRAG-style)
-                valid_docs = self._filter_relevant(docs, executable_query)
+                # Tiered retrieval: FAST → SMART → DEEP escalation
+                valid_docs = self._retrieve_with_escalation(executable_query)
                 
                 if not valid_docs:
-                    # Refine and retry
+                    # Last resort: refine query and try DEEP tier
                     refined_query = self._refine_query_simple(executable_query)
-                    new_docs = self._retrieve(refined_query)
-                    valid_docs = self._filter_relevant(new_docs, executable_query)
+                    valid_docs = self._retrieve_tier(refined_query, "DEEP")
                 
                 # Add to context (deduplicate by title)
                 seen_titles = {d.get('title') for d in accumulated_context}
@@ -214,42 +213,70 @@ Answer with ONE word only: SEARCH or REASON"""
         return needs_retrieval
     
     def _filter_relevant(self, docs: List[Dict], query: str) -> List[Dict]:
-        """FIX 3: CRAG-style relevance filter. Only keep docs that actually answer the query."""
+        """FIX 3: CRAG-style relevance filter. Score docs by relevance and keep the best ones."""
         if not docs:
             return []
         
-        relevant = []
+        # For small doc sets (<=3), keep all - filtering too aggressive
+        if len(docs) <= 3:
+            self.steps.append(Step("FILTER_RELEVANT", query, f"Kept all {len(docs)} docs (small set)"))
+            return docs
+        
+        # Score each document for relevance
+        scored_docs = []
         for doc in docs:
             title = doc.get('title', 'Unknown')
             text = doc.get('text', '')[:500]
             
-            prompt = f"""Does this document contain information that helps answer the question?
+            # Use confidence scoring instead of YES/NO
+            prompt = f"""Rate how relevant this document is to answering the question.
 
 Question: {query}
 Document [{title}]: {text}
 
-Answer YES or NO only:"""
+Answer with ONE word only: HIGH, MEDIUM, or LOW"""
 
-            response = self.llm.generate(prompt)
-            is_relevant = 'yes' in response.lower()
+            response = self.llm.generate(prompt).lower()
             
-            if is_relevant:
-                relevant.append(doc)
+            # Score: HIGH=3, MEDIUM=2, LOW=1
+            if 'high' in response:
+                score = 3
+            elif 'medium' in response:
+                score = 2
+            else:
+                score = 1
+            
+            scored_docs.append((score, doc))
         
-        self.steps.append(Step("FILTER_RELEVANT", query, f"Kept {len(relevant)}/{len(docs)} docs"))
+        # Sort by score and keep top documents (at least 1, up to 3)
+        scored_docs.sort(reverse=True, key=lambda x: x[0])
+        
+        # Keep HIGH-scored docs, or top 2 if none are HIGH
+        relevant = [doc for score, doc in scored_docs if score >= 3]  # HIGH
+        if not relevant:  # No HIGH scores, keep top 2
+            relevant = [doc for _, doc in scored_docs[:2]]
+        
+        self.steps.append(Step("FILTER_RELEVANT", query, f"Kept {len(relevant)}/{len(docs)} docs (scores: {[s for s,_ in scored_docs[:3]]})"))
         return relevant
     
     def _refine_query_simple(self, query: str) -> str:
-        """Generate a refined query when initial retrieval fails. Focus on adding synonyms/related terms."""
-        # Extract the key entity from the query
-        prompt = f"""The search for "{query}" didn't find relevant results.
+        """Generate a refined query when initial retrieval fails."""
+        prompt = f"""The search query didn't find good results. Reformulate it to find the right Wikipedia article.
 
-Generate a SHORT search query (3-6 words max) that might work better.
-Focus on the main entity and try synonyms for key terms:
-- "government position" → try "ambassador", "diplomat", "political career"
-- "nationality" → try "born in", "American", "British"
+Original: {query}
 
-Better query (short, 3-6 words):"""
+Strategy:
+1. Extract the main entity name (person, place, thing)
+2. Add identifying context: occupation, type, category
+3. Remove question words (what, who, when, where)
+
+Examples:
+- "What is the nationality of Scott Derrickson?" → "Scott Derrickson director"
+- "When was Ed Wood born?" → "Ed Wood filmmaker"
+- "What science fantasy series has companion books?" → "science fantasy young adult series companion books"
+- "What government position did Shirley Temple hold?" → "Shirley Temple ambassador diplomat"
+
+Better query (2-5 keywords, no questions):"""
 
         response = self.llm.generate(prompt)
         refined = response.strip().strip('"').strip("'").split('\n')[0]  # Take first line only
@@ -257,13 +284,48 @@ Better query (short, 3-6 words):"""
         self.steps.append(Step("REFINE_QUERY", query, refined))
         return refined
     
-    def _retrieve(self, query: str) -> List[Dict]:
-        """Retrieve documents for a query."""
-        docs = self.retriever.search(query, top_k=self.max_docs)
+    def _retrieve_with_escalation(self, query: str) -> List[Dict]:
+        """Tiered retrieval: FAST → SMART → DEEP escalation."""
+        if not self.use_tiered_retrieval:
+            return self._retrieve_tier(query, "FAST")
+        
+        # TIER 1: Try FAST (BM25 only)
+        docs = self._retrieve_tier(query, "FAST")
+        valid_docs = self._filter_relevant(docs, query)
+        
+        if valid_docs:
+            return valid_docs
+        
+        # TIER 2: Escalate to SMART (Dense)
+        self.steps.append(Step("ESCALATE_TO_SMART", query, "No relevant docs with BM25, trying dense retrieval"))
+        docs = self._retrieve_tier(query, "SMART")
+        valid_docs = self._filter_relevant(docs, query)
+        
+        if valid_docs:
+            return valid_docs
+        
+        # TIER 3: Nuclear option - DEEP (Hybrid)
+        self.steps.append(Step("ESCALATE_TO_DEEP", query, "No relevant docs with dense, trying hybrid retrieval"))
+        docs = self._retrieve_tier(query, "DEEP")
+        return self._filter_relevant(docs, query)
+    
+    def _retrieve_tier(self, query: str, tier: str) -> List[Dict]:
+        """Retrieve documents using specific tier."""
+        # Check if retriever supports tiers
+        if hasattr(self.retriever, 'search') and 'tier' in self.retriever.search.__code__.co_varnames:
+            docs = self.retriever.search(query, top_k=self.max_docs, tier=tier)
+            
+            # Track energy cost if available
+            if hasattr(self.retriever, 'get_last_cost'):
+                cost = self.retriever.get_last_cost()
+                self.total_energy_cost += cost
+        else:
+            # Fallback for non-tiered retrievers
+            docs = self.retriever.search(query, top_k=self.max_docs)
         
         # Format for logging
         titles = [d.get('title', 'Unknown')[:30] for d in docs]
-        self.steps.append(Step("RETRIEVE", query, f"Retrieved: {titles}"))
+        self.steps.append(Step(f"RETRIEVE_{tier}", query, f"Retrieved: {titles}"))
         
         return docs
     
