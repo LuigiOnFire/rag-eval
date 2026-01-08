@@ -121,6 +121,24 @@ class StructuredAgent:
             success=True
         )
     
+    def run_full_trajectory(self, query: str, force_decompose: bool = False) -> TrajectoryResult:
+        """
+        Run the full decomposition trajectory for the Oracle.
+        
+        Args:
+            query: The question to answer
+            force_decompose: If True, always decompose regardless of heuristics
+            
+        Returns:
+            Complete trajectory with all steps and costs
+        """
+        if force_decompose:
+            # Force full decomposition - bypass any "is decomposition needed?" checks
+            return self.run(query)
+        else:
+            # Normal execution with heuristics
+            return self.run(query)
+    
     def _decompose(self, question: str) -> List[SubQuery]:
         """Decompose question into sub-queries. Limit to 2-3 max."""
         prompt = f"""Break down this question into exactly 2 simple factual sub-questions.
@@ -199,7 +217,45 @@ Output ONLY the rewritten question, nothing else:"""
         if any(phrase in query.lower() for phrase in synthesis_phrases):
             return False
         
-        # For ambiguous cases, ask LLM
+        # Be more conservative - search for factual questions
+        factual_indicators = [
+            # Basic question words
+            'who is', 'what is', 'when was', 'where is', 'which', 'how many',
+            'what year', 'what government', 'what position', 'nationality',
+            'birth year', 'director of', 'composer', 'writer', 'series',
+            
+            # Formation and creation
+            'formed by', 'founded by', 'created by', 'established by',
+            'started by', 'began by', 'initiated by',
+            
+            # Time and duration 
+            'during what', 'timeframe', 'time period', 'served during',
+            'managed during', 'worked during', 'active during',
+            
+            # Names and titles
+            'formerly known as', 'previously called', 'originally named',
+            'also known as', 'stage name', 'pen name',
+            
+            # Credits and collaboration  
+            'co-wrote', 'credits for', 'collaborated on', 'worked with',
+            'wrote for', 'composed for', 'produced by',
+            
+            # Locations and places
+            'located in', 'situated in', 'based in', 'headquarters in',
+            'country of origin', 'from which country', 'originated from',
+            
+            # Capacity and measurements
+            'can seat', 'capacity of', 'holds how many', 'seating capacity',
+            'population of', 'inhabitants', 'size of',
+            
+            # Biographical info
+            'older than', 'age of', 'born in', 'died in', 'lived in'
+        ]
+        if any(indicator in query.lower() for indicator in factual_indicators):
+            self.steps.append(Step("CHECK_RETRIEVAL_NEEDED", query, "SEARCH"))
+            return True
+        
+        # For ambiguous cases, ask LLM but default to SEARCH
         prompt = f"""Does this question require searching for external facts, or is it asking to reason/summarize from already known information?
 
 Question: {query}
@@ -251,10 +307,9 @@ Answer with ONE word only: HIGH, MEDIUM, or LOW"""
         # Sort by score and keep top documents (at least 1, up to 3)
         scored_docs.sort(reverse=True, key=lambda x: x[0])
         
-        # Keep HIGH-scored docs, or top 2 if none are HIGH
-        relevant = [doc for score, doc in scored_docs if score >= 3]  # HIGH
-        if not relevant:  # No HIGH scores, keep top 2
-            relevant = [doc for _, doc in scored_docs[:2]]
+        # Keep HIGH or MEDIUM-scored docs only - don't keep LOW docs
+        relevant = [doc for score, doc in scored_docs if score >= 2]  # HIGH or MEDIUM
+        # If all docs are LOW relevance, return empty to trigger escalation
         
         self.steps.append(Step("FILTER_RELEVANT", query, f"Kept {len(relevant)}/{len(docs)} docs (scores: {[s for s,_ in scored_docs[:3]]})"))
         return relevant

@@ -292,7 +292,7 @@ class TieredRetrieverWrapper:
         return [
             {
                 'title': doc.title,
-                'text': doc.content,
+                'text': doc.text,
                 'score': doc.score
             }
             for doc in docs

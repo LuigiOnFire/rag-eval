@@ -19,6 +19,7 @@ from typing import List, Dict
 from datasets import load_dataset
 
 from src.structured_agent import StructuredAgent
+from src.tiered_retriever import TieredHybridRetriever, TieredRetrieverWrapper
 from src.retriever import BM25Retriever
 from src.generator import OllamaGenerator
 
@@ -120,24 +121,36 @@ def main():
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Load passages and build retriever
-    logger.info("Loading passages and building retriever...")
+    # Load passages and build tiered retriever
+    logger.info("Loading passages and building tiered retriever...")
     with open(args.passages) as f:
         passages = json.load(f)
     logger.info(f"Loaded {len(passages)} passages")
     
-    retriever = BM25Retriever()
-    retriever.build_index(passages)
+    # Check if tiered indexes exist, otherwise build them
+    index_dir = "data/indexes_tiered"
+    if Path(index_dir).exists():
+        logger.info("Loading existing tiered indexes...")
+        retriever = TieredHybridRetriever()
+        retriever.load_indexes(index_dir)
+    else:
+        logger.info("Building tiered indexes (this may take several minutes)...")
+        retriever = TieredHybridRetriever()
+        retriever.build_index(passages)
+        retriever.save_indexes(index_dir)
+        logger.info("Tiered indexes built and saved")
     
     # Load LLM
     logger.info("Loading LLM...")
     llm = OllamaGenerator(model_name="mistral:latest")
     
-    # Create structured agent
+    # Create structured agent with tiered retrieval
+    tiered_wrapper = TieredRetrieverWrapper(retriever, default_tier="FAST")
     agent = StructuredAgent(
         llm=LLMWrapper(llm),
-        retriever=RetrieverWrapper(retriever),
-        max_docs_per_query=5
+        retriever=tiered_wrapper,
+        max_docs_per_query=5,
+        use_tiered_retrieval=True
     )
     
     # Load HotPotQA validation samples
@@ -154,6 +167,8 @@ def main():
         'comparison_total': 0,
         'bridge_correct': 0,
         'bridge_total': 0,
+        'total_energy_wh': 0.0,
+        'avg_energy_wh': 0.0,
         'errors': []
     }
     
@@ -168,6 +183,9 @@ def main():
         logger.info(f"\\n[{i+1}/{args.n_samples}] {question_type}: {question[:60]}...")
         
         try:
+            # Reset energy tracking
+            agent.total_energy_cost = 0.0
+            
             # Run agent
             result = agent.run(question)
             
@@ -177,7 +195,10 @@ def main():
             is_correct = gt_lower in ans_lower or ans_lower in gt_lower
             
             # Update stats
+            energy_cost = getattr(agent, 'total_energy_cost', 0.0)
             stats['total'] += 1
+            stats['total_energy_wh'] += energy_cost
+            
             if is_correct:
                 stats['correct'] += 1
             
@@ -197,6 +218,7 @@ def main():
                 'answer': result.final_answer,
                 'question_type': question_type,
                 'correct': is_correct,
+                'energy_cost_wh': energy_cost,
                 'steps': [
                     {
                         'action': step.action,
@@ -239,7 +261,8 @@ def main():
             'metadata': {
                 'timestamp': timestamp,
                 'n_samples': args.n_samples,
-                'agent_type': 'structured_agent_v2'
+                'agent_type': 'structured_agent_v2_tiered',
+                'retrieval_system': 'tiered_fast_smart_deep'
             },
             'stats': stats,
             'trajectories': trajectories
@@ -264,7 +287,11 @@ def main():
     logger.info('='*60)
     
     accuracy = stats['correct'] / stats['total'] * 100 if stats['total'] > 0 else 0
+    stats['avg_energy_wh'] = stats['total_energy_wh'] / stats['total'] if stats['total'] > 0 else 0.0
+    
     logger.info(f"Overall accuracy: {stats['correct']}/{stats['total']} ({accuracy:.1f}%)")
+    logger.info(f"Average energy per query: {stats['avg_energy_wh']:.4f} Wh")
+    logger.info(f"Total energy consumption: {stats['total_energy_wh']:.3f} Wh")
     
     if stats['comparison_total'] > 0:
         comp_acc = stats['comparison_correct'] / stats['comparison_total'] * 100

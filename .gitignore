@@ -54,6 +54,11 @@ results/
 experiments/data/
 experiments/experiments/
 
+# Trajectory and SFT data (timestamped generated files)
+data/sft_trajectories/
+data/trajectories/
+data/debug_runs/
+
 # Distribution
 dist/
 build/
