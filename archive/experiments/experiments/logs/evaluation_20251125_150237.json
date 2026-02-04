@@ -1,0 +1,1071 @@
+{
+  "metadata": {
+    "timestamp": "2025-11-25T15:02:37.632349",
+    "num_evaluated": 10,
+    "num_total": 10,
+    "num_skipped": 0,
+    "retriever_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "generator_model": "mistral"
+  },
+  "metrics": {
+    "overall_metrics": {
+      "precision": 0.0,
+      "recall": 17.5,
+      "f1": 0.0
+    },
+    "retriever_metrics": {
+      "claim_recall": 26.0,
+      "context_precision": 12.0
+    },
+    "generator_metrics": {
+      "context_utilization": 20.0,
+      "noise_sensitivity_in_relevant": 8.3,
+      "noise_sensitivity_in_irrelevant": 10.0,
+      "hallucination": 61.7,
+      "self_knowledge": 0.0,
+      "faithfulness": 18.3
+    }
+  },
+  "detailed_results": [
+    {
+      "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+      "answer": "The context does not provide information about the nationality of Scott Derrickson or Ed Wood, so I cannot definitively answer this question.",
+      "context": "[1] Ed Wood (film) (relevance: 0.494)\nEd Wood is a 1994 American biographical period comedy-drama film directed and produced by Tim Burton, and starring Johnny Depp as cult filmmaker Ed Wood. The film concerns the period in Wood's life when he made his best-known films as well as his relationship with actor Bela Lugosi, played by Martin Landau. Sarah Jessica Parker, Patricia Arquette, Jeffrey Jones, Lisa Marie, and Bill Murray are among the supporting cast.\n\n[2] Scott Parkin (relevance: 0.361)\nScott Parkin (born 1969, Garland, Texas is an anti-war, environmental and global justice organizer, former community college history instructor, and a founding member of the Houston Global Awareness Collective. He has been a vocal critic of the American invasion of Iraq, and of corporations such as Exxonmobil and Halliburton. Since 2006, he has worked as an campaigner for the Rainforest Action Network, organizing campaigns against Bank of America, Citibank, TXU and the Keystone XL Pipeline. He also organizes with Rising Tide North America.\n\n[3] Adam Collis (relevance: 0.324)\nAdam Collis is an American filmmaker and actor. He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010. He also studied cinema at the University of Southern California from 1991 to 1997. Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995). In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".\n\n[4] Woodson, Arkansas (relevance: 0.314)\nWoodson is a census-designated place (CDP) in Pulaski County, Arkansas, in the United States. Its population was 403 at the 2010 census. It is part of the Little Rock–North Little Rock–Conway Metropolitan Statistical Area. Woodson and its accompanying Woodson Lake and Wood Hollow are the namesake for Ed Wood Sr., a prominent plantation owner, trader, and businessman at the turn of the 20th century. Woodson is adjacent to the Wood Plantation, the largest of the plantations own by Ed Wood Sr.\n\n[5] Robert Barton (relevance: 0.312)\nRobert Childers Barton (4 March 1881 – 10 August 1975) was an Irish nationalist, politician and farmer who participated in the negotiations leading up to the signature of the Anglo-Irish Treaty. His father was Charles William Barton and his mother was Agnes Childers. His wife was Rachel Warren of Boston, daughter of Fiske Warren. His double first cousin and close friend was Robert Erskine Childers.",
+      "context_passages": [
+        {
+          "passage_id": "1",
+          "doc_id": "Ed Wood (film)",
+          "title": "Ed Wood (film)",
+          "text": "Ed Wood is a 1994 American biographical period comedy-drama film directed and produced by Tim Burton, and starring Johnny Depp as cult filmmaker Ed Wood. The film concerns the period in Wood's life when he made his best-known films as well as his relationship with actor Bela Lugosi, played by Martin Landau. Sarah Jessica Parker, Patricia Arquette, Jeffrey Jones, Lisa Marie, and Bill Murray are among the supporting cast.",
+          "url": "https://en.wikipedia.org/wiki/Ed_Wood_(film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.49413377046585083
+        },
+        {
+          "passage_id": "543",
+          "doc_id": "Scott Parkin",
+          "title": "Scott Parkin",
+          "text": "Scott Parkin (born 1969, Garland, Texas is an anti-war, environmental and global justice organizer, former community college history instructor, and a founding member of the Houston Global Awareness Collective. He has been a vocal critic of the American invasion of Iraq, and of corporations such as Exxonmobil and Halliburton. Since 2006, he has worked as an campaigner for the Rainforest Action Network, organizing campaigns against Bank of America, Citibank, TXU and the Keystone XL Pipeline. He also organizes with Rising Tide North America.",
+          "url": "https://en.wikipedia.org/wiki/Scott_Parkin",
+          "chunk_index": 0,
+          "retrieval_score": 0.3608783185482025
+        },
+        {
+          "passage_id": "0",
+          "doc_id": "Adam Collis",
+          "title": "Adam Collis",
+          "text": "Adam Collis is an American filmmaker and actor. He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010. He also studied cinema at the University of Southern California from 1991 to 1997. Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995). In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".",
+          "url": "https://en.wikipedia.org/wiki/Adam_Collis",
+          "chunk_index": 0,
+          "retrieval_score": 0.3238612115383148
+        },
+        {
+          "passage_id": "6",
+          "doc_id": "Woodson, Arkansas",
+          "title": "Woodson, Arkansas",
+          "text": "Woodson is a census-designated place (CDP) in Pulaski County, Arkansas, in the United States. Its population was 403 at the 2010 census. It is part of the Little Rock–North Little Rock–Conway Metropolitan Statistical Area. Woodson and its accompanying Woodson Lake and Wood Hollow are the namesake for Ed Wood Sr., a prominent plantation owner, trader, and businessman at the turn of the 20th century. Woodson is adjacent to the Wood Plantation, the largest of the plantations own by Ed Wood Sr.",
+          "url": "https://en.wikipedia.org/wiki/Woodson,_Arkansas",
+          "chunk_index": 0,
+          "retrieval_score": 0.31407561898231506
+        },
+        {
+          "passage_id": "166",
+          "doc_id": "Robert Barton",
+          "title": "Robert Barton",
+          "text": "Robert Childers Barton (4 March 1881 – 10 August 1975) was an Irish nationalist, politician and farmer who participated in the negotiations leading up to the signature of the Anglo-Irish Treaty. His father was Charles William Barton and his mother was Agnes Childers. His wife was Rachel Warren of Boston, daughter of Fiske Warren. His double first cousin and close friend was Robert Erskine Childers.",
+          "url": "https://en.wikipedia.org/wiki/Robert_Barton",
+          "chunk_index": 0,
+          "retrieval_score": 0.3116472363471985
+        }
+      ],
+      "prompt": "Context:\n[1] Ed Wood (film) (relevance: 0.494)\nEd Wood is a 1994 American biographical period comedy-drama film directed and produced by Tim Burton, and starring Johnny Depp as cult filmmaker Ed Wood. The film concerns the period in Wood's life when he made his best-known films as well as his relationship with actor Bela Lugosi, played by Martin Landau. Sarah Jessica Parker, Patricia Arquette, Jeffrey Jones, Lisa Marie, and Bill Murray are among the supporting cast.\n\n[2] Scott Parkin (relevance: 0.361)\nScott Parkin (born 1969, Garland, Texas is an anti-war, environmental and global justice organizer, former community college history instructor, and a founding member of the Houston Global Awareness Collective. He has been a vocal critic of the American invasion of Iraq, and of corporations such as Exxonmobil and Halliburton. Since 2006, he has worked as an campaigner for the Rainforest Action Network, organizing campaigns against Bank of America, Citibank, TXU and the Keystone XL Pipeline. He also organizes with Rising Tide North America.\n\n[3] Adam Collis (relevance: 0.324)\nAdam Collis is an American filmmaker and actor. He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010. He also studied cinema at the University of Southern California from 1991 to 1997. Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995). In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".\n\n[4] Woodson, Arkansas (relevance: 0.314)\nWoodson is a census-designated place (CDP) in Pulaski County, Arkansas, in the United States. Its population was 403 at the 2010 census. It is part of the Little Rock–North Little Rock–Conway Metropolitan Statistical Area. Woodson and its accompanying Woodson Lake and Wood Hollow are the namesake for Ed Wood Sr., a prominent plantation owner, trader, and businessman at the turn of the 20th century. Woodson is adjacent to the Wood Plantation, the largest of the plantations own by Ed Wood Sr.\n\n[5] Robert Barton (relevance: 0.312)\nRobert Childers Barton (4 March 1881 – 10 August 1975) was an Irish nationalist, politician and farmer who participated in the negotiations leading up to the signature of the Anglo-Irish Treaty. His father was Charles William Barton and his mother was Agnes Childers. His wife was Rachel Warren of Boston, daughter of Fiske Warren. His double first cousin and close friend was Robert Erskine Childers.\n\nQuestion: Were Scott Derrickson and Ed Wood of the same nationality?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "1",
+          "doc_id": "Ed Wood (film)",
+          "title": "Ed Wood (film)",
+          "text": "Ed Wood is a 1994 American biographical period comedy-drama film directed and produced by Tim Burton, and starring Johnny Depp as cult filmmaker Ed Wood. The film concerns the period in Wood's life when he made his best-known films as well as his relationship with actor Bela Lugosi, played by Martin Landau. Sarah Jessica Parker, Patricia Arquette, Jeffrey Jones, Lisa Marie, and Bill Murray are among the supporting cast.",
+          "url": "https://en.wikipedia.org/wiki/Ed_Wood_(film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.49413377046585083
+        },
+        {
+          "passage_id": "543",
+          "doc_id": "Scott Parkin",
+          "title": "Scott Parkin",
+          "text": "Scott Parkin (born 1969, Garland, Texas is an anti-war, environmental and global justice organizer, former community college history instructor, and a founding member of the Houston Global Awareness Collective. He has been a vocal critic of the American invasion of Iraq, and of corporations such as Exxonmobil and Halliburton. Since 2006, he has worked as an campaigner for the Rainforest Action Network, organizing campaigns against Bank of America, Citibank, TXU and the Keystone XL Pipeline. He also organizes with Rising Tide North America.",
+          "url": "https://en.wikipedia.org/wiki/Scott_Parkin",
+          "chunk_index": 0,
+          "retrieval_score": 0.3608783185482025
+        },
+        {
+          "passage_id": "0",
+          "doc_id": "Adam Collis",
+          "title": "Adam Collis",
+          "text": "Adam Collis is an American filmmaker and actor. He attended the Duke University from 1986 to 1990 and the University of California, Los Angeles from 2007 to 2010. He also studied cinema at the University of Southern California from 1991 to 1997. Collis first work was the assistant director for the Scott Derrickson's short \"Love in the Ruins\" (1995). In 1998, he played \"Crankshaft\" in Eric Koyanagi's \"Hundred Percent\".",
+          "url": "https://en.wikipedia.org/wiki/Adam_Collis",
+          "chunk_index": 0,
+          "retrieval_score": 0.3238612115383148
+        },
+        {
+          "passage_id": "6",
+          "doc_id": "Woodson, Arkansas",
+          "title": "Woodson, Arkansas",
+          "text": "Woodson is a census-designated place (CDP) in Pulaski County, Arkansas, in the United States. Its population was 403 at the 2010 census. It is part of the Little Rock–North Little Rock–Conway Metropolitan Statistical Area. Woodson and its accompanying Woodson Lake and Wood Hollow are the namesake for Ed Wood Sr., a prominent plantation owner, trader, and businessman at the turn of the 20th century. Woodson is adjacent to the Wood Plantation, the largest of the plantations own by Ed Wood Sr.",
+          "url": "https://en.wikipedia.org/wiki/Woodson,_Arkansas",
+          "chunk_index": 0,
+          "retrieval_score": 0.31407561898231506
+        },
+        {
+          "passage_id": "166",
+          "doc_id": "Robert Barton",
+          "title": "Robert Barton",
+          "text": "Robert Childers Barton (4 March 1881 – 10 August 1975) was an Irish nationalist, politician and farmer who participated in the negotiations leading up to the signature of the Anglo-Irish Treaty. His father was Charles William Barton and his mother was Agnes Childers. His wife was Rachel Warren of Boston, daughter of Fiske Warren. His double first cousin and close friend was Robert Erskine Childers.",
+          "url": "https://en.wikipedia.org/wiki/Robert_Barton",
+          "chunk_index": 0,
+          "retrieval_score": 0.3116472363471985
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?",
+      "answer": "The context provided does not mention any government position held by the woman who portrayed Corliss Archer in the film \"Kiss and Tell\".",
+      "context": "[1] Kiss and Tell (1945 film) (relevance: 0.701)\nKiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer. In the film, two teenage girls cause their respective parents much concern when they start to become interested in boys. The parents' bickering about which girl is the worse influence causes more problems than it solves.\n\n[2] A Kiss for Corliss (relevance: 0.578)\nA Kiss for Corliss is a 1949 American comedy film directed by Richard Wallace and written by Howard Dimsdale. It stars Shirley Temple in her final starring role as well as her final film appearance. It is a sequel to the 1945 film \"Kiss and Tell\". \"A Kiss for Corliss\" was retitled \"Almost a Bride\" before release and this title appears in the title sequence. The film was released on November 25, 1949, by United Artists.\n\n[3] Meet Corliss Archer (TV series) (relevance: 0.551)\nMeet Corliss Archer is an American television sitcom that aired on CBS (July 13, 1951 - August 10, 1951) and in syndication via the Ziv Company from April to December 1954. The program was an adaptation of the radio series of the same name, which was based on a series of short stories by F. Hugh Herbert.\n\n[4] Janet Waldo (relevance: 0.402)\nJanet Marie Waldo (February 4, 1920 – June 12, 2016) was an American radio and voice actress. She is best known in animation for voicing Judy Jetson, Nancy in \"Shazzan\", Penelope Pitstop, and Josie in \"Josie and the Pussycats\", and on radio as the title character in \"Meet Corliss Archer\".\n\n[5] Yvonne Ridley (relevance: 0.327)\nYvonne Ridley (born 23 April 1958) is a British journalist who was a chair of the National Council of the now defunct Respect Party. She was captured by the Taliban in 2001, and two years later converted to Islam after giving her captors an understanding that she would study Islam if they agreed to release her. She is a vocal supporter of Palestine, a cause she took up as a schoolgirl and is also a critic of the political ideology of Zionism and vocal critic of Western media portrayals and foreign policy in the War on Terror, and has undertaken speaking tours throughout the Muslim world as well as America, Europe and Australia. She has been called \"something close to a celebrity in the Islamic world\" by the journalist Rachel Cooke, and in 2008 was voted the \"most recognisable woman in the Islamic world\" by Islam Online.",
+      "context_passages": [
+        {
+          "passage_id": "17",
+          "doc_id": "Kiss and Tell (1945 film)",
+          "title": "Kiss and Tell (1945 film)",
+          "text": "Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer. In the film, two teenage girls cause their respective parents much concern when they start to become interested in boys. The parents' bickering about which girl is the worse influence causes more problems than it solves.",
+          "url": "https://en.wikipedia.org/wiki/Kiss_and_Tell_(1945_film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.7005309462547302
+        },
+        {
+          "passage_id": "9",
+          "doc_id": "A Kiss for Corliss",
+          "title": "A Kiss for Corliss",
+          "text": "A Kiss for Corliss is a 1949 American comedy film directed by Richard Wallace and written by Howard Dimsdale. It stars Shirley Temple in her final starring role as well as her final film appearance. It is a sequel to the 1945 film \"Kiss and Tell\". \"A Kiss for Corliss\" was retitled \"Almost a Bride\" before release and this title appears in the title sequence. The film was released on November 25, 1949, by United Artists.",
+          "url": "https://en.wikipedia.org/wiki/A_Kiss_for_Corliss",
+          "chunk_index": 0,
+          "retrieval_score": 0.5778290033340454
+        },
+        {
+          "passage_id": "11",
+          "doc_id": "Meet Corliss Archer (TV series)",
+          "title": "Meet Corliss Archer (TV series)",
+          "text": "Meet Corliss Archer is an American television sitcom that aired on CBS (July 13, 1951 - August 10, 1951) and in syndication via the Ziv Company from April to December 1954. The program was an adaptation of the radio series of the same name, which was based on a series of short stories by F. Hugh Herbert.",
+          "url": "https://en.wikipedia.org/wiki/Meet_Corliss_Archer_(TV_series)",
+          "chunk_index": 0,
+          "retrieval_score": 0.5505296587944031
+        },
+        {
+          "passage_id": "16",
+          "doc_id": "Janet Waldo",
+          "title": "Janet Waldo",
+          "text": "Janet Marie Waldo (February 4, 1920 – June 12, 2016) was an American radio and voice actress. She is best known in animation for voicing Judy Jetson, Nancy in \"Shazzan\", Penelope Pitstop, and Josie in \"Josie and the Pussycats\", and on radio as the title character in \"Meet Corliss Archer\".",
+          "url": "https://en.wikipedia.org/wiki/Janet_Waldo",
+          "chunk_index": 0,
+          "retrieval_score": 0.4024810194969177
+        },
+        {
+          "passage_id": "545",
+          "doc_id": "Yvonne Ridley",
+          "title": "Yvonne Ridley",
+          "text": "Yvonne Ridley (born 23 April 1958) is a British journalist who was a chair of the National Council of the now defunct Respect Party. She was captured by the Taliban in 2001, and two years later converted to Islam after giving her captors an understanding that she would study Islam if they agreed to release her. She is a vocal supporter of Palestine, a cause she took up as a schoolgirl and is also a critic of the political ideology of Zionism and vocal critic of Western media portrayals and foreign policy in the War on Terror, and has undertaken speaking tours throughout the Muslim world as well as America, Europe and Australia. She has been called \"something close to a celebrity in the Islamic world\" by the journalist Rachel Cooke, and in 2008 was voted the \"most recognisable woman in the Islamic world\" by Islam Online.",
+          "url": "https://en.wikipedia.org/wiki/Yvonne_Ridley",
+          "chunk_index": 0,
+          "retrieval_score": 0.3266296982765198
+        }
+      ],
+      "prompt": "Context:\n[1] Kiss and Tell (1945 film) (relevance: 0.701)\nKiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer. In the film, two teenage girls cause their respective parents much concern when they start to become interested in boys. The parents' bickering about which girl is the worse influence causes more problems than it solves.\n\n[2] A Kiss for Corliss (relevance: 0.578)\nA Kiss for Corliss is a 1949 American comedy film directed by Richard Wallace and written by Howard Dimsdale. It stars Shirley Temple in her final starring role as well as her final film appearance. It is a sequel to the 1945 film \"Kiss and Tell\". \"A Kiss for Corliss\" was retitled \"Almost a Bride\" before release and this title appears in the title sequence. The film was released on November 25, 1949, by United Artists.\n\n[3] Meet Corliss Archer (TV series) (relevance: 0.551)\nMeet Corliss Archer is an American television sitcom that aired on CBS (July 13, 1951 - August 10, 1951) and in syndication via the Ziv Company from April to December 1954. The program was an adaptation of the radio series of the same name, which was based on a series of short stories by F. Hugh Herbert.\n\n[4] Janet Waldo (relevance: 0.402)\nJanet Marie Waldo (February 4, 1920 – June 12, 2016) was an American radio and voice actress. She is best known in animation for voicing Judy Jetson, Nancy in \"Shazzan\", Penelope Pitstop, and Josie in \"Josie and the Pussycats\", and on radio as the title character in \"Meet Corliss Archer\".\n\n[5] Yvonne Ridley (relevance: 0.327)\nYvonne Ridley (born 23 April 1958) is a British journalist who was a chair of the National Council of the now defunct Respect Party. She was captured by the Taliban in 2001, and two years later converted to Islam after giving her captors an understanding that she would study Islam if they agreed to release her. She is a vocal supporter of Palestine, a cause she took up as a schoolgirl and is also a critic of the political ideology of Zionism and vocal critic of Western media portrayals and foreign policy in the War on Terror, and has undertaken speaking tours throughout the Muslim world as well as America, Europe and Australia. She has been called \"something close to a celebrity in the Islamic world\" by the journalist Rachel Cooke, and in 2008 was voted the \"most recognisable woman in the Islamic world\" by Islam Online.\n\nQuestion: What government position was held by the woman who portrayed Corliss Archer in the film Kiss and Tell?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "17",
+          "doc_id": "Kiss and Tell (1945 film)",
+          "title": "Kiss and Tell (1945 film)",
+          "text": "Kiss and Tell is a 1945 American comedy film starring then 17-year-old Shirley Temple as Corliss Archer. In the film, two teenage girls cause their respective parents much concern when they start to become interested in boys. The parents' bickering about which girl is the worse influence causes more problems than it solves.",
+          "url": "https://en.wikipedia.org/wiki/Kiss_and_Tell_(1945_film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.7005309462547302
+        },
+        {
+          "passage_id": "9",
+          "doc_id": "A Kiss for Corliss",
+          "title": "A Kiss for Corliss",
+          "text": "A Kiss for Corliss is a 1949 American comedy film directed by Richard Wallace and written by Howard Dimsdale. It stars Shirley Temple in her final starring role as well as her final film appearance. It is a sequel to the 1945 film \"Kiss and Tell\". \"A Kiss for Corliss\" was retitled \"Almost a Bride\" before release and this title appears in the title sequence. The film was released on November 25, 1949, by United Artists.",
+          "url": "https://en.wikipedia.org/wiki/A_Kiss_for_Corliss",
+          "chunk_index": 0,
+          "retrieval_score": 0.5778290033340454
+        },
+        {
+          "passage_id": "11",
+          "doc_id": "Meet Corliss Archer (TV series)",
+          "title": "Meet Corliss Archer (TV series)",
+          "text": "Meet Corliss Archer is an American television sitcom that aired on CBS (July 13, 1951 - August 10, 1951) and in syndication via the Ziv Company from April to December 1954. The program was an adaptation of the radio series of the same name, which was based on a series of short stories by F. Hugh Herbert.",
+          "url": "https://en.wikipedia.org/wiki/Meet_Corliss_Archer_(TV_series)",
+          "chunk_index": 0,
+          "retrieval_score": 0.5505296587944031
+        },
+        {
+          "passage_id": "16",
+          "doc_id": "Janet Waldo",
+          "title": "Janet Waldo",
+          "text": "Janet Marie Waldo (February 4, 1920 – June 12, 2016) was an American radio and voice actress. She is best known in animation for voicing Judy Jetson, Nancy in \"Shazzan\", Penelope Pitstop, and Josie in \"Josie and the Pussycats\", and on radio as the title character in \"Meet Corliss Archer\".",
+          "url": "https://en.wikipedia.org/wiki/Janet_Waldo",
+          "chunk_index": 0,
+          "retrieval_score": 0.4024810194969177
+        },
+        {
+          "passage_id": "545",
+          "doc_id": "Yvonne Ridley",
+          "title": "Yvonne Ridley",
+          "text": "Yvonne Ridley (born 23 April 1958) is a British journalist who was a chair of the National Council of the now defunct Respect Party. She was captured by the Taliban in 2001, and two years later converted to Islam after giving her captors an understanding that she would study Islam if they agreed to release her. She is a vocal supporter of Palestine, a cause she took up as a schoolgirl and is also a critic of the political ideology of Zionism and vocal critic of Western media portrayals and foreign policy in the War on Terror, and has undertaken speaking tours throughout the Muslim world as well as America, Europe and Australia. She has been called \"something close to a celebrity in the Islamic world\" by the journalist Rachel Cooke, and in 2008 was voted the \"most recognisable woman in the Islamic world\" by Islam Online.",
+          "url": "https://en.wikipedia.org/wiki/Yvonne_Ridley",
+          "chunk_index": 0,
+          "retrieval_score": 0.3266296982765198
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?",
+      "answer": "Based on the provided context, there is no information about a science fantasy young adult series that has a set of companion books narrating the stories of enslaved worlds and alien species. The context only mentions Victoria Hanley's companion books, which are fantasy novels, not science fiction, and do not involve enslaved worlds or alien species.",
+      "context": "[1] Victoria Hanley (relevance: 0.469)\nVictoria Hanley is an American young adult fantasy novelist. Her first three books, \"The Seer And The Sword\", \"The Healer's Keep\" and \"The Light Of The Oracle\" are companion books to one another. Her newest book (released March 2012) is the sequel of a series, called \"Indigo Magic\", published by Egmont USA. She's also published two non-fiction books through Cotton Wood Press; called \"Seize the Story: A Handbook For Teens Who Like To Write\", and \"Wild Ink: A Grownups Guide To Writing Fiction For Teens\".\n\n[2] Animorphs (relevance: 0.443)\nAnimorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic. It is told in first person, with all six main characters taking turns narrating the books through their own perspectives. Horror, war, dehumanization, sanity, morality, innocence, leadership, freedom and growing up are the core themes of the series.\n\n[3] The Divide trilogy (relevance: 0.423)\nThe Divide trilogy is a fantasy young adult novel trilogy by Elizabeth Kay, which takes place in an alternate universe. The three books are \"The Divide\" (2002), \"Back to The Divide\" (2005), and \"Jinx on The Divide\" (2006). The first novel was originally published by the small press publisher Chicken House (now a division of Scholastic), with subsequent volumes published by Scholastic, which also reprinted the first novel. The books have been translated into French, German, Spanish, Finnish, Chinese, Japanese, Portuguese, Italian, Romanian and Dutch. Interior illustrations are by Ted Dewan.\n\n[4] Coral Gardens and Their Magic (relevance: 0.403)\nCoral Gardens and Their Magic, properly Coral Gardens and Their Magic: A Study of the Methods of Tilling the Soil and of Agricultural Rites in the Trobriand Islands, is the final book in anthropologist Bronisław Malinowski's ethnographic trilogy on the lives of the Trobriand Islanders. It concentrates on the cultivation practices the Trobriand Islanders used to grow yams, taro, bananas and palms. It describes the gardens in which the Trobrianders grew food as more than merely utilitarian spaces, even as works of art. In 1988 Alfred Gell called the book \"still the best account of any primitive technological-cum-magical system, and unlikely ever to be superseded in this respect\". The book has been described as Malinowski's \"magnum opus\".\n\n[5] Night School: the Web Series (relevance: 0.399)\nNight School is a British web series based on the Night School books by CJ Daugherty. It was the first ever web series based on a British young adult book. The show premiered on YouTube on December 12, 2014. The series was written and created by CJ Daugherty and Jack Jewers.",
+      "context_passages": [
+        {
+          "passage_id": "23",
+          "doc_id": "Victoria Hanley",
+          "title": "Victoria Hanley",
+          "text": "Victoria Hanley is an American young adult fantasy novelist. Her first three books, \"The Seer And The Sword\", \"The Healer's Keep\" and \"The Light Of The Oracle\" are companion books to one another. Her newest book (released March 2012) is the sequel of a series, called \"Indigo Magic\", published by Egmont USA. She's also published two non-fiction books through Cotton Wood Press; called \"Seize the Story: A Handbook For Teens Who Like To Write\", and \"Wild Ink: A Grownups Guide To Writing Fiction For Teens\".",
+          "url": "https://en.wikipedia.org/wiki/Victoria_Hanley",
+          "chunk_index": 0,
+          "retrieval_score": 0.46887072920799255
+        },
+        {
+          "passage_id": "19",
+          "doc_id": "Animorphs",
+          "title": "Animorphs",
+          "text": "Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic. It is told in first person, with all six main characters taking turns narrating the books through their own perspectives. Horror, war, dehumanization, sanity, morality, innocence, leadership, freedom and growing up are the core themes of the series.",
+          "url": "https://en.wikipedia.org/wiki/Animorphs",
+          "chunk_index": 0,
+          "retrieval_score": 0.4434535801410675
+        },
+        {
+          "passage_id": "21",
+          "doc_id": "The Divide trilogy",
+          "title": "The Divide trilogy",
+          "text": "The Divide trilogy is a fantasy young adult novel trilogy by Elizabeth Kay, which takes place in an alternate universe. The three books are \"The Divide\" (2002), \"Back to The Divide\" (2005), and \"Jinx on The Divide\" (2006). The first novel was originally published by the small press publisher Chicken House (now a division of Scholastic), with subsequent volumes published by Scholastic, which also reprinted the first novel. The books have been translated into French, German, Spanish, Finnish, Chinese, Japanese, Portuguese, Italian, Romanian and Dutch. Interior illustrations are by Ted Dewan.",
+          "url": "https://en.wikipedia.org/wiki/The_Divide_trilogy",
+          "chunk_index": 0,
+          "retrieval_score": 0.4226759374141693
+        },
+        {
+          "passage_id": "653",
+          "doc_id": "Coral Gardens and Their Magic",
+          "title": "Coral Gardens and Their Magic",
+          "text": "Coral Gardens and Their Magic, properly Coral Gardens and Their Magic: A Study of the Methods of Tilling the Soil and of Agricultural Rites in the Trobriand Islands, is the final book in anthropologist Bronisław Malinowski's ethnographic trilogy on the lives of the Trobriand Islanders. It concentrates on the cultivation practices the Trobriand Islanders used to grow yams, taro, bananas and palms. It describes the gardens in which the Trobrianders grew food as more than merely utilitarian spaces, even as works of art. In 1988 Alfred Gell called the book \"still the best account of any primitive technological-cum-magical system, and unlikely ever to be superseded in this respect\". The book has been described as Malinowski's \"magnum opus\".",
+          "url": "https://en.wikipedia.org/wiki/Coral_Gardens_and_Their_Magic",
+          "chunk_index": 0,
+          "retrieval_score": 0.40329599380493164
+        },
+        {
+          "passage_id": "468",
+          "doc_id": "Night School: the Web Series",
+          "title": "Night School: the Web Series",
+          "text": "Night School is a British web series based on the Night School books by CJ Daugherty. It was the first ever web series based on a British young adult book. The show premiered on YouTube on December 12, 2014. The series was written and created by CJ Daugherty and Jack Jewers.",
+          "url": "https://en.wikipedia.org/wiki/Night_School:_the_Web_Series",
+          "chunk_index": 0,
+          "retrieval_score": 0.39912858605384827
+        }
+      ],
+      "prompt": "Context:\n[1] Victoria Hanley (relevance: 0.469)\nVictoria Hanley is an American young adult fantasy novelist. Her first three books, \"The Seer And The Sword\", \"The Healer's Keep\" and \"The Light Of The Oracle\" are companion books to one another. Her newest book (released March 2012) is the sequel of a series, called \"Indigo Magic\", published by Egmont USA. She's also published two non-fiction books through Cotton Wood Press; called \"Seize the Story: A Handbook For Teens Who Like To Write\", and \"Wild Ink: A Grownups Guide To Writing Fiction For Teens\".\n\n[2] Animorphs (relevance: 0.443)\nAnimorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic. It is told in first person, with all six main characters taking turns narrating the books through their own perspectives. Horror, war, dehumanization, sanity, morality, innocence, leadership, freedom and growing up are the core themes of the series.\n\n[3] The Divide trilogy (relevance: 0.423)\nThe Divide trilogy is a fantasy young adult novel trilogy by Elizabeth Kay, which takes place in an alternate universe. The three books are \"The Divide\" (2002), \"Back to The Divide\" (2005), and \"Jinx on The Divide\" (2006). The first novel was originally published by the small press publisher Chicken House (now a division of Scholastic), with subsequent volumes published by Scholastic, which also reprinted the first novel. The books have been translated into French, German, Spanish, Finnish, Chinese, Japanese, Portuguese, Italian, Romanian and Dutch. Interior illustrations are by Ted Dewan.\n\n[4] Coral Gardens and Their Magic (relevance: 0.403)\nCoral Gardens and Their Magic, properly Coral Gardens and Their Magic: A Study of the Methods of Tilling the Soil and of Agricultural Rites in the Trobriand Islands, is the final book in anthropologist Bronisław Malinowski's ethnographic trilogy on the lives of the Trobriand Islanders. It concentrates on the cultivation practices the Trobriand Islanders used to grow yams, taro, bananas and palms. It describes the gardens in which the Trobrianders grew food as more than merely utilitarian spaces, even as works of art. In 1988 Alfred Gell called the book \"still the best account of any primitive technological-cum-magical system, and unlikely ever to be superseded in this respect\". The book has been described as Malinowski's \"magnum opus\".\n\n[5] Night School: the Web Series (relevance: 0.399)\nNight School is a British web series based on the Night School books by CJ Daugherty. It was the first ever web series based on a British young adult book. The show premiered on YouTube on December 12, 2014. The series was written and created by CJ Daugherty and Jack Jewers.\n\nQuestion: What science fantasy young adult series, told in first person, has a set of companion books narrating the stories of enslaved worlds and alien species?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "23",
+          "doc_id": "Victoria Hanley",
+          "title": "Victoria Hanley",
+          "text": "Victoria Hanley is an American young adult fantasy novelist. Her first three books, \"The Seer And The Sword\", \"The Healer's Keep\" and \"The Light Of The Oracle\" are companion books to one another. Her newest book (released March 2012) is the sequel of a series, called \"Indigo Magic\", published by Egmont USA. She's also published two non-fiction books through Cotton Wood Press; called \"Seize the Story: A Handbook For Teens Who Like To Write\", and \"Wild Ink: A Grownups Guide To Writing Fiction For Teens\".",
+          "url": "https://en.wikipedia.org/wiki/Victoria_Hanley",
+          "chunk_index": 0,
+          "retrieval_score": 0.46887072920799255
+        },
+        {
+          "passage_id": "19",
+          "doc_id": "Animorphs",
+          "title": "Animorphs",
+          "text": "Animorphs is a science fantasy series of young adult books written by Katherine Applegate and her husband Michael Grant, writing together under the name K. A. Applegate, and published by Scholastic. It is told in first person, with all six main characters taking turns narrating the books through their own perspectives. Horror, war, dehumanization, sanity, morality, innocence, leadership, freedom and growing up are the core themes of the series.",
+          "url": "https://en.wikipedia.org/wiki/Animorphs",
+          "chunk_index": 0,
+          "retrieval_score": 0.4434535801410675
+        },
+        {
+          "passage_id": "21",
+          "doc_id": "The Divide trilogy",
+          "title": "The Divide trilogy",
+          "text": "The Divide trilogy is a fantasy young adult novel trilogy by Elizabeth Kay, which takes place in an alternate universe. The three books are \"The Divide\" (2002), \"Back to The Divide\" (2005), and \"Jinx on The Divide\" (2006). The first novel was originally published by the small press publisher Chicken House (now a division of Scholastic), with subsequent volumes published by Scholastic, which also reprinted the first novel. The books have been translated into French, German, Spanish, Finnish, Chinese, Japanese, Portuguese, Italian, Romanian and Dutch. Interior illustrations are by Ted Dewan.",
+          "url": "https://en.wikipedia.org/wiki/The_Divide_trilogy",
+          "chunk_index": 0,
+          "retrieval_score": 0.4226759374141693
+        },
+        {
+          "passage_id": "653",
+          "doc_id": "Coral Gardens and Their Magic",
+          "title": "Coral Gardens and Their Magic",
+          "text": "Coral Gardens and Their Magic, properly Coral Gardens and Their Magic: A Study of the Methods of Tilling the Soil and of Agricultural Rites in the Trobriand Islands, is the final book in anthropologist Bronisław Malinowski's ethnographic trilogy on the lives of the Trobriand Islanders. It concentrates on the cultivation practices the Trobriand Islanders used to grow yams, taro, bananas and palms. It describes the gardens in which the Trobrianders grew food as more than merely utilitarian spaces, even as works of art. In 1988 Alfred Gell called the book \"still the best account of any primitive technological-cum-magical system, and unlikely ever to be superseded in this respect\". The book has been described as Malinowski's \"magnum opus\".",
+          "url": "https://en.wikipedia.org/wiki/Coral_Gardens_and_Their_Magic",
+          "chunk_index": 0,
+          "retrieval_score": 0.40329599380493164
+        },
+        {
+          "passage_id": "468",
+          "doc_id": "Night School: the Web Series",
+          "title": "Night School: the Web Series",
+          "text": "Night School is a British web series based on the Night School books by CJ Daugherty. It was the first ever web series based on a British young adult book. The show premiered on YouTube on December 12, 2014. The series was written and created by CJ Daugherty and Jack Jewers.",
+          "url": "https://en.wikipedia.org/wiki/Night_School:_the_Web_Series",
+          "chunk_index": 0,
+          "retrieval_score": 0.39912858605384827
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?",
+      "answer": "The provided context does not contain information about the Laleli Mosque or Esma Sultan Mansion, so I cannot determine if they are located in the same neighborhood.",
+      "context": "[1] Sultan Ahmed Mosque (relevance: 0.511)\nThe Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: \"Sultan Ahmet Camii\" ) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque's lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed's tomb, a madrasah and a hospice. Hand-painted blue tiles adorn the mosque’s interior walls, and at night the mosque is bathed in blue as lights frame the mosque’s five main domes, six minarets and eight secondary domes. It sits next to the Hagia Sophia, another popular tourist site.\n\n[2] Djamaâ el Kebir (relevance: 0.470)\nThe Great Mosque of Algiers (Arabic: الجامع الكبير‎ ‎ , \"Jemaa Kebir\") or “Djama’a al-Kebir” (meaning Great Mosque) is a mosque in Algiers, Algeria, located very close to Algiers Harbor. An inscription on the minbar (منبر) or the pulpit testifies to fact that the mosque was built in 1097. It is also known by several other names such as Grand Mosque d'Alger, Djamaa al-Kebir, El Kebir Mosque and Jami Masjid. It is one of the few remaining examples of Almoravid architecture. It is the oldest mosque in Algiers and is said to be the oldest mosque in Algeria after Sidi Okba Mosque. It was built under sultan Ali ibn Yusuf. Its minaret dates from 1332 (1324 in some sources) and was built by the Ziyyanid Sultan of Tlemcen. The gallery at the outside of the mosque was built in 1840. Its construction was a consequence of a complete reconstruction of the street by the French.\n\n[3] Random House Tower (relevance: 0.288)\nThe Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a luxury apartment complex. The book publisher entrance is on Broadway and goes up to 27 floors, while the apartment complex entrance is on West 56th Street.\n\n[4] 888 7th Avenue (relevance: 0.288)\n888 7th Avenue is a 628 ft (191m) tall modern-style office skyscraper in Midtown Manhattan which was completed in 1969 and has 46 floors. Emery Roth & Sons designed the building, which is tied with Central Park Place for the 65th tallest building in New York City. It currently carries the Vornado Realty Trust corporate headquarters. Previously known as the Arlen Building, its namesake being the company responsible for its construction, Arlen Realty & Development Corporation. The Red Eye Grill is located in the building at street level.\n\n[5] Garajonay National Park (relevance: 0.261)\nGarajonay National Park (Spanish: \"Parque nacional de Garajonay\" , ] ) is located in the center and north of the island of La Gomera, one of the Canary Islands (Spain). It was declared a national park in 1981 and a World Heritage Site by UNESCO in 1986. It occupies 40 km (15 sq mi) and it extends into each of the six municipalities on the island.",
+      "context_passages": [
+        {
+          "passage_id": "29",
+          "doc_id": "Sultan Ahmed Mosque",
+          "title": "Sultan Ahmed Mosque",
+          "text": "The Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: \"Sultan Ahmet Camii\" ) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque's lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed's tomb, a madrasah and a hospice. Hand-painted blue tiles adorn the mosque’s interior walls, and at night the mosque is bathed in blue as lights frame the mosque’s five main domes, six minarets and eight secondary domes. It sits next to the Hagia Sophia, another popular tourist site.",
+          "url": "https://en.wikipedia.org/wiki/Sultan_Ahmed_Mosque",
+          "chunk_index": 0,
+          "retrieval_score": 0.5110830068588257
+        },
+        {
+          "passage_id": "28",
+          "doc_id": "Djamaâ el Kebir",
+          "title": "Djamaâ el Kebir",
+          "text": "The Great Mosque of Algiers (Arabic: الجامع الكبير‎ ‎ , \"Jemaa Kebir\") or “Djama’a al-Kebir” (meaning Great Mosque) is a mosque in Algiers, Algeria, located very close to Algiers Harbor. An inscription on the minbar (منبر) or the pulpit testifies to fact that the mosque was built in 1097. It is also known by several other names such as Grand Mosque d'Alger, Djamaa al-Kebir, El Kebir Mosque and Jami Masjid. It is one of the few remaining examples of Almoravid architecture. It is the oldest mosque in Algiers and is said to be the oldest mosque in Algeria after Sidi Okba Mosque. It was built under sultan Ali ibn Yusuf. Its minaret dates from 1332 (1324 in some sources) and was built by the Ziyyanid Sultan of Tlemcen. The gallery at the outside of the mosque was built in 1840. Its construction was a consequence of a complete reconstruction of the street by the French.",
+          "url": "https://en.wikipedia.org/wiki/Djamaâ_el_Kebir",
+          "chunk_index": 0,
+          "retrieval_score": 0.47007542848587036
+        },
+        {
+          "passage_id": "113",
+          "doc_id": "Random House Tower",
+          "title": "Random House Tower",
+          "text": "The Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a luxury apartment complex. The book publisher entrance is on Broadway and goes up to 27 floors, while the apartment complex entrance is on West 56th Street.",
+          "url": "https://en.wikipedia.org/wiki/Random_House_Tower",
+          "chunk_index": 0,
+          "retrieval_score": 0.2878173887729645
+        },
+        {
+          "passage_id": "111",
+          "doc_id": "888 7th Avenue",
+          "title": "888 7th Avenue",
+          "text": "888 7th Avenue is a 628 ft (191m) tall modern-style office skyscraper in Midtown Manhattan which was completed in 1969 and has 46 floors. Emery Roth & Sons designed the building, which is tied with Central Park Place for the 65th tallest building in New York City. It currently carries the Vornado Realty Trust corporate headquarters. Previously known as the Arlen Building, its namesake being the company responsible for its construction, Arlen Realty & Development Corporation. The Red Eye Grill is located in the building at street level.",
+          "url": "https://en.wikipedia.org/wiki/888_7th_Avenue",
+          "chunk_index": 0,
+          "retrieval_score": 0.28780677914619446
+        },
+        {
+          "passage_id": "725",
+          "doc_id": "Garajonay National Park",
+          "title": "Garajonay National Park",
+          "text": "Garajonay National Park (Spanish: \"Parque nacional de Garajonay\" , ] ) is located in the center and north of the island of La Gomera, one of the Canary Islands (Spain). It was declared a national park in 1981 and a World Heritage Site by UNESCO in 1986. It occupies 40 km (15 sq mi) and it extends into each of the six municipalities on the island.",
+          "url": "https://en.wikipedia.org/wiki/Garajonay_National_Park",
+          "chunk_index": 0,
+          "retrieval_score": 0.2606598138809204
+        }
+      ],
+      "prompt": "Context:\n[1] Sultan Ahmed Mosque (relevance: 0.511)\nThe Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: \"Sultan Ahmet Camii\" ) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque's lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed's tomb, a madrasah and a hospice. Hand-painted blue tiles adorn the mosque’s interior walls, and at night the mosque is bathed in blue as lights frame the mosque’s five main domes, six minarets and eight secondary domes. It sits next to the Hagia Sophia, another popular tourist site.\n\n[2] Djamaâ el Kebir (relevance: 0.470)\nThe Great Mosque of Algiers (Arabic: الجامع الكبير‎ ‎ , \"Jemaa Kebir\") or “Djama’a al-Kebir” (meaning Great Mosque) is a mosque in Algiers, Algeria, located very close to Algiers Harbor. An inscription on the minbar (منبر) or the pulpit testifies to fact that the mosque was built in 1097. It is also known by several other names such as Grand Mosque d'Alger, Djamaa al-Kebir, El Kebir Mosque and Jami Masjid. It is one of the few remaining examples of Almoravid architecture. It is the oldest mosque in Algiers and is said to be the oldest mosque in Algeria after Sidi Okba Mosque. It was built under sultan Ali ibn Yusuf. Its minaret dates from 1332 (1324 in some sources) and was built by the Ziyyanid Sultan of Tlemcen. The gallery at the outside of the mosque was built in 1840. Its construction was a consequence of a complete reconstruction of the street by the French.\n\n[3] Random House Tower (relevance: 0.288)\nThe Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a luxury apartment complex. The book publisher entrance is on Broadway and goes up to 27 floors, while the apartment complex entrance is on West 56th Street.\n\n[4] 888 7th Avenue (relevance: 0.288)\n888 7th Avenue is a 628 ft (191m) tall modern-style office skyscraper in Midtown Manhattan which was completed in 1969 and has 46 floors. Emery Roth & Sons designed the building, which is tied with Central Park Place for the 65th tallest building in New York City. It currently carries the Vornado Realty Trust corporate headquarters. Previously known as the Arlen Building, its namesake being the company responsible for its construction, Arlen Realty & Development Corporation. The Red Eye Grill is located in the building at street level.\n\n[5] Garajonay National Park (relevance: 0.261)\nGarajonay National Park (Spanish: \"Parque nacional de Garajonay\" , ] ) is located in the center and north of the island of La Gomera, one of the Canary Islands (Spain). It was declared a national park in 1981 and a World Heritage Site by UNESCO in 1986. It occupies 40 km (15 sq mi) and it extends into each of the six municipalities on the island.\n\nQuestion: Are the Laleli Mosque and Esma Sultan Mansion located in the same neighborhood?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "29",
+          "doc_id": "Sultan Ahmed Mosque",
+          "title": "Sultan Ahmed Mosque",
+          "text": "The Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: \"Sultan Ahmet Camii\" ) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque's lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed's tomb, a madrasah and a hospice. Hand-painted blue tiles adorn the mosque’s interior walls, and at night the mosque is bathed in blue as lights frame the mosque’s five main domes, six minarets and eight secondary domes. It sits next to the Hagia Sophia, another popular tourist site.",
+          "url": "https://en.wikipedia.org/wiki/Sultan_Ahmed_Mosque",
+          "chunk_index": 0,
+          "retrieval_score": 0.5110830068588257
+        },
+        {
+          "passage_id": "28",
+          "doc_id": "Djamaâ el Kebir",
+          "title": "Djamaâ el Kebir",
+          "text": "The Great Mosque of Algiers (Arabic: الجامع الكبير‎ ‎ , \"Jemaa Kebir\") or “Djama’a al-Kebir” (meaning Great Mosque) is a mosque in Algiers, Algeria, located very close to Algiers Harbor. An inscription on the minbar (منبر) or the pulpit testifies to fact that the mosque was built in 1097. It is also known by several other names such as Grand Mosque d'Alger, Djamaa al-Kebir, El Kebir Mosque and Jami Masjid. It is one of the few remaining examples of Almoravid architecture. It is the oldest mosque in Algiers and is said to be the oldest mosque in Algeria after Sidi Okba Mosque. It was built under sultan Ali ibn Yusuf. Its minaret dates from 1332 (1324 in some sources) and was built by the Ziyyanid Sultan of Tlemcen. The gallery at the outside of the mosque was built in 1840. Its construction was a consequence of a complete reconstruction of the street by the French.",
+          "url": "https://en.wikipedia.org/wiki/Djamaâ_el_Kebir",
+          "chunk_index": 0,
+          "retrieval_score": 0.47007542848587036
+        },
+        {
+          "passage_id": "113",
+          "doc_id": "Random House Tower",
+          "title": "Random House Tower",
+          "text": "The Random House Tower, also known as the Park Imperial Apartments, is a 52-story mixed-use tower in New York City, United States, that is used as the headquarters of book publisher Random House and a luxury apartment complex. The book publisher entrance is on Broadway and goes up to 27 floors, while the apartment complex entrance is on West 56th Street.",
+          "url": "https://en.wikipedia.org/wiki/Random_House_Tower",
+          "chunk_index": 0,
+          "retrieval_score": 0.2878173887729645
+        },
+        {
+          "passage_id": "111",
+          "doc_id": "888 7th Avenue",
+          "title": "888 7th Avenue",
+          "text": "888 7th Avenue is a 628 ft (191m) tall modern-style office skyscraper in Midtown Manhattan which was completed in 1969 and has 46 floors. Emery Roth & Sons designed the building, which is tied with Central Park Place for the 65th tallest building in New York City. It currently carries the Vornado Realty Trust corporate headquarters. Previously known as the Arlen Building, its namesake being the company responsible for its construction, Arlen Realty & Development Corporation. The Red Eye Grill is located in the building at street level.",
+          "url": "https://en.wikipedia.org/wiki/888_7th_Avenue",
+          "chunk_index": 0,
+          "retrieval_score": 0.28780677914619446
+        },
+        {
+          "passage_id": "725",
+          "doc_id": "Garajonay National Park",
+          "title": "Garajonay National Park",
+          "text": "Garajonay National Park (Spanish: \"Parque nacional de Garajonay\" , ] ) is located in the center and north of the island of La Gomera, one of the Canary Islands (Spain). It was declared a national park in 1981 and a World Heritage Site by UNESCO in 1986. It occupies 40 km (15 sq mi) and it extends into each of the six municipalities on the island.",
+          "url": "https://en.wikipedia.org/wiki/Garajonay_National_Park",
+          "chunk_index": 0,
+          "retrieval_score": 0.2606598138809204
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?",
+      "answer": "The context does not provide information about the location of Adriana Trigiani, the director of \"Big Stone Gap\".",
+      "context": "[1] Big Stone Gap (film) (relevance: 0.750)\nBig Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society. Based on Trigiani's 2000 best-selling novel of the same name, the story is set in the actual Virginia town of Big Stone Gap circa 1970s. The film had its world premiere at the Virginia Film Festival on November 6, 2014.\n\n[2] Innerspace (relevance: 0.367)\nInnerspace is a 1987 American science fiction comedy film directed by Joe Dante and produced by Michael Finnell. Steven Spielberg served as executive producer. The film was inspired by the 1966 science fiction film \"Fantastic Voyage\". It stars Dennis Quaid, Martin Short and Meg Ryan, with Robert Picardo and Kevin McCarthy, with music composed by Jerry Goldsmith. It earned well over $25 million in its domestic gross revenue and won an Oscar, the only film directed by Dante to do so.\n\n[3] I Love NY (2015 film) (relevance: 0.355)\nI Love NY, also known as I Love New Year, is an Indian romantic comedy film directed by Radhika Rao and Vinay Sapru starring Sunny Deol and Kangana Ranaut in lead roles. The film is produced by Bhushan Kumar and Krishan Kumar under the banner of Super Cassettes Industries Ltd. The film was extensively shot in Mumbai, New York City and Bangkok. The main plot was taken from the Russian romantic comedy \"The Irony of Fate\" (1976). After numerous delays, the film released on 10 July 2015.\n\n[4] Neil LaBute (relevance: 0.320)\nNeil N. LaBute (born March 19, 1963) is an American film director, screenwriter, playwright and actor. He is best-known for a play that he wrote and later turned into a film, \"In the Company of Men\" (1997), which won awards from the Sundance Film Festival, the Independent Spirit Awards, and the New York Film Critics Circle. He wrote and directed the films \"Possession\" (2002) (based on the A.S. Byatt novel), \"The Shape of Things\" (2003) (based on his play of the same name), \"The Wicker Man\" (2006), \"Some Velvet Morning\" (2013), and \"Dirty Weekend\" (2015). He directed the films \"Nurse Betty\" (2000), \"Lakeview Terrace\" (2008), and \"Death at a Funeral\" (2010). LaBute created the TV series \"Billy & Billie\", writing and directing all of the episodes and is also creator of \"Van Helsing\". He also directed several episodes for shows such as \"Hell on Wheels\" and \"Billions\".\n\n[5] A World Apart (film) (relevance: 0.317)\nA World Apart is a 1988 anti-Apartheid drama, written by Shawn Slovo and directed by Chris Menges. It is based on the lives of Slovo's parents, Ruth First and Joe Slovo. The film was a co-production between companies from the UK and Zimbabwe, where the movie was filmed. It features Hans Zimmer's first non-collaborative film score.",
+      "context_passages": [
+        {
+          "passage_id": "32",
+          "doc_id": "Big Stone Gap (film)",
+          "title": "Big Stone Gap (film)",
+          "text": "Big Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society. Based on Trigiani's 2000 best-selling novel of the same name, the story is set in the actual Virginia town of Big Stone Gap circa 1970s. The film had its world premiere at the Virginia Film Festival on November 6, 2014.",
+          "url": "https://en.wikipedia.org/wiki/Big_Stone_Gap_(film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.7497057914733887
+        },
+        {
+          "passage_id": "517",
+          "doc_id": "Innerspace",
+          "title": "Innerspace",
+          "text": "Innerspace is a 1987 American science fiction comedy film directed by Joe Dante and produced by Michael Finnell. Steven Spielberg served as executive producer. The film was inspired by the 1966 science fiction film \"Fantastic Voyage\". It stars Dennis Quaid, Martin Short and Meg Ryan, with Robert Picardo and Kevin McCarthy, with music composed by Jerry Goldsmith. It earned well over $25 million in its domestic gross revenue and won an Oscar, the only film directed by Dante to do so.",
+          "url": "https://en.wikipedia.org/wiki/Innerspace",
+          "chunk_index": 0,
+          "retrieval_score": 0.3673277795314789
+        },
+        {
+          "passage_id": "33",
+          "doc_id": "I Love NY (2015 film)",
+          "title": "I Love NY (2015 film)",
+          "text": "I Love NY, also known as I Love New Year, is an Indian romantic comedy film directed by Radhika Rao and Vinay Sapru starring Sunny Deol and Kangana Ranaut in lead roles. The film is produced by Bhushan Kumar and Krishan Kumar under the banner of Super Cassettes Industries Ltd. The film was extensively shot in Mumbai, New York City and Bangkok. The main plot was taken from the Russian romantic comedy \"The Irony of Fate\" (1976). After numerous delays, the film released on 10 July 2015.",
+          "url": "https://en.wikipedia.org/wiki/I_Love_NY_(2015_film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.35519105195999146
+        },
+        {
+          "passage_id": "755",
+          "doc_id": "Neil LaBute",
+          "title": "Neil LaBute",
+          "text": "Neil N. LaBute (born March 19, 1963) is an American film director, screenwriter, playwright and actor. He is best-known for a play that he wrote and later turned into a film, \"In the Company of Men\" (1997), which won awards from the Sundance Film Festival, the Independent Spirit Awards, and the New York Film Critics Circle. He wrote and directed the films \"Possession\" (2002) (based on the A.S. Byatt novel), \"The Shape of Things\" (2003) (based on his play of the same name), \"The Wicker Man\" (2006), \"Some Velvet Morning\" (2013), and \"Dirty Weekend\" (2015). He directed the films \"Nurse Betty\" (2000), \"Lakeview Terrace\" (2008), and \"Death at a Funeral\" (2010). LaBute created the TV series \"Billy & Billie\", writing and directing all of the episodes and is also creator of \"Van Helsing\". He also directed several episodes for shows such as \"Hell on Wheels\" and \"Billions\".",
+          "url": "https://en.wikipedia.org/wiki/Neil_LaBute",
+          "chunk_index": 0,
+          "retrieval_score": 0.3202074468135834
+        },
+        {
+          "passage_id": "742",
+          "doc_id": "A World Apart (film)",
+          "title": "A World Apart (film)",
+          "text": "A World Apart is a 1988 anti-Apartheid drama, written by Shawn Slovo and directed by Chris Menges. It is based on the lives of Slovo's parents, Ruth First and Joe Slovo. The film was a co-production between companies from the UK and Zimbabwe, where the movie was filmed. It features Hans Zimmer's first non-collaborative film score.",
+          "url": "https://en.wikipedia.org/wiki/A_World_Apart_(film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.3172551989555359
+        }
+      ],
+      "prompt": "Context:\n[1] Big Stone Gap (film) (relevance: 0.750)\nBig Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society. Based on Trigiani's 2000 best-selling novel of the same name, the story is set in the actual Virginia town of Big Stone Gap circa 1970s. The film had its world premiere at the Virginia Film Festival on November 6, 2014.\n\n[2] Innerspace (relevance: 0.367)\nInnerspace is a 1987 American science fiction comedy film directed by Joe Dante and produced by Michael Finnell. Steven Spielberg served as executive producer. The film was inspired by the 1966 science fiction film \"Fantastic Voyage\". It stars Dennis Quaid, Martin Short and Meg Ryan, with Robert Picardo and Kevin McCarthy, with music composed by Jerry Goldsmith. It earned well over $25 million in its domestic gross revenue and won an Oscar, the only film directed by Dante to do so.\n\n[3] I Love NY (2015 film) (relevance: 0.355)\nI Love NY, also known as I Love New Year, is an Indian romantic comedy film directed by Radhika Rao and Vinay Sapru starring Sunny Deol and Kangana Ranaut in lead roles. The film is produced by Bhushan Kumar and Krishan Kumar under the banner of Super Cassettes Industries Ltd. The film was extensively shot in Mumbai, New York City and Bangkok. The main plot was taken from the Russian romantic comedy \"The Irony of Fate\" (1976). After numerous delays, the film released on 10 July 2015.\n\n[4] Neil LaBute (relevance: 0.320)\nNeil N. LaBute (born March 19, 1963) is an American film director, screenwriter, playwright and actor. He is best-known for a play that he wrote and later turned into a film, \"In the Company of Men\" (1997), which won awards from the Sundance Film Festival, the Independent Spirit Awards, and the New York Film Critics Circle. He wrote and directed the films \"Possession\" (2002) (based on the A.S. Byatt novel), \"The Shape of Things\" (2003) (based on his play of the same name), \"The Wicker Man\" (2006), \"Some Velvet Morning\" (2013), and \"Dirty Weekend\" (2015). He directed the films \"Nurse Betty\" (2000), \"Lakeview Terrace\" (2008), and \"Death at a Funeral\" (2010). LaBute created the TV series \"Billy & Billie\", writing and directing all of the episodes and is also creator of \"Van Helsing\". He also directed several episodes for shows such as \"Hell on Wheels\" and \"Billions\".\n\n[5] A World Apart (film) (relevance: 0.317)\nA World Apart is a 1988 anti-Apartheid drama, written by Shawn Slovo and directed by Chris Menges. It is based on the lives of Slovo's parents, Ruth First and Joe Slovo. The film was a co-production between companies from the UK and Zimbabwe, where the movie was filmed. It features Hans Zimmer's first non-collaborative film score.\n\nQuestion: The director of the romantic comedy \"Big Stone Gap\" is based in what New York city?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "32",
+          "doc_id": "Big Stone Gap (film)",
+          "title": "Big Stone Gap (film)",
+          "text": "Big Stone Gap is a 2014 American drama romantic comedy film written and directed by Adriana Trigiani and produced by Donna Gigliotti for Altar Identity Studios, a subsidiary of Media Society. Based on Trigiani's 2000 best-selling novel of the same name, the story is set in the actual Virginia town of Big Stone Gap circa 1970s. The film had its world premiere at the Virginia Film Festival on November 6, 2014.",
+          "url": "https://en.wikipedia.org/wiki/Big_Stone_Gap_(film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.7497057914733887
+        },
+        {
+          "passage_id": "517",
+          "doc_id": "Innerspace",
+          "title": "Innerspace",
+          "text": "Innerspace is a 1987 American science fiction comedy film directed by Joe Dante and produced by Michael Finnell. Steven Spielberg served as executive producer. The film was inspired by the 1966 science fiction film \"Fantastic Voyage\". It stars Dennis Quaid, Martin Short and Meg Ryan, with Robert Picardo and Kevin McCarthy, with music composed by Jerry Goldsmith. It earned well over $25 million in its domestic gross revenue and won an Oscar, the only film directed by Dante to do so.",
+          "url": "https://en.wikipedia.org/wiki/Innerspace",
+          "chunk_index": 0,
+          "retrieval_score": 0.3673277795314789
+        },
+        {
+          "passage_id": "33",
+          "doc_id": "I Love NY (2015 film)",
+          "title": "I Love NY (2015 film)",
+          "text": "I Love NY, also known as I Love New Year, is an Indian romantic comedy film directed by Radhika Rao and Vinay Sapru starring Sunny Deol and Kangana Ranaut in lead roles. The film is produced by Bhushan Kumar and Krishan Kumar under the banner of Super Cassettes Industries Ltd. The film was extensively shot in Mumbai, New York City and Bangkok. The main plot was taken from the Russian romantic comedy \"The Irony of Fate\" (1976). After numerous delays, the film released on 10 July 2015.",
+          "url": "https://en.wikipedia.org/wiki/I_Love_NY_(2015_film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.35519105195999146
+        },
+        {
+          "passage_id": "755",
+          "doc_id": "Neil LaBute",
+          "title": "Neil LaBute",
+          "text": "Neil N. LaBute (born March 19, 1963) is an American film director, screenwriter, playwright and actor. He is best-known for a play that he wrote and later turned into a film, \"In the Company of Men\" (1997), which won awards from the Sundance Film Festival, the Independent Spirit Awards, and the New York Film Critics Circle. He wrote and directed the films \"Possession\" (2002) (based on the A.S. Byatt novel), \"The Shape of Things\" (2003) (based on his play of the same name), \"The Wicker Man\" (2006), \"Some Velvet Morning\" (2013), and \"Dirty Weekend\" (2015). He directed the films \"Nurse Betty\" (2000), \"Lakeview Terrace\" (2008), and \"Death at a Funeral\" (2010). LaBute created the TV series \"Billy & Billie\", writing and directing all of the episodes and is also creator of \"Van Helsing\". He also directed several episodes for shows such as \"Hell on Wheels\" and \"Billions\".",
+          "url": "https://en.wikipedia.org/wiki/Neil_LaBute",
+          "chunk_index": 0,
+          "retrieval_score": 0.3202074468135834
+        },
+        {
+          "passage_id": "742",
+          "doc_id": "A World Apart (film)",
+          "title": "A World Apart (film)",
+          "text": "A World Apart is a 1988 anti-Apartheid drama, written by Shawn Slovo and directed by Chris Menges. It is based on the lives of Slovo's parents, Ruth First and Joe Slovo. The film was a co-production between companies from the UK and Zimbabwe, where the movie was filmed. It features Hans Zimmer's first non-collaborative film score.",
+          "url": "https://en.wikipedia.org/wiki/A_World_Apart_(film)",
+          "chunk_index": 0,
+          "retrieval_score": 0.3172551989555359
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "2014 S/S is the debut album of a South Korean boy group that was formed by who?",
+      "answer": "The context does not provide information about the formation of any South Korean boy group with a 2014 S/S debut album.",
+      "context": "[1] BTS discography (relevance: 0.599)\nThe following is the discography of South Korean boy group BTS. The group debuted in South Korea on June 2013 with single album, \"2 Cool 4 Skool\", at number 5 on South Korean Week 31 Gaon Weekly Chart. They made a comeback on September 2013 with an extended play, \"O!RUL8,2? \", which peaked at number 4 on Week 38 Gaon Weekly Chart. BTS then released their second extended play, \"Skool Luv Affair\", in February 2014, where it charted at number 1 on Week 18 Gaon Weekly Chart. This also marked the first time their album charted on international charts, Billboard World Albums and Japan's Oricon Chart, specifically. A repackaged version of the album, \"Skool Luv Affair Special Addition\" which was released in May 2014, also peaked at number 1 on Week 21 Gaon Weekly Chart.\n\n[2] List of awards and nominations received by Shinee (relevance: 0.574)\nSouth Korean boy group Shinee have received several awards and nominations for their music work. The group was formed by S.M. Entertainment in 2008 and released their first full-length album, \"The Shinee World\", on August 28, 2008, which won the Newcomer Album of the Year at the 23rd Golden Disk Awards. The first single released from the album was \"Sanso Gateun Neo (Love Like Oxygen)\" and won first place on \"M Countdown\" on September 18, 2008 making it the group's first win on Korean music shows since debut. Their second album \"Lucifer\" (2010) produced two singles, \"Lucifer\" and \"Hello\". For their outstanding choreography the group was nominated for the Best Dance Performance Award at the Mnet Asian Music Awards in 2010. \" Lucifer\" also won the Disk Bonsang Award at the 25th Golden Disk Awards as well as the Popularity Award. On March 21, 2012 the group released their fourth EP \"Sherlock\" for which the group was awarded another Disk Bonsang Award at the 27th Golden Disc Awards and the Bonsang Award at the 22nd Seoul Music Award. Also following the success of the lead single it was also nominated for Song of the Year at the 2012 Mnet Asian Music Awards.\n\n[3] Cho Kyuhyun (relevance: 0.499)\nCho Kyu-hyun (born February 3, 1988), better known mononymously as Kyuhyun, is a South Korean singer and musical theatre actor. He is best known as a member of South Korean boy group Super Junior, its sub-groups Super Junior-K.R.Y., Super Junior-M and a former member of the South Korean ballad group S.M. the Ballad. He is one of the first four Korean artists to appear on Chinese postage stamps.\n\n[4] Madtown (relevance: 0.469)\nMadtown (Hangul: 매드타운 ), often stylized as MADTOWN, is a South Korean boy group formed in 2014 by J. Tune Camp. The group consists of Moos, Daewon, Lee Geon, Jota, Heo Jun, Buffy and H.O. Their debut album, \"Mad Town\", was released on October 6, 2014. Two of the members, Moos and Buffy, originally debuted as the hip hop duo \"Pro C\" in 2013. Madtown's official fan-base name is Mad-people. Starting December 22, 2016, MADTOWN's contract was sold to GNI Entertainment after J. Tune Camp closed.\n\n[5] List of songs written by Ravi (relevance: 0.436)\nRavi is a South Korean rapper, songwriter and producer, signed under Jellyfish Entertainment. He began his career as a rapper in 2012 in the South Korean boy group VIXX, and later formed VIXX's first sub-unit VIXX LR with band mate Leo in 2015. Ravi's songwriting career began with his participation in co-writing VIXX's debut single \"Super Hero\". As of November 2016 with the release of \"VIXX 2016 Conception Ker\", Ravi has contributed to the writing and composing of over 46 songs recorded by VIXX. Ravi is widely known for his participation of composing and songwriting rap portions for the group as well as lyrics and music.",
+      "context_passages": [
+        {
+          "passage_id": "42",
+          "doc_id": "BTS discography",
+          "title": "BTS discography",
+          "text": "The following is the discography of South Korean boy group BTS. The group debuted in South Korea on June 2013 with single album, \"2 Cool 4 Skool\", at number 5 on South Korean Week 31 Gaon Weekly Chart. They made a comeback on September 2013 with an extended play, \"O!RUL8,2? \", which peaked at number 4 on Week 38 Gaon Weekly Chart. BTS then released their second extended play, \"Skool Luv Affair\", in February 2014, where it charted at number 1 on Week 18 Gaon Weekly Chart. This also marked the first time their album charted on international charts, Billboard World Albums and Japan's Oricon Chart, specifically. A repackaged version of the album, \"Skool Luv Affair Special Addition\" which was released in May 2014, also peaked at number 1 on Week 21 Gaon Weekly Chart.",
+          "url": "https://en.wikipedia.org/wiki/BTS_discography",
+          "chunk_index": 0,
+          "retrieval_score": 0.5993969440460205
+        },
+        {
+          "passage_id": "39",
+          "doc_id": "List of awards and nominations received by Shinee",
+          "title": "List of awards and nominations received by Shinee",
+          "text": "South Korean boy group Shinee have received several awards and nominations for their music work. The group was formed by S.M. Entertainment in 2008 and released their first full-length album, \"The Shinee World\", on August 28, 2008, which won the Newcomer Album of the Year at the 23rd Golden Disk Awards. The first single released from the album was \"Sanso Gateun Neo (Love Like Oxygen)\" and won first place on \"M Countdown\" on September 18, 2008 making it the group's first win on Korean music shows since debut. Their second album \"Lucifer\" (2010) produced two singles, \"Lucifer\" and \"Hello\". For their outstanding choreography the group was nominated for the Best Dance Performance Award at the Mnet Asian Music Awards in 2010. \" Lucifer\" also won the Disk Bonsang Award at the 25th Golden Disk Awards as well as the Popularity Award. On March 21, 2012 the group released their fourth EP \"Sherlock\" for which the group was awarded another Disk Bonsang Award at the 27th Golden Disc Awards and the Bonsang Award at the 22nd Seoul Music Award. Also following the success of the lead single it was also nominated for Song of the Year at the 2012 Mnet Asian Music Awards.",
+          "url": "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Shinee",
+          "chunk_index": 0,
+          "retrieval_score": 0.5743862390518188
+        },
+        {
+          "passage_id": "41",
+          "doc_id": "Cho Kyuhyun",
+          "title": "Cho Kyuhyun",
+          "text": "Cho Kyu-hyun (born February 3, 1988), better known mononymously as Kyuhyun, is a South Korean singer and musical theatre actor. He is best known as a member of South Korean boy group Super Junior, its sub-groups Super Junior-K.R.Y., Super Junior-M and a former member of the South Korean ballad group S.M. the Ballad. He is one of the first four Korean artists to appear on Chinese postage stamps.",
+          "url": "https://en.wikipedia.org/wiki/Cho_Kyuhyun",
+          "chunk_index": 0,
+          "retrieval_score": 0.4986410140991211
+        },
+        {
+          "passage_id": "43",
+          "doc_id": "Madtown",
+          "title": "Madtown",
+          "text": "Madtown (Hangul: 매드타운 ), often stylized as MADTOWN, is a South Korean boy group formed in 2014 by J. Tune Camp. The group consists of Moos, Daewon, Lee Geon, Jota, Heo Jun, Buffy and H.O. Their debut album, \"Mad Town\", was released on October 6, 2014. Two of the members, Moos and Buffy, originally debuted as the hip hop duo \"Pro C\" in 2013. Madtown's official fan-base name is Mad-people. Starting December 22, 2016, MADTOWN's contract was sold to GNI Entertainment after J. Tune Camp closed.",
+          "url": "https://en.wikipedia.org/wiki/Madtown",
+          "chunk_index": 0,
+          "retrieval_score": 0.46938657760620117
+        },
+        {
+          "passage_id": "44",
+          "doc_id": "List of songs written by Ravi",
+          "title": "List of songs written by Ravi",
+          "text": "Ravi is a South Korean rapper, songwriter and producer, signed under Jellyfish Entertainment. He began his career as a rapper in 2012 in the South Korean boy group VIXX, and later formed VIXX's first sub-unit VIXX LR with band mate Leo in 2015. Ravi's songwriting career began with his participation in co-writing VIXX's debut single \"Super Hero\". As of November 2016 with the release of \"VIXX 2016 Conception Ker\", Ravi has contributed to the writing and composing of over 46 songs recorded by VIXX. Ravi is widely known for his participation of composing and songwriting rap portions for the group as well as lyrics and music.",
+          "url": "https://en.wikipedia.org/wiki/List_of_songs_written_by_Ravi",
+          "chunk_index": 0,
+          "retrieval_score": 0.4359499514102936
+        }
+      ],
+      "prompt": "Context:\n[1] BTS discography (relevance: 0.599)\nThe following is the discography of South Korean boy group BTS. The group debuted in South Korea on June 2013 with single album, \"2 Cool 4 Skool\", at number 5 on South Korean Week 31 Gaon Weekly Chart. They made a comeback on September 2013 with an extended play, \"O!RUL8,2? \", which peaked at number 4 on Week 38 Gaon Weekly Chart. BTS then released their second extended play, \"Skool Luv Affair\", in February 2014, where it charted at number 1 on Week 18 Gaon Weekly Chart. This also marked the first time their album charted on international charts, Billboard World Albums and Japan's Oricon Chart, specifically. A repackaged version of the album, \"Skool Luv Affair Special Addition\" which was released in May 2014, also peaked at number 1 on Week 21 Gaon Weekly Chart.\n\n[2] List of awards and nominations received by Shinee (relevance: 0.574)\nSouth Korean boy group Shinee have received several awards and nominations for their music work. The group was formed by S.M. Entertainment in 2008 and released their first full-length album, \"The Shinee World\", on August 28, 2008, which won the Newcomer Album of the Year at the 23rd Golden Disk Awards. The first single released from the album was \"Sanso Gateun Neo (Love Like Oxygen)\" and won first place on \"M Countdown\" on September 18, 2008 making it the group's first win on Korean music shows since debut. Their second album \"Lucifer\" (2010) produced two singles, \"Lucifer\" and \"Hello\". For their outstanding choreography the group was nominated for the Best Dance Performance Award at the Mnet Asian Music Awards in 2010. \" Lucifer\" also won the Disk Bonsang Award at the 25th Golden Disk Awards as well as the Popularity Award. On March 21, 2012 the group released their fourth EP \"Sherlock\" for which the group was awarded another Disk Bonsang Award at the 27th Golden Disc Awards and the Bonsang Award at the 22nd Seoul Music Award. Also following the success of the lead single it was also nominated for Song of the Year at the 2012 Mnet Asian Music Awards.\n\n[3] Cho Kyuhyun (relevance: 0.499)\nCho Kyu-hyun (born February 3, 1988), better known mononymously as Kyuhyun, is a South Korean singer and musical theatre actor. He is best known as a member of South Korean boy group Super Junior, its sub-groups Super Junior-K.R.Y., Super Junior-M and a former member of the South Korean ballad group S.M. the Ballad. He is one of the first four Korean artists to appear on Chinese postage stamps.\n\n[4] Madtown (relevance: 0.469)\nMadtown (Hangul: 매드타운 ), often stylized as MADTOWN, is a South Korean boy group formed in 2014 by J. Tune Camp. The group consists of Moos, Daewon, Lee Geon, Jota, Heo Jun, Buffy and H.O. Their debut album, \"Mad Town\", was released on October 6, 2014. Two of the members, Moos and Buffy, originally debuted as the hip hop duo \"Pro C\" in 2013. Madtown's official fan-base name is Mad-people. Starting December 22, 2016, MADTOWN's contract was sold to GNI Entertainment after J. Tune Camp closed.\n\n[5] List of songs written by Ravi (relevance: 0.436)\nRavi is a South Korean rapper, songwriter and producer, signed under Jellyfish Entertainment. He began his career as a rapper in 2012 in the South Korean boy group VIXX, and later formed VIXX's first sub-unit VIXX LR with band mate Leo in 2015. Ravi's songwriting career began with his participation in co-writing VIXX's debut single \"Super Hero\". As of November 2016 with the release of \"VIXX 2016 Conception Ker\", Ravi has contributed to the writing and composing of over 46 songs recorded by VIXX. Ravi is widely known for his participation of composing and songwriting rap portions for the group as well as lyrics and music.\n\nQuestion: 2014 S/S is the debut album of a South Korean boy group that was formed by who?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "42",
+          "doc_id": "BTS discography",
+          "title": "BTS discography",
+          "text": "The following is the discography of South Korean boy group BTS. The group debuted in South Korea on June 2013 with single album, \"2 Cool 4 Skool\", at number 5 on South Korean Week 31 Gaon Weekly Chart. They made a comeback on September 2013 with an extended play, \"O!RUL8,2? \", which peaked at number 4 on Week 38 Gaon Weekly Chart. BTS then released their second extended play, \"Skool Luv Affair\", in February 2014, where it charted at number 1 on Week 18 Gaon Weekly Chart. This also marked the first time their album charted on international charts, Billboard World Albums and Japan's Oricon Chart, specifically. A repackaged version of the album, \"Skool Luv Affair Special Addition\" which was released in May 2014, also peaked at number 1 on Week 21 Gaon Weekly Chart.",
+          "url": "https://en.wikipedia.org/wiki/BTS_discography",
+          "chunk_index": 0,
+          "retrieval_score": 0.5993969440460205
+        },
+        {
+          "passage_id": "39",
+          "doc_id": "List of awards and nominations received by Shinee",
+          "title": "List of awards and nominations received by Shinee",
+          "text": "South Korean boy group Shinee have received several awards and nominations for their music work. The group was formed by S.M. Entertainment in 2008 and released their first full-length album, \"The Shinee World\", on August 28, 2008, which won the Newcomer Album of the Year at the 23rd Golden Disk Awards. The first single released from the album was \"Sanso Gateun Neo (Love Like Oxygen)\" and won first place on \"M Countdown\" on September 18, 2008 making it the group's first win on Korean music shows since debut. Their second album \"Lucifer\" (2010) produced two singles, \"Lucifer\" and \"Hello\". For their outstanding choreography the group was nominated for the Best Dance Performance Award at the Mnet Asian Music Awards in 2010. \" Lucifer\" also won the Disk Bonsang Award at the 25th Golden Disk Awards as well as the Popularity Award. On March 21, 2012 the group released their fourth EP \"Sherlock\" for which the group was awarded another Disk Bonsang Award at the 27th Golden Disc Awards and the Bonsang Award at the 22nd Seoul Music Award. Also following the success of the lead single it was also nominated for Song of the Year at the 2012 Mnet Asian Music Awards.",
+          "url": "https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Shinee",
+          "chunk_index": 0,
+          "retrieval_score": 0.5743862390518188
+        },
+        {
+          "passage_id": "41",
+          "doc_id": "Cho Kyuhyun",
+          "title": "Cho Kyuhyun",
+          "text": "Cho Kyu-hyun (born February 3, 1988), better known mononymously as Kyuhyun, is a South Korean singer and musical theatre actor. He is best known as a member of South Korean boy group Super Junior, its sub-groups Super Junior-K.R.Y., Super Junior-M and a former member of the South Korean ballad group S.M. the Ballad. He is one of the first four Korean artists to appear on Chinese postage stamps.",
+          "url": "https://en.wikipedia.org/wiki/Cho_Kyuhyun",
+          "chunk_index": 0,
+          "retrieval_score": 0.4986410140991211
+        },
+        {
+          "passage_id": "43",
+          "doc_id": "Madtown",
+          "title": "Madtown",
+          "text": "Madtown (Hangul: 매드타운 ), often stylized as MADTOWN, is a South Korean boy group formed in 2014 by J. Tune Camp. The group consists of Moos, Daewon, Lee Geon, Jota, Heo Jun, Buffy and H.O. Their debut album, \"Mad Town\", was released on October 6, 2014. Two of the members, Moos and Buffy, originally debuted as the hip hop duo \"Pro C\" in 2013. Madtown's official fan-base name is Mad-people. Starting December 22, 2016, MADTOWN's contract was sold to GNI Entertainment after J. Tune Camp closed.",
+          "url": "https://en.wikipedia.org/wiki/Madtown",
+          "chunk_index": 0,
+          "retrieval_score": 0.46938657760620117
+        },
+        {
+          "passage_id": "44",
+          "doc_id": "List of songs written by Ravi",
+          "title": "List of songs written by Ravi",
+          "text": "Ravi is a South Korean rapper, songwriter and producer, signed under Jellyfish Entertainment. He began his career as a rapper in 2012 in the South Korean boy group VIXX, and later formed VIXX's first sub-unit VIXX LR with band mate Leo in 2015. Ravi's songwriting career began with his participation in co-writing VIXX's debut single \"Super Hero\". As of November 2016 with the release of \"VIXX 2016 Conception Ker\", Ravi has contributed to the writing and composing of over 46 songs recorded by VIXX. Ravi is widely known for his participation of composing and songwriting rap portions for the group as well as lyrics and music.",
+          "url": "https://en.wikipedia.org/wiki/List_of_songs_written_by_Ravi",
+          "chunk_index": 0,
+          "retrieval_score": 0.4359499514102936
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?",
+      "answer": "Based on the provided context, there is no individual mentioned who was known by the stage name \"Aladin\" and worked as a consultant to help organizations improve their performance.",
+      "context": "[1] Jonathan Michael Ansell (relevance: 0.334)\nJonathan M. Ansell (born August 13, 1950 in Binghamton, New York) is an American entrepreneur and CEO in the insurance and insurtech industry. Ansell is the founder and CEO of insurtech companies Merlinio Technologies and Merlinio Insurance Services, an online digital insurance agency and technology platform serving the millennial market. Before Merlinio, Ansell was a co-founder and CEO of Fusion Company, a global digital merchandising provider that specializes in ancillary products. Fusion was created in 2012 after being spun-out of a large international insurance company. Previously Ansell was the President, CEO and one of the co-founders of what is now Allianz Global Assistance USA, one of the largest travel insurance companies in the US and American specialty insurer Jefferson Insurance Company. He was also a member of the management board of Allianz Global Assistance, formerly Mondial Assistance, an international travel insurance and assistance company based in Paris, France.\n\n[2] Pamela Gilbert (relevance: 0.324)\nPamela B. Gilbert (born October 3, 1958) is an American lawyer and has been a partner of the law firm Cuneo Gilbert & LaDuca, LLP since 2003, where she heads the firm's lobbying practice. Gilbert is a noted consumer rights advocate who has testified before Congress over fifty times and made dozens of appearances in the national print and electronic media.\n\n[3] ELDee (relevance: 0.316)\nLanre Dabiri (born May 23, 1977), better known by his stage name Eldee, stylized as eLDee, is a former Nigerian-American rapper, singer, and record producer but now an IT Consultant based in the United_States \"Lanre\" is a diminutive for the Yoruba name \"Olanrewaju\" (which translates to \"\"Wealth is moving forward\"\"). eLDee has a masters degree in Architecture from the University of Lagos, Nigeria. He is an original member of the band Trybesmen, which was started in 1998 with rappers KB and Freestyle. He hails from Lagos Island in Lagos State of Nigeria.\n\n[4] Amaruk Kayshapanta (relevance: 0.306)\nAmaruk Caizapanta Anchapacxi (Quito, January 30, 1970), whose stage name is Amaruk Kayshapanta. Is an Ecuadorian multidisciplinary artist, known in Spain and Ecuador for his artistic and humanistic trajectory in favor of the Human Rights of Immigration in Spain. Named as the \"Chasqui de Oro\" (In the VI Race and hike \"El Chasqui-NY). Received the award as \"Cultural Ambassador of the Andes-Mushuk Nina 2014 (Third Edition)\", for rescuing the traditions and culture of the Andes for the Indigenous Organizations of Peru, Bolivia based in Ecuador. He obtained the prize \"100 Latinos Madrid\", by the Community of Madrid, in recognition of their non-profit altruistic and cultural work for the benefit of foreign immigrants in Spain. Known for his role in the TV series \"Hospital Central\" in which he gave life to the character \"Edgar\". His Philosophy \"Amawtica Amarukiana Desestructuration\" brings to the contemporary world the Philosophical study of the Andean Worldview, a spiritual legacy of transformation and balance for the awakening of a collective conscience.\n\n[5] Wes McKinney (relevance: 0.302)\nWes McKinney is an American statistician, data scientist and businessman. He was the CEO and founder of technology startup Datapad. He is the main author of the open-source Pandas package for data analysis in the Python programming language, and has also written the textbook \"Python for Data Analysis\" on the topic. He worked as a software engineer for Cloudera following their acquisition of Datapad in 2014. He is now a software engineer at Two Sigma Investments.",
+      "context_passages": [
+        {
+          "passage_id": "788",
+          "doc_id": "Jonathan Michael Ansell",
+          "title": "Jonathan Michael Ansell",
+          "text": "Jonathan M. Ansell (born August 13, 1950 in Binghamton, New York) is an American entrepreneur and CEO in the insurance and insurtech industry. Ansell is the founder and CEO of insurtech companies Merlinio Technologies and Merlinio Insurance Services, an online digital insurance agency and technology platform serving the millennial market. Before Merlinio, Ansell was a co-founder and CEO of Fusion Company, a global digital merchandising provider that specializes in ancillary products. Fusion was created in 2012 after being spun-out of a large international insurance company. Previously Ansell was the President, CEO and one of the co-founders of what is now Allianz Global Assistance USA, one of the largest travel insurance companies in the US and American specialty insurer Jefferson Insurance Company. He was also a member of the management board of Allianz Global Assistance, formerly Mondial Assistance, an international travel insurance and assistance company based in Paris, France.",
+          "url": "https://en.wikipedia.org/wiki/Jonathan_Michael_Ansell",
+          "chunk_index": 0,
+          "retrieval_score": 0.33440136909484863
+        },
+        {
+          "passage_id": "796",
+          "doc_id": "Pamela Gilbert",
+          "title": "Pamela Gilbert",
+          "text": "Pamela B. Gilbert (born October 3, 1958) is an American lawyer and has been a partner of the law firm Cuneo Gilbert & LaDuca, LLP since 2003, where she heads the firm's lobbying practice. Gilbert is a noted consumer rights advocate who has testified before Congress over fifty times and made dozens of appearances in the national print and electronic media.",
+          "url": "https://en.wikipedia.org/wiki/Pamela_Gilbert",
+          "chunk_index": 0,
+          "retrieval_score": 0.324096143245697
+        },
+        {
+          "passage_id": "52",
+          "doc_id": "ELDee",
+          "title": "ELDee",
+          "text": "Lanre Dabiri (born May 23, 1977), better known by his stage name Eldee, stylized as eLDee, is a former Nigerian-American rapper, singer, and record producer but now an IT Consultant based in the United_States \"Lanre\" is a diminutive for the Yoruba name \"Olanrewaju\" (which translates to \"\"Wealth is moving forward\"\"). eLDee has a masters degree in Architecture from the University of Lagos, Nigeria. He is an original member of the band Trybesmen, which was started in 1998 with rappers KB and Freestyle. He hails from Lagos Island in Lagos State of Nigeria.",
+          "url": "https://en.wikipedia.org/wiki/ELDee",
+          "chunk_index": 0,
+          "retrieval_score": 0.3162936568260193
+        },
+        {
+          "passage_id": "48",
+          "doc_id": "Amaruk Kayshapanta",
+          "title": "Amaruk Kayshapanta",
+          "text": "Amaruk Caizapanta Anchapacxi (Quito, January 30, 1970), whose stage name is Amaruk Kayshapanta. Is an Ecuadorian multidisciplinary artist, known in Spain and Ecuador for his artistic and humanistic trajectory in favor of the Human Rights of Immigration in Spain. Named as the \"Chasqui de Oro\" (In the VI Race and hike \"El Chasqui-NY). Received the award as \"Cultural Ambassador of the Andes-Mushuk Nina 2014 (Third Edition)\", for rescuing the traditions and culture of the Andes for the Indigenous Organizations of Peru, Bolivia based in Ecuador. He obtained the prize \"100 Latinos Madrid\", by the Community of Madrid, in recognition of their non-profit altruistic and cultural work for the benefit of foreign immigrants in Spain. Known for his role in the TV series \"Hospital Central\" in which he gave life to the character \"Edgar\". His Philosophy \"Amawtica Amarukiana Desestructuration\" brings to the contemporary world the Philosophical study of the Andean Worldview, a spiritual legacy of transformation and balance for the awakening of a collective conscience.",
+          "url": "https://en.wikipedia.org/wiki/Amaruk_Kayshapanta",
+          "chunk_index": 0,
+          "retrieval_score": 0.3061416745185852
+        },
+        {
+          "passage_id": "340",
+          "doc_id": "Wes McKinney",
+          "title": "Wes McKinney",
+          "text": "Wes McKinney is an American statistician, data scientist and businessman. He was the CEO and founder of technology startup Datapad. He is the main author of the open-source Pandas package for data analysis in the Python programming language, and has also written the textbook \"Python for Data Analysis\" on the topic. He worked as a software engineer for Cloudera following their acquisition of Datapad in 2014. He is now a software engineer at Two Sigma Investments.",
+          "url": "https://en.wikipedia.org/wiki/Wes_McKinney",
+          "chunk_index": 0,
+          "retrieval_score": 0.3020850419998169
+        }
+      ],
+      "prompt": "Context:\n[1] Jonathan Michael Ansell (relevance: 0.334)\nJonathan M. Ansell (born August 13, 1950 in Binghamton, New York) is an American entrepreneur and CEO in the insurance and insurtech industry. Ansell is the founder and CEO of insurtech companies Merlinio Technologies and Merlinio Insurance Services, an online digital insurance agency and technology platform serving the millennial market. Before Merlinio, Ansell was a co-founder and CEO of Fusion Company, a global digital merchandising provider that specializes in ancillary products. Fusion was created in 2012 after being spun-out of a large international insurance company. Previously Ansell was the President, CEO and one of the co-founders of what is now Allianz Global Assistance USA, one of the largest travel insurance companies in the US and American specialty insurer Jefferson Insurance Company. He was also a member of the management board of Allianz Global Assistance, formerly Mondial Assistance, an international travel insurance and assistance company based in Paris, France.\n\n[2] Pamela Gilbert (relevance: 0.324)\nPamela B. Gilbert (born October 3, 1958) is an American lawyer and has been a partner of the law firm Cuneo Gilbert & LaDuca, LLP since 2003, where she heads the firm's lobbying practice. Gilbert is a noted consumer rights advocate who has testified before Congress over fifty times and made dozens of appearances in the national print and electronic media.\n\n[3] ELDee (relevance: 0.316)\nLanre Dabiri (born May 23, 1977), better known by his stage name Eldee, stylized as eLDee, is a former Nigerian-American rapper, singer, and record producer but now an IT Consultant based in the United_States \"Lanre\" is a diminutive for the Yoruba name \"Olanrewaju\" (which translates to \"\"Wealth is moving forward\"\"). eLDee has a masters degree in Architecture from the University of Lagos, Nigeria. He is an original member of the band Trybesmen, which was started in 1998 with rappers KB and Freestyle. He hails from Lagos Island in Lagos State of Nigeria.\n\n[4] Amaruk Kayshapanta (relevance: 0.306)\nAmaruk Caizapanta Anchapacxi (Quito, January 30, 1970), whose stage name is Amaruk Kayshapanta. Is an Ecuadorian multidisciplinary artist, known in Spain and Ecuador for his artistic and humanistic trajectory in favor of the Human Rights of Immigration in Spain. Named as the \"Chasqui de Oro\" (In the VI Race and hike \"El Chasqui-NY). Received the award as \"Cultural Ambassador of the Andes-Mushuk Nina 2014 (Third Edition)\", for rescuing the traditions and culture of the Andes for the Indigenous Organizations of Peru, Bolivia based in Ecuador. He obtained the prize \"100 Latinos Madrid\", by the Community of Madrid, in recognition of their non-profit altruistic and cultural work for the benefit of foreign immigrants in Spain. Known for his role in the TV series \"Hospital Central\" in which he gave life to the character \"Edgar\". His Philosophy \"Amawtica Amarukiana Desestructuration\" brings to the contemporary world the Philosophical study of the Andean Worldview, a spiritual legacy of transformation and balance for the awakening of a collective conscience.\n\n[5] Wes McKinney (relevance: 0.302)\nWes McKinney is an American statistician, data scientist and businessman. He was the CEO and founder of technology startup Datapad. He is the main author of the open-source Pandas package for data analysis in the Python programming language, and has also written the textbook \"Python for Data Analysis\" on the topic. He worked as a software engineer for Cloudera following their acquisition of Datapad in 2014. He is now a software engineer at Two Sigma Investments.\n\nQuestion: Who was known by his stage name Aladin and helped organizations improve their performance as a consultant?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "788",
+          "doc_id": "Jonathan Michael Ansell",
+          "title": "Jonathan Michael Ansell",
+          "text": "Jonathan M. Ansell (born August 13, 1950 in Binghamton, New York) is an American entrepreneur and CEO in the insurance and insurtech industry. Ansell is the founder and CEO of insurtech companies Merlinio Technologies and Merlinio Insurance Services, an online digital insurance agency and technology platform serving the millennial market. Before Merlinio, Ansell was a co-founder and CEO of Fusion Company, a global digital merchandising provider that specializes in ancillary products. Fusion was created in 2012 after being spun-out of a large international insurance company. Previously Ansell was the President, CEO and one of the co-founders of what is now Allianz Global Assistance USA, one of the largest travel insurance companies in the US and American specialty insurer Jefferson Insurance Company. He was also a member of the management board of Allianz Global Assistance, formerly Mondial Assistance, an international travel insurance and assistance company based in Paris, France.",
+          "url": "https://en.wikipedia.org/wiki/Jonathan_Michael_Ansell",
+          "chunk_index": 0,
+          "retrieval_score": 0.33440136909484863
+        },
+        {
+          "passage_id": "796",
+          "doc_id": "Pamela Gilbert",
+          "title": "Pamela Gilbert",
+          "text": "Pamela B. Gilbert (born October 3, 1958) is an American lawyer and has been a partner of the law firm Cuneo Gilbert & LaDuca, LLP since 2003, where she heads the firm's lobbying practice. Gilbert is a noted consumer rights advocate who has testified before Congress over fifty times and made dozens of appearances in the national print and electronic media.",
+          "url": "https://en.wikipedia.org/wiki/Pamela_Gilbert",
+          "chunk_index": 0,
+          "retrieval_score": 0.324096143245697
+        },
+        {
+          "passage_id": "52",
+          "doc_id": "ELDee",
+          "title": "ELDee",
+          "text": "Lanre Dabiri (born May 23, 1977), better known by his stage name Eldee, stylized as eLDee, is a former Nigerian-American rapper, singer, and record producer but now an IT Consultant based in the United_States \"Lanre\" is a diminutive for the Yoruba name \"Olanrewaju\" (which translates to \"\"Wealth is moving forward\"\"). eLDee has a masters degree in Architecture from the University of Lagos, Nigeria. He is an original member of the band Trybesmen, which was started in 1998 with rappers KB and Freestyle. He hails from Lagos Island in Lagos State of Nigeria.",
+          "url": "https://en.wikipedia.org/wiki/ELDee",
+          "chunk_index": 0,
+          "retrieval_score": 0.3162936568260193
+        },
+        {
+          "passage_id": "48",
+          "doc_id": "Amaruk Kayshapanta",
+          "title": "Amaruk Kayshapanta",
+          "text": "Amaruk Caizapanta Anchapacxi (Quito, January 30, 1970), whose stage name is Amaruk Kayshapanta. Is an Ecuadorian multidisciplinary artist, known in Spain and Ecuador for his artistic and humanistic trajectory in favor of the Human Rights of Immigration in Spain. Named as the \"Chasqui de Oro\" (In the VI Race and hike \"El Chasqui-NY). Received the award as \"Cultural Ambassador of the Andes-Mushuk Nina 2014 (Third Edition)\", for rescuing the traditions and culture of the Andes for the Indigenous Organizations of Peru, Bolivia based in Ecuador. He obtained the prize \"100 Latinos Madrid\", by the Community of Madrid, in recognition of their non-profit altruistic and cultural work for the benefit of foreign immigrants in Spain. Known for his role in the TV series \"Hospital Central\" in which he gave life to the character \"Edgar\". His Philosophy \"Amawtica Amarukiana Desestructuration\" brings to the contemporary world the Philosophical study of the Andean Worldview, a spiritual legacy of transformation and balance for the awakening of a collective conscience.",
+          "url": "https://en.wikipedia.org/wiki/Amaruk_Kayshapanta",
+          "chunk_index": 0,
+          "retrieval_score": 0.3061416745185852
+        },
+        {
+          "passage_id": "340",
+          "doc_id": "Wes McKinney",
+          "title": "Wes McKinney",
+          "text": "Wes McKinney is an American statistician, data scientist and businessman. He was the CEO and founder of technology startup Datapad. He is the main author of the open-source Pandas package for data analysis in the Python programming language, and has also written the textbook \"Python for Data Analysis\" on the topic. He worked as a software engineer for Cloudera following their acquisition of Datapad in 2014. He is now a software engineer at Two Sigma Investments.",
+          "url": "https://en.wikipedia.org/wiki/Wes_McKinney",
+          "chunk_index": 0,
+          "retrieval_score": 0.3020850419998169
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "The arena where the Lewiston Maineiacs played their home games can seat how many people?",
+      "answer": "The context does not provide specific information about the seating capacity of the Androscoggin Bank Colisée, where the Lewiston Maineiacs played their home games.",
+      "context": "[1] Lewiston Maineiacs (relevance: 0.585)\nThe Lewiston Maineiacs were a junior ice hockey team of the Quebec Major Junior Hockey League based in Lewiston, Maine. The team played its home games at the Androscoggin Bank Colisée. They were the second QMJHL team in the United States, and the only one to play a full season. They won the President's Cup in 2007.\n\n[2] Dwyer Arena (relevance: 0.501)\nThe Robert and Concetta Dwyer Arena houses two ice surfaces, both 200 x 85 ft., and pro shop on Niagara University's campus in Lewiston, New York, United States. The main rink can seat up to 1,400 people and is the home to the Niagara Purple Eagles men's ice hockey team, which plays in Atlantic Hockey. The arena was formerly home to the women's ice hockey team, which played in College Hockey America.\n\n[3] Cedar Rapids Ice Arena (relevance: 0.408)\nThe Cedar Rapids Ice Arena is a 3,850-seat multipurpose arena in Cedar Rapids, Iowa, located adjacent to Veterans Memorial Stadium. The arena opened on January 8, 2000, and is owned by the city of Cedar Rapids. It is home to the Cedar Rapids RoughRiders of the United States Hockey League as well as several local youth hockey teams. The University of Iowa Hawkeyes club hockey team plays some of their home games at the facility. The arena contains separate sheets of ice for ice hockey games and for public and figure ice skating.\n\n[4] Case Gym (relevance: 0.388)\nCase Gym is a 1,800-seat multi-purpose arena at Boston University in Boston, Massachusetts. It opened in 1972 as part of the Harold Case Physical Education Center, which is named after the university's fifth president, Harold C. Case. The gym is referred to as \"The Roof\" because it is located on the top level of the building, above Walter Brown Arena. It is home to the Boston University Terriers men's and women's basketball teams, as well as the men's wrestling team. Basketball games are also played in Agganis Arena, and on occasion Walter Brown Arena. When Boston University left the America East Conference for the Patriot League in July 2013, they announced that all home men's basketball conference games would be played at Agganis Arena, with the non-conference games to be played at Case.\n\n[5] 2006–07 QMJHL season (relevance: 0.382)\nThe 2006–07 QMJHL season was the 38th season in the history of the Quebec Major Junior Hockey League. The regular season ran from September 14, 2006 to March 18, 2007. Eighteen teams played 70 games each in the schedule. The Lewiston Maineiacs finished first overall in the regular season winning their first Jean Rougeau Trophy. Lewiston won 16 playoff games, losing only one, en route to their first President's Cup, defeating the Val-d'Or Foreurs in the finals.",
+      "context_passages": [
+        {
+          "passage_id": "55",
+          "doc_id": "Lewiston Maineiacs",
+          "title": "Lewiston Maineiacs",
+          "text": "The Lewiston Maineiacs were a junior ice hockey team of the Quebec Major Junior Hockey League based in Lewiston, Maine. The team played its home games at the Androscoggin Bank Colisée. They were the second QMJHL team in the United States, and the only one to play a full season. They won the President's Cup in 2007.",
+          "url": "https://en.wikipedia.org/wiki/Lewiston_Maineiacs",
+          "chunk_index": 0,
+          "retrieval_score": 0.5846797227859497
+        },
+        {
+          "passage_id": "54",
+          "doc_id": "Dwyer Arena",
+          "title": "Dwyer Arena",
+          "text": "The Robert and Concetta Dwyer Arena houses two ice surfaces, both 200 x 85 ft., and pro shop on Niagara University's campus in Lewiston, New York, United States. The main rink can seat up to 1,400 people and is the home to the Niagara Purple Eagles men's ice hockey team, which plays in Atlantic Hockey. The arena was formerly home to the women's ice hockey team, which played in College Hockey America.",
+          "url": "https://en.wikipedia.org/wiki/Dwyer_Arena",
+          "chunk_index": 0,
+          "retrieval_score": 0.5009254217147827
+        },
+        {
+          "passage_id": "60",
+          "doc_id": "Cedar Rapids Ice Arena",
+          "title": "Cedar Rapids Ice Arena",
+          "text": "The Cedar Rapids Ice Arena is a 3,850-seat multipurpose arena in Cedar Rapids, Iowa, located adjacent to Veterans Memorial Stadium. The arena opened on January 8, 2000, and is owned by the city of Cedar Rapids. It is home to the Cedar Rapids RoughRiders of the United States Hockey League as well as several local youth hockey teams. The University of Iowa Hawkeyes club hockey team plays some of their home games at the facility. The arena contains separate sheets of ice for ice hockey games and for public and figure ice skating.",
+          "url": "https://en.wikipedia.org/wiki/Cedar_Rapids_Ice_Arena",
+          "chunk_index": 0,
+          "retrieval_score": 0.40846073627471924
+        },
+        {
+          "passage_id": "64",
+          "doc_id": "Case Gym",
+          "title": "Case Gym",
+          "text": "Case Gym is a 1,800-seat multi-purpose arena at Boston University in Boston, Massachusetts. It opened in 1972 as part of the Harold Case Physical Education Center, which is named after the university's fifth president, Harold C. Case. The gym is referred to as \"The Roof\" because it is located on the top level of the building, above Walter Brown Arena. It is home to the Boston University Terriers men's and women's basketball teams, as well as the men's wrestling team. Basketball games are also played in Agganis Arena, and on occasion Walter Brown Arena. When Boston University left the America East Conference for the Patriot League in July 2013, they announced that all home men's basketball conference games would be played at Agganis Arena, with the non-conference games to be played at Case.",
+          "url": "https://en.wikipedia.org/wiki/Case_Gym",
+          "chunk_index": 0,
+          "retrieval_score": 0.38810354471206665
+        },
+        {
+          "passage_id": "63",
+          "doc_id": "2006–07 QMJHL season",
+          "title": "2006–07 QMJHL season",
+          "text": "The 2006–07 QMJHL season was the 38th season in the history of the Quebec Major Junior Hockey League. The regular season ran from September 14, 2006 to March 18, 2007. Eighteen teams played 70 games each in the schedule. The Lewiston Maineiacs finished first overall in the regular season winning their first Jean Rougeau Trophy. Lewiston won 16 playoff games, losing only one, en route to their first President's Cup, defeating the Val-d'Or Foreurs in the finals.",
+          "url": "https://en.wikipedia.org/wiki/2006–07_QMJHL_season",
+          "chunk_index": 0,
+          "retrieval_score": 0.3824054002761841
+        }
+      ],
+      "prompt": "Context:\n[1] Lewiston Maineiacs (relevance: 0.585)\nThe Lewiston Maineiacs were a junior ice hockey team of the Quebec Major Junior Hockey League based in Lewiston, Maine. The team played its home games at the Androscoggin Bank Colisée. They were the second QMJHL team in the United States, and the only one to play a full season. They won the President's Cup in 2007.\n\n[2] Dwyer Arena (relevance: 0.501)\nThe Robert and Concetta Dwyer Arena houses two ice surfaces, both 200 x 85 ft., and pro shop on Niagara University's campus in Lewiston, New York, United States. The main rink can seat up to 1,400 people and is the home to the Niagara Purple Eagles men's ice hockey team, which plays in Atlantic Hockey. The arena was formerly home to the women's ice hockey team, which played in College Hockey America.\n\n[3] Cedar Rapids Ice Arena (relevance: 0.408)\nThe Cedar Rapids Ice Arena is a 3,850-seat multipurpose arena in Cedar Rapids, Iowa, located adjacent to Veterans Memorial Stadium. The arena opened on January 8, 2000, and is owned by the city of Cedar Rapids. It is home to the Cedar Rapids RoughRiders of the United States Hockey League as well as several local youth hockey teams. The University of Iowa Hawkeyes club hockey team plays some of their home games at the facility. The arena contains separate sheets of ice for ice hockey games and for public and figure ice skating.\n\n[4] Case Gym (relevance: 0.388)\nCase Gym is a 1,800-seat multi-purpose arena at Boston University in Boston, Massachusetts. It opened in 1972 as part of the Harold Case Physical Education Center, which is named after the university's fifth president, Harold C. Case. The gym is referred to as \"The Roof\" because it is located on the top level of the building, above Walter Brown Arena. It is home to the Boston University Terriers men's and women's basketball teams, as well as the men's wrestling team. Basketball games are also played in Agganis Arena, and on occasion Walter Brown Arena. When Boston University left the America East Conference for the Patriot League in July 2013, they announced that all home men's basketball conference games would be played at Agganis Arena, with the non-conference games to be played at Case.\n\n[5] 2006–07 QMJHL season (relevance: 0.382)\nThe 2006–07 QMJHL season was the 38th season in the history of the Quebec Major Junior Hockey League. The regular season ran from September 14, 2006 to March 18, 2007. Eighteen teams played 70 games each in the schedule. The Lewiston Maineiacs finished first overall in the regular season winning their first Jean Rougeau Trophy. Lewiston won 16 playoff games, losing only one, en route to their first President's Cup, defeating the Val-d'Or Foreurs in the finals.\n\nQuestion: The arena where the Lewiston Maineiacs played their home games can seat how many people?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "55",
+          "doc_id": "Lewiston Maineiacs",
+          "title": "Lewiston Maineiacs",
+          "text": "The Lewiston Maineiacs were a junior ice hockey team of the Quebec Major Junior Hockey League based in Lewiston, Maine. The team played its home games at the Androscoggin Bank Colisée. They were the second QMJHL team in the United States, and the only one to play a full season. They won the President's Cup in 2007.",
+          "url": "https://en.wikipedia.org/wiki/Lewiston_Maineiacs",
+          "chunk_index": 0,
+          "retrieval_score": 0.5846797227859497
+        },
+        {
+          "passage_id": "54",
+          "doc_id": "Dwyer Arena",
+          "title": "Dwyer Arena",
+          "text": "The Robert and Concetta Dwyer Arena houses two ice surfaces, both 200 x 85 ft., and pro shop on Niagara University's campus in Lewiston, New York, United States. The main rink can seat up to 1,400 people and is the home to the Niagara Purple Eagles men's ice hockey team, which plays in Atlantic Hockey. The arena was formerly home to the women's ice hockey team, which played in College Hockey America.",
+          "url": "https://en.wikipedia.org/wiki/Dwyer_Arena",
+          "chunk_index": 0,
+          "retrieval_score": 0.5009254217147827
+        },
+        {
+          "passage_id": "60",
+          "doc_id": "Cedar Rapids Ice Arena",
+          "title": "Cedar Rapids Ice Arena",
+          "text": "The Cedar Rapids Ice Arena is a 3,850-seat multipurpose arena in Cedar Rapids, Iowa, located adjacent to Veterans Memorial Stadium. The arena opened on January 8, 2000, and is owned by the city of Cedar Rapids. It is home to the Cedar Rapids RoughRiders of the United States Hockey League as well as several local youth hockey teams. The University of Iowa Hawkeyes club hockey team plays some of their home games at the facility. The arena contains separate sheets of ice for ice hockey games and for public and figure ice skating.",
+          "url": "https://en.wikipedia.org/wiki/Cedar_Rapids_Ice_Arena",
+          "chunk_index": 0,
+          "retrieval_score": 0.40846073627471924
+        },
+        {
+          "passage_id": "64",
+          "doc_id": "Case Gym",
+          "title": "Case Gym",
+          "text": "Case Gym is a 1,800-seat multi-purpose arena at Boston University in Boston, Massachusetts. It opened in 1972 as part of the Harold Case Physical Education Center, which is named after the university's fifth president, Harold C. Case. The gym is referred to as \"The Roof\" because it is located on the top level of the building, above Walter Brown Arena. It is home to the Boston University Terriers men's and women's basketball teams, as well as the men's wrestling team. Basketball games are also played in Agganis Arena, and on occasion Walter Brown Arena. When Boston University left the America East Conference for the Patriot League in July 2013, they announced that all home men's basketball conference games would be played at Agganis Arena, with the non-conference games to be played at Case.",
+          "url": "https://en.wikipedia.org/wiki/Case_Gym",
+          "chunk_index": 0,
+          "retrieval_score": 0.38810354471206665
+        },
+        {
+          "passage_id": "63",
+          "doc_id": "2006–07 QMJHL season",
+          "title": "2006–07 QMJHL season",
+          "text": "The 2006–07 QMJHL season was the 38th season in the history of the Quebec Major Junior Hockey League. The regular season ran from September 14, 2006 to March 18, 2007. Eighteen teams played 70 games each in the schedule. The Lewiston Maineiacs finished first overall in the regular season winning their first Jean Rougeau Trophy. Lewiston won 16 playoff games, losing only one, en route to their first President's Cup, defeating the Val-d'Or Foreurs in the finals.",
+          "url": "https://en.wikipedia.org/wiki/2006–07_QMJHL_season",
+          "chunk_index": 0,
+          "retrieval_score": 0.3824054002761841
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "Who is older, Annie Morton or Terry Richardson?",
+      "answer": "The context does not provide information about Terry Richardson's birthdate, so it is impossible to determine if he is older than Annie Morton based on the provided information.",
+      "context": "[1] Annie Morton (relevance: 0.386)\nAnnie Morton (born October 8, 1970) is an American model born in Pennsylvania. She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines. She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"Harper's Bazaar\", \"Sports Illustrated\" and Victoria's Secret. A long time vegetarian, an advocate for organic lifestyle choices and natural healthcare. She co-founded Tsi-La Organics, a \"Green Luxury\" company that creates and sells vegan, organic perfume and skin care products.\n\n[2] Lady Gaga x Terry Richardson (relevance: 0.333)\nLady Gaga x Terry Richardson is a photo-book by American singer Lady Gaga and American photographer Terry Richardson, released on November 22, 2011 by Grand Central Publishing. The book features more than 350 pictures of Gaga as taken by Richardson during a ten-month period from Gaga's performance at The Monster Ball Tour till the 2011 Grammy Awards. In addition to photographs, it includes a foreword written by the singer about her relationship with Richardson. The duo had collaborated on other projects prior to the shooting of the book.\n\n[3] Gretchen Osgood Warren (relevance: 0.324)\nGretchen Osgood Warren (19 March 1868 – September 1961), the wife of Fiske Warren, was an actress, singer and poet. The daughter of Dr. Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts, her younger sister was Mary Alden Childers, the wife of writer and Irish nationalist Robert Erskine Childers. Her nephew Erskine Hamilton Childers served as the fourth President of Ireland from 1973-74.\n\n[4] Molly Childers (relevance: 0.314)\nMary Alden Osgood Childers, MBE (14 December 1875 – 1 January 1964) was an American-born Irish writer and Irish nationalist. She was the daughter of Dr Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts. Her older sister was Gretchen Osgood Warren. Molly married the writer and Irish nationalist, Robert Erskine Childers. Their son, Erskine Hamilton Childers, became the fourth President of Ireland.\n\n[5] Mouse Davis (relevance: 0.298)\nDarrel \"Mouse\" Davis (born September 6, 1932) is a retired American football coach and former player. A veteran coach at the high school, college, and professional levels, he last coached with Jerry Glanville at Portland State and with June Jones at the University of Hawaii at Manoa. Davis served as the head football coach at Portland State University from 1975 to 1980, compiling a record of 42–24. He has also been a head coach with the Denver Gold of the United States Football League (1985), the New York/New Jersey Knights of the World League of American Football (1991–1992), and the Detroit Fury (2001–2002) and the San Diego Riptide (2003) of the Arena Football League. A native of Washington, Davis grew up in Oregon, where he started his coaching career as a high school football coach. Davis is now widely regarded as the 'godfather' of the run and shoot offense.",
+      "context_passages": [
+        {
+          "passage_id": "74",
+          "doc_id": "Annie Morton",
+          "title": "Annie Morton",
+          "text": "Annie Morton (born October 8, 1970) is an American model born in Pennsylvania. She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines. She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"Harper's Bazaar\", \"Sports Illustrated\" and Victoria's Secret. A long time vegetarian, an advocate for organic lifestyle choices and natural healthcare. She co-founded Tsi-La Organics, a \"Green Luxury\" company that creates and sells vegan, organic perfume and skin care products.",
+          "url": "https://en.wikipedia.org/wiki/Annie_Morton",
+          "chunk_index": 0,
+          "retrieval_score": 0.3859647810459137
+        },
+        {
+          "passage_id": "67",
+          "doc_id": "Lady Gaga x Terry Richardson",
+          "title": "Lady Gaga x Terry Richardson",
+          "text": "Lady Gaga x Terry Richardson is a photo-book by American singer Lady Gaga and American photographer Terry Richardson, released on November 22, 2011 by Grand Central Publishing. The book features more than 350 pictures of Gaga as taken by Richardson during a ten-month period from Gaga's performance at The Monster Ball Tour till the 2011 Grammy Awards. In addition to photographs, it includes a foreword written by the singer about her relationship with Richardson. The duo had collaborated on other projects prior to the shooting of the book.",
+          "url": "https://en.wikipedia.org/wiki/Lady_Gaga_x_Terry_Richardson",
+          "chunk_index": 0,
+          "retrieval_score": 0.3329061269760132
+        },
+        {
+          "passage_id": "163",
+          "doc_id": "Gretchen Osgood Warren",
+          "title": "Gretchen Osgood Warren",
+          "text": "Gretchen Osgood Warren (19 March 1868 – September 1961), the wife of Fiske Warren, was an actress, singer and poet. The daughter of Dr. Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts, her younger sister was Mary Alden Childers, the wife of writer and Irish nationalist Robert Erskine Childers. Her nephew Erskine Hamilton Childers served as the fourth President of Ireland from 1973-74.",
+          "url": "https://en.wikipedia.org/wiki/Gretchen_Osgood_Warren",
+          "chunk_index": 0,
+          "retrieval_score": 0.32365676760673523
+        },
+        {
+          "passage_id": "169",
+          "doc_id": "Molly Childers",
+          "title": "Molly Childers",
+          "text": "Mary Alden Osgood Childers, MBE (14 December 1875 – 1 January 1964) was an American-born Irish writer and Irish nationalist. She was the daughter of Dr Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts. Her older sister was Gretchen Osgood Warren. Molly married the writer and Irish nationalist, Robert Erskine Childers. Their son, Erskine Hamilton Childers, became the fourth President of Ireland.",
+          "url": "https://en.wikipedia.org/wiki/Molly_Childers",
+          "chunk_index": 0,
+          "retrieval_score": 0.3144329786300659
+        },
+        {
+          "passage_id": "483",
+          "doc_id": "Mouse Davis",
+          "title": "Mouse Davis",
+          "text": "Darrel \"Mouse\" Davis (born September 6, 1932) is a retired American football coach and former player. A veteran coach at the high school, college, and professional levels, he last coached with Jerry Glanville at Portland State and with June Jones at the University of Hawaii at Manoa. Davis served as the head football coach at Portland State University from 1975 to 1980, compiling a record of 42–24. He has also been a head coach with the Denver Gold of the United States Football League (1985), the New York/New Jersey Knights of the World League of American Football (1991–1992), and the Detroit Fury (2001–2002) and the San Diego Riptide (2003) of the Arena Football League. A native of Washington, Davis grew up in Oregon, where he started his coaching career as a high school football coach. Davis is now widely regarded as the 'godfather' of the run and shoot offense.",
+          "url": "https://en.wikipedia.org/wiki/Mouse_Davis",
+          "chunk_index": 0,
+          "retrieval_score": 0.29807204008102417
+        }
+      ],
+      "prompt": "Context:\n[1] Annie Morton (relevance: 0.386)\nAnnie Morton (born October 8, 1970) is an American model born in Pennsylvania. She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines. She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"Harper's Bazaar\", \"Sports Illustrated\" and Victoria's Secret. A long time vegetarian, an advocate for organic lifestyle choices and natural healthcare. She co-founded Tsi-La Organics, a \"Green Luxury\" company that creates and sells vegan, organic perfume and skin care products.\n\n[2] Lady Gaga x Terry Richardson (relevance: 0.333)\nLady Gaga x Terry Richardson is a photo-book by American singer Lady Gaga and American photographer Terry Richardson, released on November 22, 2011 by Grand Central Publishing. The book features more than 350 pictures of Gaga as taken by Richardson during a ten-month period from Gaga's performance at The Monster Ball Tour till the 2011 Grammy Awards. In addition to photographs, it includes a foreword written by the singer about her relationship with Richardson. The duo had collaborated on other projects prior to the shooting of the book.\n\n[3] Gretchen Osgood Warren (relevance: 0.324)\nGretchen Osgood Warren (19 March 1868 – September 1961), the wife of Fiske Warren, was an actress, singer and poet. The daughter of Dr. Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts, her younger sister was Mary Alden Childers, the wife of writer and Irish nationalist Robert Erskine Childers. Her nephew Erskine Hamilton Childers served as the fourth President of Ireland from 1973-74.\n\n[4] Molly Childers (relevance: 0.314)\nMary Alden Osgood Childers, MBE (14 December 1875 – 1 January 1964) was an American-born Irish writer and Irish nationalist. She was the daughter of Dr Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts. Her older sister was Gretchen Osgood Warren. Molly married the writer and Irish nationalist, Robert Erskine Childers. Their son, Erskine Hamilton Childers, became the fourth President of Ireland.\n\n[5] Mouse Davis (relevance: 0.298)\nDarrel \"Mouse\" Davis (born September 6, 1932) is a retired American football coach and former player. A veteran coach at the high school, college, and professional levels, he last coached with Jerry Glanville at Portland State and with June Jones at the University of Hawaii at Manoa. Davis served as the head football coach at Portland State University from 1975 to 1980, compiling a record of 42–24. He has also been a head coach with the Denver Gold of the United States Football League (1985), the New York/New Jersey Knights of the World League of American Football (1991–1992), and the Detroit Fury (2001–2002) and the San Diego Riptide (2003) of the Arena Football League. A native of Washington, Davis grew up in Oregon, where he started his coaching career as a high school football coach. Davis is now widely regarded as the 'godfather' of the run and shoot offense.\n\nQuestion: Who is older, Annie Morton or Terry Richardson?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "74",
+          "doc_id": "Annie Morton",
+          "title": "Annie Morton",
+          "text": "Annie Morton (born October 8, 1970) is an American model born in Pennsylvania. She has appeared on the covers of \"British Vogue\", \"ID\", \"Marie Claire\", and other magazines. She has been photographed by Helmut Newton; Peter Lindbergh; Annie Leibovitz; Richard Avedon; Juergen Teller; Paul Jasmin, Mary Ellen Mark and Terry Richardson, and modeled for Donna Karan, Givenchy, Guerlain, Chanel, \"Harper's Bazaar\", \"Sports Illustrated\" and Victoria's Secret. A long time vegetarian, an advocate for organic lifestyle choices and natural healthcare. She co-founded Tsi-La Organics, a \"Green Luxury\" company that creates and sells vegan, organic perfume and skin care products.",
+          "url": "https://en.wikipedia.org/wiki/Annie_Morton",
+          "chunk_index": 0,
+          "retrieval_score": 0.3859647810459137
+        },
+        {
+          "passage_id": "67",
+          "doc_id": "Lady Gaga x Terry Richardson",
+          "title": "Lady Gaga x Terry Richardson",
+          "text": "Lady Gaga x Terry Richardson is a photo-book by American singer Lady Gaga and American photographer Terry Richardson, released on November 22, 2011 by Grand Central Publishing. The book features more than 350 pictures of Gaga as taken by Richardson during a ten-month period from Gaga's performance at The Monster Ball Tour till the 2011 Grammy Awards. In addition to photographs, it includes a foreword written by the singer about her relationship with Richardson. The duo had collaborated on other projects prior to the shooting of the book.",
+          "url": "https://en.wikipedia.org/wiki/Lady_Gaga_x_Terry_Richardson",
+          "chunk_index": 0,
+          "retrieval_score": 0.3329061269760132
+        },
+        {
+          "passage_id": "163",
+          "doc_id": "Gretchen Osgood Warren",
+          "title": "Gretchen Osgood Warren",
+          "text": "Gretchen Osgood Warren (19 March 1868 – September 1961), the wife of Fiske Warren, was an actress, singer and poet. The daughter of Dr. Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts, her younger sister was Mary Alden Childers, the wife of writer and Irish nationalist Robert Erskine Childers. Her nephew Erskine Hamilton Childers served as the fourth President of Ireland from 1973-74.",
+          "url": "https://en.wikipedia.org/wiki/Gretchen_Osgood_Warren",
+          "chunk_index": 0,
+          "retrieval_score": 0.32365676760673523
+        },
+        {
+          "passage_id": "169",
+          "doc_id": "Molly Childers",
+          "title": "Molly Childers",
+          "text": "Mary Alden Osgood Childers, MBE (14 December 1875 – 1 January 1964) was an American-born Irish writer and Irish nationalist. She was the daughter of Dr Hamilton Osgood and Margaret Cushing Osgood of Beacon Hill, Boston, Massachusetts. Her older sister was Gretchen Osgood Warren. Molly married the writer and Irish nationalist, Robert Erskine Childers. Their son, Erskine Hamilton Childers, became the fourth President of Ireland.",
+          "url": "https://en.wikipedia.org/wiki/Molly_Childers",
+          "chunk_index": 0,
+          "retrieval_score": 0.3144329786300659
+        },
+        {
+          "passage_id": "483",
+          "doc_id": "Mouse Davis",
+          "title": "Mouse Davis",
+          "text": "Darrel \"Mouse\" Davis (born September 6, 1932) is a retired American football coach and former player. A veteran coach at the high school, college, and professional levels, he last coached with Jerry Glanville at Portland State and with June Jones at the University of Hawaii at Manoa. Davis served as the head football coach at Portland State University from 1975 to 1980, compiling a record of 42–24. He has also been a head coach with the Denver Gold of the United States Football League (1985), the New York/New Jersey Knights of the World League of American Football (1991–1992), and the Detroit Fury (2001–2002) and the San Diego Riptide (2003) of the Arena Football League. A native of Washington, Davis grew up in Oregon, where he started his coaching career as a high school football coach. Davis is now widely regarded as the 'godfather' of the run and shoot offense.",
+          "url": "https://en.wikipedia.org/wiki/Mouse_Davis",
+          "chunk_index": 0,
+          "retrieval_score": 0.29807204008102417
+        }
+      ],
+      "num_retrieved": 5
+    },
+    {
+      "question": "Are Local H and For Against both from the United States?",
+      "answer": "Yes, based on the provided context, both Local H and For Against are from the United States.",
+      "context": "[1] Mendocino County GMO Ban (relevance: 0.358)\nMendocino County, California, was the first jurisdiction in the United States to ban the cultivation, production or distribution of genetically modified organisms (GMOs). The ordinance, entitled Measure H, was passed by referendum on March 2, 2004. Initiated by the group \"GMO Free Mendocino\", the campaign was a highly publicized grassroots effort by local farmers and environmental groups who contend that the potential risks of GMOs to human health and the ecosystem have not yet been fully understood. The measure was met with opposition by several interest groups representing the biotechnology industry, The California Plant Health Association (now the Western Plant Health Association) and CropLife America, a Washington-based consortium whose clients represent some of the largest food distributors in the nation, including Monsanto, DuPont and Dow Chemical. Since the enactment of the ordinance, Mendocino County has been added to an international list of \"GMO free zones.\" Pre-emptive statutes banning local municipalities from such ordinances have now become widespread with adoption in sixteen states.\n\n[2] Immigration policy of Donald Trump (relevance: 0.276)\nIllegal immigration was a signature issue of U.S. President Donald Trump's presidential campaign, and his proposed reforms and remarks about this issue generated much publicity. A hallmark promise of his campaign was to build a substantial wall on the United States-Mexico border. Trump has also expressed support for a variety of \"limits on legal immigration and guest-worker visas\", including a \"pause\" on granting green cards, which Trump says will \"allow record immigration levels to subside to more moderate historical averages\". Trump's proposals regarding H-1B visas frequently changed throughout his presidential campaign, but as of late July 2016, he appeared to oppose the H-1B visa program. Trump has questioned official estimates of the number of illegal immigrants in the United States (between 11 and 12 million), insisting the number is much higher (between 30 and 34 million).\n\n[3] Sinuiju Special Administrative Region (relevance: 0.243)\nSinŭiju Special Administrative Region is a special administrative region (SAR) of North Korea proclaimed in 2002 (but has not been put into \"de facto\" operation as of 2014), on the border with China. It was established in September 2002 in an area including parts of Sinŭiju and the surrounding area, in an attempt to introduce market economics, and is directly governed as in the case of \"Directly Governed Cities\". The special administrative region was modelled after China's Special Administrative Regions (SARs), Hong Kong and Macau, and, like them, has a \"Basic Law\" (기본법; Kibonpŏp).\n\n[4] 2014 NPCSC Decision on Hong Kong (relevance: 0.230)\nThe Decision of the Standing Committee of the National People's Congress on Issues Relating to the Selection of the Chief Executive of the Hong Kong Special Administrative Region by Universal Suffrage and on the Method for Forming the Legislative Council of the Hong Kong Special Administrative Region in the Year 2016 (), commonly known as 31 August Decision (), is a decision made by the Standing Committee of the National People's Congress (NPCSC), the national legislative body of the People's Republic of China (PRC) on 31 August 2014 which set limits for the 2017 Chief Executive election and 2016 Legislative Council election in the Hong Kong Special Administrative Region (HKSAR).\n\n[5] Hallelujah! I'm a Bum (album) (relevance: 0.229)\nHallelujah! I'm A Bum is the seventh studio album by Chicago-based rock band Local H.  Interviews with the band have revealed that it is a concept album based on politics in the United States. Although the album was completed in spring of 2012, the band chose to release it in September as to be closer to the 2012 presidential election. The album makes frequent use of the sounds of the El Train in Chicago to transition songs.",
+      "context_passages": [
+        {
+          "passage_id": "78",
+          "doc_id": "Mendocino County GMO Ban",
+          "title": "Mendocino County GMO Ban",
+          "text": "Mendocino County, California, was the first jurisdiction in the United States to ban the cultivation, production or distribution of genetically modified organisms (GMOs). The ordinance, entitled Measure H, was passed by referendum on March 2, 2004. Initiated by the group \"GMO Free Mendocino\", the campaign was a highly publicized grassroots effort by local farmers and environmental groups who contend that the potential risks of GMOs to human health and the ecosystem have not yet been fully understood. The measure was met with opposition by several interest groups representing the biotechnology industry, The California Plant Health Association (now the Western Plant Health Association) and CropLife America, a Washington-based consortium whose clients represent some of the largest food distributors in the nation, including Monsanto, DuPont and Dow Chemical. Since the enactment of the ordinance, Mendocino County has been added to an international list of \"GMO free zones.\" Pre-emptive statutes banning local municipalities from such ordinances have now become widespread with adoption in sixteen states.",
+          "url": "https://en.wikipedia.org/wiki/Mendocino_County_GMO_Ban",
+          "chunk_index": 0,
+          "retrieval_score": 0.35787323117256165
+        },
+        {
+          "passage_id": "714",
+          "doc_id": "Immigration policy of Donald Trump",
+          "title": "Immigration policy of Donald Trump",
+          "text": "Illegal immigration was a signature issue of U.S. President Donald Trump's presidential campaign, and his proposed reforms and remarks about this issue generated much publicity. A hallmark promise of his campaign was to build a substantial wall on the United States-Mexico border. Trump has also expressed support for a variety of \"limits on legal immigration and guest-worker visas\", including a \"pause\" on granting green cards, which Trump says will \"allow record immigration levels to subside to more moderate historical averages\". Trump's proposals regarding H-1B visas frequently changed throughout his presidential campaign, but as of late July 2016, he appeared to oppose the H-1B visa program. Trump has questioned official estimates of the number of illegal immigrants in the United States (between 11 and 12 million), insisting the number is much higher (between 30 and 34 million).",
+          "url": "https://en.wikipedia.org/wiki/Immigration_policy_of_Donald_Trump",
+          "chunk_index": 0,
+          "retrieval_score": 0.2756706476211548
+        },
+        {
+          "passage_id": "805",
+          "doc_id": "Sinuiju Special Administrative Region",
+          "title": "Sinuiju Special Administrative Region",
+          "text": "Sinŭiju Special Administrative Region is a special administrative region (SAR) of North Korea proclaimed in 2002 (but has not been put into \"de facto\" operation as of 2014), on the border with China. It was established in September 2002 in an area including parts of Sinŭiju and the surrounding area, in an attempt to introduce market economics, and is directly governed as in the case of \"Directly Governed Cities\". The special administrative region was modelled after China's Special Administrative Regions (SARs), Hong Kong and Macau, and, like them, has a \"Basic Law\" (기본법; Kibonpŏp).",
+          "url": "https://en.wikipedia.org/wiki/Sinuiju_Special_Administrative_Region",
+          "chunk_index": 0,
+          "retrieval_score": 0.2431851029396057
+        },
+        {
+          "passage_id": "809",
+          "doc_id": "2014 NPCSC Decision on Hong Kong",
+          "title": "2014 NPCSC Decision on Hong Kong",
+          "text": "The Decision of the Standing Committee of the National People's Congress on Issues Relating to the Selection of the Chief Executive of the Hong Kong Special Administrative Region by Universal Suffrage and on the Method for Forming the Legislative Council of the Hong Kong Special Administrative Region in the Year 2016 (), commonly known as 31 August Decision (), is a decision made by the Standing Committee of the National People's Congress (NPCSC), the national legislative body of the People's Republic of China (PRC) on 31 August 2014 which set limits for the 2017 Chief Executive election and 2016 Legislative Council election in the Hong Kong Special Administrative Region (HKSAR).",
+          "url": "https://en.wikipedia.org/wiki/2014_NPCSC_Decision_on_Hong_Kong",
+          "chunk_index": 0,
+          "retrieval_score": 0.23027931153774261
+        },
+        {
+          "passage_id": "81",
+          "doc_id": "Hallelujah! I'm a Bum (album)",
+          "title": "Hallelujah! I'm a Bum (album)",
+          "text": "Hallelujah! I'm A Bum is the seventh studio album by Chicago-based rock band Local H.  Interviews with the band have revealed that it is a concept album based on politics in the United States. Although the album was completed in spring of 2012, the band chose to release it in September as to be closer to the 2012 presidential election. The album makes frequent use of the sounds of the El Train in Chicago to transition songs.",
+          "url": "https://en.wikipedia.org/wiki/Hallelujah!_I'm_a_Bum_(album)",
+          "chunk_index": 0,
+          "retrieval_score": 0.2290651798248291
+        }
+      ],
+      "prompt": "Context:\n[1] Mendocino County GMO Ban (relevance: 0.358)\nMendocino County, California, was the first jurisdiction in the United States to ban the cultivation, production or distribution of genetically modified organisms (GMOs). The ordinance, entitled Measure H, was passed by referendum on March 2, 2004. Initiated by the group \"GMO Free Mendocino\", the campaign was a highly publicized grassroots effort by local farmers and environmental groups who contend that the potential risks of GMOs to human health and the ecosystem have not yet been fully understood. The measure was met with opposition by several interest groups representing the biotechnology industry, The California Plant Health Association (now the Western Plant Health Association) and CropLife America, a Washington-based consortium whose clients represent some of the largest food distributors in the nation, including Monsanto, DuPont and Dow Chemical. Since the enactment of the ordinance, Mendocino County has been added to an international list of \"GMO free zones.\" Pre-emptive statutes banning local municipalities from such ordinances have now become widespread with adoption in sixteen states.\n\n[2] Immigration policy of Donald Trump (relevance: 0.276)\nIllegal immigration was a signature issue of U.S. President Donald Trump's presidential campaign, and his proposed reforms and remarks about this issue generated much publicity. A hallmark promise of his campaign was to build a substantial wall on the United States-Mexico border. Trump has also expressed support for a variety of \"limits on legal immigration and guest-worker visas\", including a \"pause\" on granting green cards, which Trump says will \"allow record immigration levels to subside to more moderate historical averages\". Trump's proposals regarding H-1B visas frequently changed throughout his presidential campaign, but as of late July 2016, he appeared to oppose the H-1B visa program. Trump has questioned official estimates of the number of illegal immigrants in the United States (between 11 and 12 million), insisting the number is much higher (between 30 and 34 million).\n\n[3] Sinuiju Special Administrative Region (relevance: 0.243)\nSinŭiju Special Administrative Region is a special administrative region (SAR) of North Korea proclaimed in 2002 (but has not been put into \"de facto\" operation as of 2014), on the border with China. It was established in September 2002 in an area including parts of Sinŭiju and the surrounding area, in an attempt to introduce market economics, and is directly governed as in the case of \"Directly Governed Cities\". The special administrative region was modelled after China's Special Administrative Regions (SARs), Hong Kong and Macau, and, like them, has a \"Basic Law\" (기본법; Kibonpŏp).\n\n[4] 2014 NPCSC Decision on Hong Kong (relevance: 0.230)\nThe Decision of the Standing Committee of the National People's Congress on Issues Relating to the Selection of the Chief Executive of the Hong Kong Special Administrative Region by Universal Suffrage and on the Method for Forming the Legislative Council of the Hong Kong Special Administrative Region in the Year 2016 (), commonly known as 31 August Decision (), is a decision made by the Standing Committee of the National People's Congress (NPCSC), the national legislative body of the People's Republic of China (PRC) on 31 August 2014 which set limits for the 2017 Chief Executive election and 2016 Legislative Council election in the Hong Kong Special Administrative Region (HKSAR).\n\n[5] Hallelujah! I'm a Bum (album) (relevance: 0.229)\nHallelujah! I'm A Bum is the seventh studio album by Chicago-based rock band Local H.  Interviews with the band have revealed that it is a concept album based on politics in the United States. Although the album was completed in spring of 2012, the band chose to release it in September as to be closer to the 2012 presidential election. The album makes frequent use of the sounds of the El Train in Chicago to transition songs.\n\nQuestion: Are Local H and For Against both from the United States?\n\nAnswer:\n",
+      "model": "mistral",
+      "temperature": 0.0,
+      "finish_reason": "stop",
+      "retrieved_passages": [
+        {
+          "passage_id": "78",
+          "doc_id": "Mendocino County GMO Ban",
+          "title": "Mendocino County GMO Ban",
+          "text": "Mendocino County, California, was the first jurisdiction in the United States to ban the cultivation, production or distribution of genetically modified organisms (GMOs). The ordinance, entitled Measure H, was passed by referendum on March 2, 2004. Initiated by the group \"GMO Free Mendocino\", the campaign was a highly publicized grassroots effort by local farmers and environmental groups who contend that the potential risks of GMOs to human health and the ecosystem have not yet been fully understood. The measure was met with opposition by several interest groups representing the biotechnology industry, The California Plant Health Association (now the Western Plant Health Association) and CropLife America, a Washington-based consortium whose clients represent some of the largest food distributors in the nation, including Monsanto, DuPont and Dow Chemical. Since the enactment of the ordinance, Mendocino County has been added to an international list of \"GMO free zones.\" Pre-emptive statutes banning local municipalities from such ordinances have now become widespread with adoption in sixteen states.",
+          "url": "https://en.wikipedia.org/wiki/Mendocino_County_GMO_Ban",
+          "chunk_index": 0,
+          "retrieval_score": 0.35787323117256165
+        },
+        {
+          "passage_id": "714",
+          "doc_id": "Immigration policy of Donald Trump",
+          "title": "Immigration policy of Donald Trump",
+          "text": "Illegal immigration was a signature issue of U.S. President Donald Trump's presidential campaign, and his proposed reforms and remarks about this issue generated much publicity. A hallmark promise of his campaign was to build a substantial wall on the United States-Mexico border. Trump has also expressed support for a variety of \"limits on legal immigration and guest-worker visas\", including a \"pause\" on granting green cards, which Trump says will \"allow record immigration levels to subside to more moderate historical averages\". Trump's proposals regarding H-1B visas frequently changed throughout his presidential campaign, but as of late July 2016, he appeared to oppose the H-1B visa program. Trump has questioned official estimates of the number of illegal immigrants in the United States (between 11 and 12 million), insisting the number is much higher (between 30 and 34 million).",
+          "url": "https://en.wikipedia.org/wiki/Immigration_policy_of_Donald_Trump",
+          "chunk_index": 0,
+          "retrieval_score": 0.2756706476211548
+        },
+        {
+          "passage_id": "805",
+          "doc_id": "Sinuiju Special Administrative Region",
+          "title": "Sinuiju Special Administrative Region",
+          "text": "Sinŭiju Special Administrative Region is a special administrative region (SAR) of North Korea proclaimed in 2002 (but has not been put into \"de facto\" operation as of 2014), on the border with China. It was established in September 2002 in an area including parts of Sinŭiju and the surrounding area, in an attempt to introduce market economics, and is directly governed as in the case of \"Directly Governed Cities\". The special administrative region was modelled after China's Special Administrative Regions (SARs), Hong Kong and Macau, and, like them, has a \"Basic Law\" (기본법; Kibonpŏp).",
+          "url": "https://en.wikipedia.org/wiki/Sinuiju_Special_Administrative_Region",
+          "chunk_index": 0,
+          "retrieval_score": 0.2431851029396057
+        },
+        {
+          "passage_id": "809",
+          "doc_id": "2014 NPCSC Decision on Hong Kong",
+          "title": "2014 NPCSC Decision on Hong Kong",
+          "text": "The Decision of the Standing Committee of the National People's Congress on Issues Relating to the Selection of the Chief Executive of the Hong Kong Special Administrative Region by Universal Suffrage and on the Method for Forming the Legislative Council of the Hong Kong Special Administrative Region in the Year 2016 (), commonly known as 31 August Decision (), is a decision made by the Standing Committee of the National People's Congress (NPCSC), the national legislative body of the People's Republic of China (PRC) on 31 August 2014 which set limits for the 2017 Chief Executive election and 2016 Legislative Council election in the Hong Kong Special Administrative Region (HKSAR).",
+          "url": "https://en.wikipedia.org/wiki/2014_NPCSC_Decision_on_Hong_Kong",
+          "chunk_index": 0,
+          "retrieval_score": 0.23027931153774261
+        },
+        {
+          "passage_id": "81",
+          "doc_id": "Hallelujah! I'm a Bum (album)",
+          "title": "Hallelujah! I'm a Bum (album)",
+          "text": "Hallelujah! I'm A Bum is the seventh studio album by Chicago-based rock band Local H.  Interviews with the band have revealed that it is a concept album based on politics in the United States. Although the album was completed in spring of 2012, the band chose to release it in September as to be closer to the 2012 presidential election. The album makes frequent use of the sounds of the El Train in Chicago to transition songs.",
+          "url": "https://en.wikipedia.org/wiki/Hallelujah!_I'm_a_Bum_(album)",
+          "chunk_index": 0,
+          "retrieval_score": 0.2290651798248291
+        }
+      ],
+      "num_retrieved": 5
+    }
+  ]
+}

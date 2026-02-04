@@ -163,24 +163,21 @@ def main():
     logger.info(f"Cost table (Wh): {json.dumps({f'Action_{k}': f'{v:.6f}' for k, v in cost_table.items()}, indent=2)}")
     
     # Initialize SLM
-    slm_config = config.get('slm', config.get('generator', {}))
-    logger.info(f"Initializing SLM: {slm_config.get('model_name', 'unknown')}")
-    slm = OllamaGenerator(
-        model_name=slm_config.get('model_name', 'mistral'),
-        temperature=slm_config.get('temperature', 0.0),
-        max_tokens=slm_config.get('max_tokens', 256),
-        timeout=slm_config.get('timeout', 60)
-    )
+    slm_config = config.get('slm', config.get('generator', {})).copy()
+    # Ensure provider is set (default to ollama if not specified, or inherit from generator)
+    if 'provider' not in slm_config and 'generator' in config:
+        slm_config['provider'] = config['generator'].get('provider', 'ollama')
+    
+    logger.info(f"Initializing SLM: {slm_config.get('model_name', 'unknown')} ({slm_config.get('provider', 'unknown')})")
+    slm = create_generator(slm_config)
     
     # Initialize LLM
-    llm_config = config.get('llm', config.get('generator', {}))
-    logger.info(f"Initializing LLM: {llm_config.get('model_name', 'unknown')}")
-    llm = OllamaGenerator(
-        model_name=llm_config.get('model_name', 'llama3:8b'),
-        temperature=llm_config.get('temperature', 0.0),
-        max_tokens=llm_config.get('max_tokens', 256),
-        timeout=llm_config.get('timeout', 120)
-    )
+    llm_config = config.get('llm', config.get('generator', {})).copy()
+    if 'provider' not in llm_config and 'generator' in config:
+        llm_config['provider'] = config['generator'].get('provider', 'ollama')
+        
+    logger.info(f"Initializing LLM: {llm_config.get('model_name', 'unknown')} ({llm_config.get('provider', 'unknown')})")
+    llm = create_generator(llm_config)
     
     # Initialize retriever
     retriever_config = config.get('retriever', {})
